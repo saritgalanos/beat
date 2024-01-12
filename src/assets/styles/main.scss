@@ -18,10 +18,12 @@
 @import "views/CarIndex";
 @import "views/ReviewIndex";
 @import "views/UserDetails";
+@import "views/BeatMainContainer";
 
 // Components
 @import "cmps/AppHeader";
-@import "cmps/AppFooter";
+@import "cmps/BeatFooter";
+@import "cmps/BeatNav";
 @import "cmps/UserMsg";
 @import "cmps/ShoppingCart";
 

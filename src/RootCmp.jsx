@@ -1,24 +1,22 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
 
-import routes from './routes'
-
-import { AppHeader } from './cmps/AppHeader'
-import { AppFooter } from './cmps/AppFooter'
-import { UserDetails } from './pages/UserDetails'
+//import routes from './routes'
+import { BeatIndex } from './pages/BeatIndex'
 
 export function RootCmp() {
 
     return (
         <div>
-            <AppHeader />
+            {/* <AppHeader /> */}
             <main>
                 <Routes>
-                    {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)}
-                    <Route path="user/:id" element={<UserDetails />} />
+                    <Route path="/" element={<BeatIndex />} />
+                    {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
+                    {/* <Route path="user/:id" element={<UserDetails />} /> */}
                 </Routes>
             </main>
-            <AppFooter />
+         {/*    <AppFooter /> */}
         </div>
     )
 }
