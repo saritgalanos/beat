@@ -56,3 +56,48 @@
         }
     }
   }
+
+
+  @mixin font-style($size, $weight: $font-weight-normal) {
+    font-size: $size;
+    font-weight: $weight;
+  }
+
+  .text-small {
+    @include font-style($font-small);
+  }
+  
+  .text-large-bold {
+    @include font-style($font-large, $font-weight-bold);
+  }
+
+  /*note - adjust for different screen size*/
+  @mixin nav-control-icon {
+    height: 30px; 
+    width: 30px;
+   
+  }
+
+  .nav-control-icon {
+    @include nav-control-icon;
+  }
+
+  .nav-control-item {
+    &.selected {
+        color: $clr1;
+    }
+    display:flex;
+    align-items: center;
+    padding: 4px 12px;
+    gap:20px;
+    line-height: 40px;
+    font-weight: bold;
+    font-size:1rem;
+    &:hover {
+        cursor: pointer;
+        color: $clr1;
+    }
+    
+  }
+
+  

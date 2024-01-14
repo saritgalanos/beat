@@ -1,0 +1,23 @@
+.beat-header {
+    display: flex;
+    align-items: center;
+    background-color: $clr3;
+    border-radius: $border-radius $border-radius 0 0;
+    padding: 16px;
+
+    .page-control {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color:$clr2;
+
+        .page-control-img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: $clr4;
+        }
+    }
+
+
+}

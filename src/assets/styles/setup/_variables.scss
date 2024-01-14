@@ -1,8 +1,8 @@
 // Colors
-$clr1: #ce2e6c;
-$clr2: #4f3a65;
-$clr3: #574f7d;
-$clr4: #95adbe;
+$clr1: #ffffff;
+$clr2: #B3B3B3B3;
+$clr3: #121212;
+$clr4: rgba(0,0,0,.7);
 $clr5: #dff0ea;
 $clr6: #fff;
 $clr7: #222;
@@ -12,3 +12,18 @@ $clr7: #222;
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
+
+// Define font sizes
+$font-small: 0.75rem;  // 12px
+$font-medium: 1rem;    // 16px
+$font-large: 1.5rem;   // 24px
+
+// Define font weights
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+//other sizes
+$border-radius: 8px;
+
+
+

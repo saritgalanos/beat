@@ -1,5 +1,14 @@
 .beat-nav {
-    background-color: #121212;
-    border-radius: 20px;
+    display:flex;
+    flex-direction: column;
+    gap:8px;
    
 }
+
+.main-nav-links {
+    color:$clr2;
+    background-color: $clr3;
+    border-radius: $border-radius;
+    padding: 8px 12px;
+}
+

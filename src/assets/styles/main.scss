@@ -14,14 +14,15 @@
 
 // Views
 @import "views/AboutUs";
-@import "views/HomePage";
+@import "views/Home";
 @import "views/CarIndex";
 @import "views/ReviewIndex";
 @import "views/UserDetails";
 @import "views/BeatMainContainer";
+@import "views/YourLibrary";
 
 // Components
-@import "cmps/AppHeader";
+@import "cmps/BeatHeader";
 @import "cmps/BeatFooter";
 @import "cmps/BeatNav";
 @import "cmps/UserMsg";

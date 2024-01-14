@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { BeatHeader } from "../cmps/BeatHeader"
+import { Home } from "./Home"
 
 
 export function BeatMainContainer() {
@@ -11,7 +13,8 @@ export function BeatMainContainer() {
 
     return (
         <div className="main beat-main-container">  
-            <h1> Main Container</h1>
+             <BeatHeader />
+             <Home />
         </div>
     )
 }

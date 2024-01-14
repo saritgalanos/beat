@@ -4,6 +4,7 @@
     min-width: $mobile-breakpoint;
     background-color: black;
     gap: 8px;
+    padding:8px;
     color: aliceblue;
 
    
@@ -14,17 +15,15 @@
     }
 
     @include for-narrow-layout {
-        grid-template-columns:
-            minmax(auto, $mobile-breakpoint);
-        grid-template-rows: 1fr 72px 72px;
+        grid-template-columns: 0.3fr 1fr;
+        // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
+        grid-template-rows: 1fr 72px;
         grid-template-areas:
-            "main"
-            "footer"
-            "nav";
+            "nav main"
+            "footer footer";
     }
 
     @include for-normal-layout {
-       // background-color: aquamarine;
         grid-template-columns: 0.3fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 72px;
@@ -34,7 +33,6 @@
     }
 
     @include for-wide-layout {
-       // background-color: red;
         grid-template-columns: 0.3fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 72px;
