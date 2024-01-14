@@ -1,4 +1,26 @@
-.beat-footer{
-    
-   
+.beat-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+
+}
+
+.currently-playing-preview {
+    display:flex;
+    justify-content: center;
+    width: 400px; /*temp*/
+}
+
+.player {
+    display:flex;
+    justify-content: center;
+    flex: 1;
+
+}
+
+.toolbar {
+    width: 400px; /*temp*/
+    display:flex;
+    justify-content: center;
 }

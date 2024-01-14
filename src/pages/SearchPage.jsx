@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-export function Home() {
+export function SearchPage() {
 
     useEffect(() => {
 
@@ -10,8 +10,8 @@ export function Home() {
 
 
     return (
-        <div className='home'>  
-             <h1> Good Evening </h1>
+        <div className='search-page'>  
+             <h1> Search Results </h1>
         </div>
     )
 }

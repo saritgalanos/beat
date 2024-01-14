@@ -11,7 +11,9 @@ export function BeatFooter() {
 
     return (
         <div className="footer beat-footer">
-            <h1> Footer</h1>
+            <section className="currently-playing-preview"> Currently Playing preview</section>
+            <section className="player"> Player Control </section>
+            <section className="toolbar"> toolbar </section>
         </div>
     )
 }
