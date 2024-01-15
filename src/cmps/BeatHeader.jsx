@@ -42,7 +42,7 @@ export function BeatHeader({ isSearch }) {
                     <form onSubmit={handleSubmit} className="search-form">
                         <BiSearchAlt2 className='search-icon' />
                         <label htmlFor="search">
-                            <input id="search" name="txt" type="text" placeholder={'What do you want to listen to'}
+                            <input id="search" name="txt" type="text" placeholder={'What do you want to listen to?'}
                                 value={searchValue}
                                 onChange={handleChange} />
                         </label>

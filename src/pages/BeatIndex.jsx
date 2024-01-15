@@ -10,6 +10,7 @@ import { HomePage } from "./HomePage"
 export function BeatIndex() {
 
     const [selectedPage, setSelectedPage] = useState('home')
+
     useEffect(() => {
 
     }, [])
@@ -19,18 +20,11 @@ export function BeatIndex() {
     }
 
 
-
-    const isSearch = (selectedPage === 'search') ? true : false
-
     return (
         <div className="main-container">
-            <BeatNav setPage={setPage} />
-            {/* <BeatMainContainer /> */}
+            <BeatNav selectedPage={selectedPage} setPage={setPage} />
             <div>
-                <BeatHeader isSearch={isSearch} />
-                {(selectedPage === 'home') && <HomePage />}
                 <Outlet />
-
             </div>
             <BeatFooter />
 

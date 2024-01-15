@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router'
 //import routes from './routes'
 import { BeatIndex } from './pages/BeatIndex'
 import { SearchPage } from './pages/SearchPage'
-
+import { HomePage } from './pages/HomePage'
 export function RootCmp() {
 
     return (
@@ -12,7 +12,8 @@ export function RootCmp() {
             <main>
                 <Routes>
                     <Route path="/" element={<BeatIndex />} >
-                      <Route path="/search" element={<SearchPage />} />
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/search" element={<SearchPage />} />
 
 
                     </Route>
