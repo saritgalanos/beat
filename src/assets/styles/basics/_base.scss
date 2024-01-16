@@ -16,6 +16,8 @@ html {
 }
 
 body {
+    font-family: CircularSP, sans-serif;
+    font-size:1rem;
     min-height: 100vh;
     margin: 0;
 }
@@ -25,7 +27,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 0 0.6em;
     line-height: 1;
 }
-
 
 section, main, footer {
     padding: 5px;

@@ -15,7 +15,7 @@
     }
 
     @include for-narrow-layout {
-        grid-template-columns: 0.3fr 1fr;
+        grid-template-columns: 0.5fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 72px;
         grid-template-areas:
@@ -24,7 +24,7 @@
     }
 
     @include for-normal-layout {
-        grid-template-columns: 0.3fr 1fr;
+        grid-template-columns: 0.4fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 72px;
         grid-template-areas:
@@ -33,7 +33,7 @@
     }
 
     @include for-wide-layout {
-        grid-template-columns: 0.3fr 1fr;
+        grid-template-columns: 0.35fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 72px;
         grid-template-areas:

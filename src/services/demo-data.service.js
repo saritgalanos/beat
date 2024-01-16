@@ -1,0 +1,84 @@
+const stationsNames = [
+    'My Running Songs',
+    'Best for winter',
+    'vol4',
+    'Christmas songs',
+    'For my Car',
+    'Party songs'
+]
+
+const imgs = [
+    utilService.getImgUrl('/src/assets/img/square1.jpg'),
+    utilService.getImgUrl('/src/assets/img/square2.jpg'),
+    utilService.getImgUrl('/src/assets/img/square3.jpg'),
+    utilService.getImgUrl('/src/assets/img/square4.jpg'),
+    utilService.getImgUrl('/src/assets/img/square5.jpg')
+]
+
+const creators = [
+    'Sarit Galanos',
+    'Roni Galanos',
+    'Tsachi',
+    'Rob Roy Junior',
+    'Bob Marley'
+]
+
+songs = [
+    "Bob Dylan - Like a Rolling Stone",
+    "Queen - Don't Stop Me Now",
+    "Pink Floyd - Money",
+    "Bob Dylan - The Times They Are a-Changin",
+    "Elvis Presley - Love Me Tender",
+    "The Rolling Stones - Sympathy for the Devil",
+    "Madonna - Frozen",
+    "Elton John - Your Song",
+    "The Beatles - Let It Be",
+    "Queen - Bohemian Rhapsody",
+    "Michael Jackson - Billie Jean",
+    "Madonna - Material Girl",
+    "Elton John - Tiny Dancer",
+    "The Rolling Stones - Paint It Black",
+    "The Beatles - Help!",
+    "Pink Floyd - Time",
+    "Pink Floyd - Comfortably Numb",
+    "Bob Dylan - Mr. Tambourine Man",
+    "Led Zeppelin - Stairway to Heaven",
+    "The Beatles - Hey Jude",
+    "Elton John - Candle in the Wind",
+    "Elvis Presley - Hound Dog",
+    "Queen - We Will Rock You",
+    "Michael Jackson - Thriller",
+    "Madonna - Like a Virgin",
+    "The Beatles - Yesterday",
+    "Led Zeppelin - Whole Lotta Love",
+    "The Rolling Stones - Gimme Shelter",
+    "Elvis Presley - Jailhouse Rock",
+    "Pink Floyd - Wish You Were Here",
+    "Elton John - Rocket Man",
+    "Michael Jackson - Smooth Criminal",
+    "Queen - We Are the Champions",
+    "The Beatles - Come Together",
+    "Madonna - Vogue",
+    "Led Zeppelin - Black Dog",
+    "The Rolling Stones - Angie",
+    "Elvis Presley - Suspicious Minds",
+    "Pink Floyd - Another Brick in the Wall",
+    "Bob Dylan - Knocking on Heaven's Door",
+    "Elton John - Crocodile Rock",
+    "Michael Jackson - Beat It",
+    "Queen - Another One Bites the Dust",
+    "Madonna - Like a Prayer"
+]
+
+const artist_songs = {
+    "The Beatles": ["Hey Jude", "Let It Be", "Yesterday", "Come Together", "Help!"],
+    "Elvis Presley": ["Hound Dog", "Suspicious Minds", "Jailhouse Rock", "Love Me Tender", "Heartbreak Hotel"],
+    "Michael Jackson": ["Thriller", "Billie Jean", "Beat It", "Smooth Criminal", "Man in the Mirror"],
+    "Madonna": ["Like a Virgin", "Vogue", "Material Girl", "Like a Prayer", "Frozen"],
+    "Elton John": ["Your Song", "Rocket Man", "Tiny Dancer", "Candle in the Wind", "Crocodile Rock"],
+    "Led Zeppelin": ["Stairway to Heaven", "Whole Lotta Love", "Immigrant Song", "Black Dog", "Rock and Roll"],
+    "Pink Floyd": ["Comfortably Numb", "Wish You Were Here", "Another Brick in the Wall", "Money", "Time"],
+    "Bob Dylan": ["Like a Rolling Stone", "Blowin' in the Wind", "The Times They Are a-Changin'", "Mr. Tambourine Man", "Knockin' on Heaven's Door"],
+    "The Rolling Stones": ["Satisfaction", "Paint It Black", "Gimme Shelter", "Angie", "Sympathy for the Devil"],
+    "Queen": ["Bohemian Rhapsody", "We Will Rock You", "Another One Bites the Dust", "Don't Stop Me Now", "We Are the Champions"]
+}

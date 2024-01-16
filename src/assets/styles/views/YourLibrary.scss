@@ -3,8 +3,41 @@
     color: $clr2;
     border-radius: $border-radius;
     padding: 8px 12px;
-    height: 76vh; /*temp*/
+    height: 76vh;
+    /*temp*/
 
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // flex-wrap: nowrap;
 
-      
+    }
+    ul {
+        padding:0px;
+    }
+    li {
+        list-style-type: none;
+    }
+
+    .add-icon {
+        height: 30px;
+        width: 30px;
+        padding: 3px;
+        margin: 0 4px;
+
+        &:hover {
+            background-color: $clr5;
+            color: $clr1;
+            border-radius: 500px;
+            cursor: pointer;
+        }
+    }
+
+    .stations {
+        display:flex;
+        flex-wrap: wrap;
+     
+    }
+
 }

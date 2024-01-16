@@ -1,0 +1,60 @@
+.station-preview {
+    height: 210px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $clr6;
+    }
+
+    .station-info {
+        display: flex;
+        flex-direction: column;
+        width: 120px;
+        height:190px;
+        gap: 8px;
+        @include limit-text-to-width;
+
+        .station-card {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background-color: $clr5;
+
+
+            .station-img {
+                height: 120px;
+                width: 120px;
+                border-radius: 10px;
+            }
+
+            
+            .station-no-img {
+                height: 70px;
+                width: 70px;
+            }
+
+        }
+        .station-name {
+            color: $clr1;
+            @include limit-text-to-width;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .station-creator {
+            @include limit-text-to-width;
+            font-size: 0.9rem;
+
+        }
+
+     
+    }
+
+}

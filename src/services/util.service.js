@@ -1,5 +1,6 @@
 export const utilService = {
     makeId,
+    getImgUrl,
     makeLorem,
     getRandomIntInclusive,
     debounce,
@@ -11,6 +12,9 @@ export const utilService = {
 
 
 
+function getImgUrl(url) {
+    return new URL(url, import.meta.url).href
+}
 
 
 function makeId(length = 6) {
