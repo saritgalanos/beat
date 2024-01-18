@@ -1,14 +1,17 @@
 .main-container {
     display: grid;
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     min-width: $mobile-breakpoint;
     background-color: black;
     gap: 8px;
-    padding:8px;
-    color: aliceblue;
+    padding: 12px;
+ 
+  
+    
 
-   
-    > * {
+
+    >* {
         &.full {
             grid-column: 1 /-1;
         }
@@ -17,7 +20,7 @@
     @include for-narrow-layout {
         grid-template-columns: 0.5fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
-        grid-template-rows: 1fr 72px;
+        grid-template-rows: 1fr 80px;
         grid-template-areas:
             "nav main"
             "footer footer";
@@ -26,7 +29,7 @@
     @include for-normal-layout {
         grid-template-columns: 0.4fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
-        grid-template-rows: 1fr 72px;
+        grid-template-rows: 1fr 80px;
         grid-template-areas:
             "nav main"
             "footer footer";
@@ -35,11 +38,10 @@
     @include for-wide-layout {
         grid-template-columns: 0.35fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
-        grid-template-rows: 1fr 72px;
+        grid-template-rows: 1fr 80px;
         grid-template-areas:
             "nav main"
             "footer footer";
-
     }
 
     .nav {
@@ -47,10 +49,43 @@
     }
 
     .main {
+        height: 89vh;
         grid-area: main;
+        color: $clr1;
+        background-color: $clr3;
+        border-radius:$border-radius;
+        padding: 8px 16px;
+       
+     
     }
 
     .footer {
         grid-area: footer;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+
+    .main  {
+        overflow: auto; // Enables scrolling on these elements
+
+        // For Webkit browsers (Chrome, Safari)
+        &::-webkit-scrollbar {
+            width: 12px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            border-radius: 0 4px 0 0;
+        }
+
+        // For Firefox
+        scrollbar-width: thin;
+        scrollbar-color: darkgrey lightgrey;
+
+        // For IE and Edge
+        -ms-overflow-style: auto;
     }
 }

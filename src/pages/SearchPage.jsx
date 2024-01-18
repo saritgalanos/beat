@@ -11,7 +11,7 @@ export function SearchPage() {
 
 
     return (
-        <div className='search-page'>  
+        <div className='search-page main'>  
          <BeatHeader isSearch={true} />
              <h1> Search Results </h1>
         </div>

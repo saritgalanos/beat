@@ -31,7 +31,7 @@ export function StationDetails() {
   if (!station) return <div>Loading data</div>
 
   return (
-    <div className='station-details'>
+    <div className='station-details main'>
       <BeatHeader isSearch={false} />
 
       <header>

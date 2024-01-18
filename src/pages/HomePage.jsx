@@ -9,7 +9,7 @@ export function HomePage() {
     }, [])
 
     return (
-        <div className='home-page'>  
+        <div className='home-page main'>  
          <BeatHeader isSearch={false} />
              <h1> Good Evening </h1>
         </div>

@@ -1,26 +1,28 @@
 .beat-footer {
+    height:80px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-
-
+  
 }
 
 .currently-playing-preview {
-    display:flex;
+    display: flex;
     justify-content: center;
-    width: 400px; /*temp*/
+    width: 400px;
+    /*temp*/
 }
 
 .player {
-    display:flex;
+    display: flex;
     justify-content: center;
     flex: 1;
 
 }
 
 .toolbar {
-    width: 400px; /*temp*/
-    display:flex;
+    width: 400px;
+    /*temp*/
+    display: flex;
     justify-content: center;
 }
