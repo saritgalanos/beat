@@ -17,11 +17,11 @@ const stationNames = [
 ]
 
 const imgs = [
-    utilService.getImgUrl("square1.jpg"),
-    utilService.getImgUrl("square2.jpg"),
-    utilService.getImgUrl("square3.jpg"),
-    utilService.getImgUrl("square4.jpg"),
-    utilService.getImgUrl("square5.jpg"),
+    utilService.getImgUrl("/square1.jpg"),
+    utilService.getImgUrl("/square2.jpg"),
+    utilService.getImgUrl("/square3.jpg"),
+    utilService.getImgUrl("/square4.jpg"),
+    utilService.getImgUrl("/square5.jpg"),
     ''
 ]
 
