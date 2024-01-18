@@ -1,6 +1,6 @@
 .main-container {
     display: grid;
-    height: 100vh;
+    min-height: 100vh;
     min-width: $mobile-breakpoint;
     background-color: black;
     gap: 8px;

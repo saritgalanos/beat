@@ -1,4 +1,13 @@
-const stationsNames = [
+import { utilService } from "./util.service"
+
+export const demoDataService = {
+    createDemoStations
+}
+
+
+
+
+const stationNames = [
     'My Running Songs',
     'Best for winter',
     'vol4',
@@ -12,7 +21,8 @@ const imgs = [
     utilService.getImgUrl('/src/assets/img/square2.jpg'),
     utilService.getImgUrl('/src/assets/img/square3.jpg'),
     utilService.getImgUrl('/src/assets/img/square4.jpg'),
-    utilService.getImgUrl('/src/assets/img/square5.jpg')
+    utilService.getImgUrl('/src/assets/img/square5.jpg'),
+    ''
 ]
 
 const creators = [
@@ -20,10 +30,11 @@ const creators = [
     'Roni Galanos',
     'Tsachi',
     'Rob Roy Junior',
-    'Bob Marley'
+    'Bob Marley',
+    'Sarit Galanos'
 ]
 
-songs = [
+const songs = [
     "Bob Dylan - Like a Rolling Stone",
     "Queen - Don't Stop Me Now",
     "Pink Floyd - Money",
@@ -82,3 +93,66 @@ const artist_songs = {
     "The Rolling Stones": ["Satisfaction", "Paint It Black", "Gimme Shelter", "Angie", "Sympathy for the Devil"],
     "Queen": ["Bohemian Rhapsody", "We Will Rock You", "Another One Bites the Dust", "Don't Stop Me Now", "We Are the Champions"]
 }
+
+function createDemoStations() {
+
+    const demoStations = stationNames.map((station, index) => {
+        return {
+            _id: utilService.makeId(),
+            name: station,
+            createdBy: {
+                _id: utilService.makeId(),
+                fullname: creators[index],
+                imgUrl: imgs[index]
+            },
+            songs: [..._generateRandomSongsList()]
+        }
+    })
+    console.log(demoStations)
+    return demoStations
+
+}
+
+
+function _generateRandomColor() {
+    return '#' + Math.floor(Math.random()*16777215).toString(16);
+}
+
+function _generateSongDetails() {
+    return songs.map (song => {
+        return {
+            _id:utilService.makeId(),
+            title:song,
+            randomColor: _generateRandomColor(),
+            addedAt: _generateRandomTimestamp()
+        }
+    })
+}
+
+
+function _generateRandomSongsList() {
+    const songDetails =_generateSongDetails()
+
+    
+    // Randomly decide the size of the new array (between 1 and the length of the songs array)
+    const arraySize = Math.floor(Math.random() * songs.length) + 1
+
+    // Randomly select songs from the list
+    const shuffledSongs = songDetails.sort(() => 0.5 - Math.random())
+    const selectedSongs = shuffledSongs.slice(0, arraySize)
+    return selectedSongs
+    
+}
+
+//generate timestamp from the last year
+function _generateRandomTimestamp() {
+    const currentDate = new Date()
+    const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())
+
+    // Generate a random timestamp between now and one year ago
+    const randomTimestamp = Math.floor(oneYearAgo.getTime() + Math.random() * (currentDate.getTime() - oneYearAgo.getTime()));
+
+    return randomTimestamp
+
+}
+

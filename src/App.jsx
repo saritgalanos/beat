@@ -1,25 +1,24 @@
 import React from 'react'
-import { Routes, Route } from 'react-router'
+import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 import { BeatIndex } from './pages/BeatIndex'
 import { SearchPage } from './pages/SearchPage'
 import { HomePage } from './pages/HomePage'
-export function RootCmp() {
+import { StationDetails } from './pages/StationDetails'
+export function App() {
 
     return (
-        <div>
-            <main>
+        <main>
+            <Router>
                 <Routes>
                     <Route path="/" element={<BeatIndex />} >
                         <Route path="/" element={<HomePage />} />
                         <Route path="/search" element={<SearchPage />} />
-
-
+                        <Route path="/:stationId" element={<StationDetails />} />
                     </Route>
-                    {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
-                    {/* <Route path="user/:id" element={<UserDetails />} /> */}
                 </Routes>
-            </main>
-        </div>
+            </Router>
+        </main>
+
     )
 }
 

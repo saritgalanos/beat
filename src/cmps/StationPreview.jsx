@@ -2,17 +2,18 @@ import { useEffect, useState } from "react"
 import { RiMusic2Line } from "react-icons/ri"
 import { LuDot } from "react-icons/lu";
 import { RxDotFilled } from "react-icons/rx";
+import { useNavigate } from "react-router";
 
 
 export function StationPreview({ station }) {
-
+  const navigate = useNavigate()
+  
   useEffect(() => {
 
   }, [])
-  console.log(station)
 
   return (
-    <div className='station-preview'>
+    <div className='station-preview' onClick={() => navigate(`/${station._id}`)}>
       <div className='station-info'>
         {!station.createdBy.imgUrl &&
           <div className='station-card'><RiMusic2Line className='station-no-img' /></div>}

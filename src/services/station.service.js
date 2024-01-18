@@ -1,17 +1,21 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { demoDataService } from './demo-data.service.js'
 
-const STORAGE_KEY = 'station'
+const STORAGE_KEY = 'stations'
 
 export const stationService = {
     query,
     getById,
     save,
     remove,
-    getEmptyStation,
-    getStations
+    getEmptyStation
 }
+
+///////////////////////////////////////////////////////////////
+/*an example for how the JSON looks like*/
+
 const minimalUser = {
     id: 'user1',
     fullname: 'full name',
@@ -19,8 +23,6 @@ const minimalUser = {
 }
 
 const miniUser = 'name'
-
-
 
 const station = {
     _id: "5cksxjas89xjsa8xjsa8jxs09",
@@ -57,7 +59,7 @@ const station = {
         }
     ]
 }
-
+//////////////////////////////////////////////////////////////////////
 
 const loggedinUser = {
     email: 'saritgalanos@mistermail.com',
@@ -68,12 +70,21 @@ function getLoggedinUser() {
     return loggedinUser
 }
 
-/*create 3 stations to start with*/
-// _createStations()
-
+_createStations()
 
 async function query(filterBy) {
-
+    let stations = await storageService.query(STORAGE_KEY)
+    // if (filterBy) {
+    //     let { minBatteryStatus, model = '', type = '' } = filterBy
+    //     minBatteryStatus = minBatteryStatus || 0
+    //     const regexModelTerm = new RegExp(model, 'i')
+    //     robots = robots.filter(robot =>
+    //         regexModelTerm.test(robot.model) &&
+    //         robot.batteryStatus > minBatteryStatus &&
+    //         (!type || type === robot.type)
+    //     )
+    // }
+    return stations
 }
 
 function getById(id) {
@@ -110,65 +121,12 @@ function getEmptyStation() {
     }
 }
 
-function getStations() {
-    return [
-        {
-            _id: 's101',
-            name: 'My Running Songs',
-            createdBy: {
-                _id: "u101",
-                fullname: "Sarit Galanos",
-                imgUrl: utilService.getImgUrl('/src/assets/img/square1.jpg')
-            }
-        },
-        {
-            _id: 's102',
-            name: 'Best for winter',
-            createdBy: {
-                _id: "u102",
-                fullname: "Roni Galanos",
-                imgUrl: utilService.getImgUrl('/src/assets/img/square2.jpg')
-            }
-        },
-        {
-            _id: 's103',
-            name: 'vol4',
-            createdBy: {
-                _id: "u103",
-                fullname: "Dana Or",
-                imgUrl: utilService.getImgUrl('/src/assets/img/square3.jpg')
-            }
-        },
-        {
-            _id: 's104',
-            name: 'Christmas songs',
-            createdBy: {
-                _id: "u104",
-                fullname: "Roni Galanos",
-                imgUrl: utilService.getImgUrl('/src/assets/img/square4.jpg')
-            }
-        },
-        {
-            _id: 's105', 
-            name: 'For my Car',
-            createdBy: {
-                _id: "u105",
-                fullname: "Dan Dan",
-                imgUrl: utilService.getImgUrl('/src/assets/img/square5.jpg')
-            }
-        },
-        {
-            _id: 's106', 
-            name: 'Party songs',
-            createdBy: {
-                _id: "u106",
-                fullname: "Tal Tal",
-                imgUrl: ''
-            }
-        }
-    ]
+function _createStations() {
+    let stations = utilService.loadFromStorage(STORAGE_KEY)
+    if (!stations || !stations.length) {
+        stations = demoDataService.createDemoStations()
+        utilService.saveToStorage(STORAGE_KEY, stations)
+    }
 }
-
-
 
 

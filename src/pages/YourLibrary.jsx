@@ -2,18 +2,18 @@ import { useEffect, useState } from "react"
 import { IoAdd, IoLibraryOutline, IoArrowForwardOutline } from "react-icons/io5"
 import { stationService } from "../services/station.service"
 import { StationPreview } from "../cmps/StationPreview"
+import { utilService } from "../services/util.service"
+import { useSelector } from "react-redux"
+import { loadStations } from "../store/actions/station.actions"
 
 
 
 
 export function YourLibrary() {
-    const [stations, setStations] = useState(null)
-
+    //const [stations, setStations] = useState(null)
+    const stations = useSelector(storeState => storeState.stationModule.stations)
     useEffect(() => {
-        if (!stations) {
-            const stations = stationService.getStations()
-            setStations(stations)
-        }
+        loadStations()
     }, [])
 
     if (!stations) return <div>Loading...</div>
