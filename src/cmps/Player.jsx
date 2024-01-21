@@ -1,6 +1,6 @@
 import { VideoFileRounded } from "@mui/icons-material"
 import { Box, LinearProgress } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { BiRepeat } from "react-icons/bi"
 import { FaCirclePlay } from "react-icons/fa6"
 import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5"
@@ -8,9 +8,9 @@ import { PiShuffleBold } from "react-icons/pi"
 
 
 
-export function Player({videoId}) {
+export function Player() {
     const [isPlaying, setIsPlaying] = useState(false)
-    const [videoId, setVideoId] = useState(videoId);
+    const [videoId, setVideoId] = useState(null);
     const playerRef = useRef(null)
     
     useEffect(() => {
