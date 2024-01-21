@@ -1,3 +1,80 @@
-song-preview {
-    
+.song-preview {
+    .search-row {
+        padding: 7px 6px;
+        display: grid;
+        grid-template-columns: 30px 1fr 0.2fr 40px;
+        align-items: center;
+        gap: 12px;
+
+        &:hover {
+            background-color: rgba(58, 56, 56, 0.5);
+            border-radius: 4px;
+        }
+
+    }
+
+    .table-header {
+        border-bottom: 1px solid rgba(211, 211, 211, 0.1);
+    }
+
+    .index {
+        margin: 0 8px;
+    }
+
+    .song-title {
+        display: grid;
+        grid-template-columns: 45px 1fr;
+        grid-template-rows: 22.5px 22.5px;
+        grid-template-areas:
+            "pic artist"
+            "pic song-name";
+    }
+
+    .pic {
+        grid-area: pic;
+        background-color: aqua;
+        border-radius: 5px;
+        height: 45px;
+    }
+
+    .thumbnail {
+        grid-area: pic;
+        width: 45px;
+        height: 45px;
+        overflow: hidden;
+        background-position: center;
+        background-size: cover;
+        border-radius: 5px;
+    }
+
+    .artist {
+        grid-area: artist;
+        font-weight: 300;
+        font-size: 1rem;
+        color: $clr1;
+        letter-spacing: 0.5px;
+        margin: 0 12px;
+    }
+
+    .song-name {
+        grid-area: song-name;
+        color: $clr2;
+        font-size: 0.96rem;
+        font-weight: 300;
+        margin: 0 12px;
+    }
+
+    .add {
+        background-color: inherit;
+        border: 0.3px solid rgba(247, 245, 245, 0.5);
+        border-radius: 50px;
+        font-weight: 900;
+        color:$clr1;
+        width:60px;
+        height: 30px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
 }

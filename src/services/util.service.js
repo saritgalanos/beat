@@ -6,15 +6,55 @@ export const utilService = {
     debounce,
     randomPastTime,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getDateToDisplay
+}
+
+function getMonthName(date) {
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ]
+    return monthNames[date.getMonth()]
 }
 
 
+function getDateToDisplay(timestamp, isFullDate=false) {
+    const date = new Date(timestamp)
+    const minutes = date.getMinutes()
+    const hours = date.getHours()
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const dayOfMonth = date.getDate()
+  
+    if(isFullDate) {
+        return `${getMonthName(date)} ${dayOfMonth}, ${year}`
+    }
 
-
-function getImgUrl(url) {
-    return new URL(url, import.meta.url).href
+    const currentDate = new Date();
+    /*check if today*/
+    if ((dayOfMonth === currentDate.getDate() &&
+        month === currentDate.getMonth() &&
+        year === currentDate.getFullYear())) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}`
+    }
+    /*this year*/
+    if (year == currentDate.getFullYear()) {
+        return `${getMonthName(date)} ${dayOfMonth} `
+    }
+    /*not this year*/
+    return `${year}`
 }
+
+function getImgUrl(name) {
+    const path = `/src/assets/imgs/${name}`
+    const modules = import.meta.glob('/src/assets/imgs/*', { eager: true })
+    const mod = modules[path]
+    return mod.default
+}
+
+// function getImgUrl(url) {
+//     return new URL(url, import.meta.url).href
+// }
 
 
 function makeId(length = 6) {

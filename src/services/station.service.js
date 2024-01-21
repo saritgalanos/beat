@@ -10,7 +10,8 @@ export const stationService = {
     getById,
     save,
     remove,
-    getEmptyStation
+    getEmptyStation,
+    createSongsListFromSearchResults
 }
 
 ///////////////////////////////////////////////////////////////
@@ -120,6 +121,20 @@ function getEmptyStation() {
 
     }
 }
+
+function createSongsListFromSearchResults(data) {
+    const songs = data.items.map(item => ({
+        _id: item.id.videoId,
+        title: item.snippet.title,
+        url: item.id.videoId,
+        imgUrl: item.snippet.thumbnails.default.url,
+        addedBy:'',
+        addedAt:'',
+      }))   
+    return songs
+}
+
+
 
 function _createStations() {
     let stations = utilService.loadFromStorage(STORAGE_KEY)

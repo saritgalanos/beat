@@ -48,4 +48,10 @@ a {
 a:hover {
     text-decoration: underline;
 }
+ul {
+    padding:0;
+}
 
+li {
+    list-style-type: none;
+}

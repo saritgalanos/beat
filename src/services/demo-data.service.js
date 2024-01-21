@@ -16,12 +16,13 @@ const stationNames = [
     'Party songs'
 ]
 
+
 const imgs = [
-    utilService.getImgUrl("./img/square1.jpg"),
-    utilService.getImgUrl("./img/square2.jpg"),
-    utilService.getImgUrl("./img/square3.jpg"),
-    utilService.getImgUrl("./img/square4.jpg"),
-    utilService.getImgUrl("./img/square5.jpg"),
+    utilService.getImgUrl("square1.jpg"),
+    utilService.getImgUrl("square2.jpg"),
+    utilService.getImgUrl("square3.jpg"),
+    utilService.getImgUrl("square4.jpg"),
+    utilService.getImgUrl("square5.jpg"),
     ''
 ]
 

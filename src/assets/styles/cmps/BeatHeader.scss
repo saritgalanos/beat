@@ -22,35 +22,40 @@
     }
 
     .search-area {
-        flex:1;
+        flex: 1;
         display: flex;
-    
-      
+
+
         .search-form {
             display: flex;
             align-items: center;
-            gap:8px;
-            padding-left:8px;
-            width:364px; /*temp + adjust for screen size*/
-            
+            gap: 8px;
+            padding-left: 8px;
+            width: 364px;
+            /*temp + adjust for screen size*/
+
             background-color: $clr5;
             border-radius: 500px;
             margin: -5px 0px;
-            
+
             .search-icon {
-                color:$clr2;
+                color: $clr2;
                 width: 25px;
                 height: 25px;
             }
+
             input {
-                color:$clr2;
+                font-family: CircularSP, sans-serif;
+                font-weight: 500;
+                color: $clr2;
                 background-color: inherit;
                 border: none;
-                width:300px;
+                width: 300px;
+
                 &:focus {
                     outline: none;
                 }
-               
+
             }
         }
     }
