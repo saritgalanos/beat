@@ -4,17 +4,30 @@ import { stationService } from "../services/station.service"
 import { StationPreview } from "../cmps/StationPreview"
 import { utilService } from "../services/util.service"
 import { useSelector } from "react-redux"
-import { loadStations } from "../store/actions/station.actions"
-
+import { loadStations, saveStation } from "../store/actions/station.actions"
+import { useNavigate } from "react-router"
 
 
 
 export function YourLibrary() {
-    //const [stations, setStations] = useState(null)
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    const navigate = useNavigate()
     useEffect(() => {
         loadStations()
     }, [])
+
+    async function onAddNewStation(ev) {
+        const stationToAdd = stationService.getEmptyStation(stations)
+        try {
+            const stationAdded = await saveStation(stationToAdd)
+            setTimeout(() => {
+                navigate(`/${stationAdded._id}`)
+            }, 10);
+            
+        } catch (err) {
+            console.log('Had issues adding station', err);
+        }
+    }
 
     if (!stations) return <div>Loading...</div>
     return (
@@ -25,7 +38,7 @@ export function YourLibrary() {
                     Your Library
                 </div>
                 <div>
-                    <IoAdd className='add-icon' />
+                    <IoAdd className='add-icon' onClick={onAddNewStation} />
                     <IoArrowForwardOutline className='add-icon' />
 
                 </div>

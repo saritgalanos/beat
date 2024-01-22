@@ -2,20 +2,19 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 import { stationService } from "../services/station.service";
 import { SongPreview } from "./SongPreview";
-import { IoTimeOutline } from "react-icons/io5";
+import { IoClose, IoTimeOutline } from "react-icons/io5";
 import { BiSearchAlt2 } from "react-icons/bi";
 
 
-export function SongsSearch() {
+export function SongsSearch({ showSearch, onAddSong }) {
 
     const [query, setQuery] = useState('');
     const [songs, setSongs] = useState([]);
-    const [openSearch, setOpenSearch] = useState(false);
+    const [openSearch, setOpenSearch] = useState(showSearch);
 
     useEffect(() => {
 
     }, [])
-
 
     async function search() {
         try {
@@ -35,10 +34,21 @@ export function SongsSearch() {
             console.error('Error fetching data: ', error);
         }
     }
+    function resetSearch() {
+        setQuery('');
+        setSongs([]);
+        setOpenSearch(false);
+    }
 
 
     function onFindMore() {
         setOpenSearch(true)
+    }
+
+    function handleKeyDown(ev) {
+        if (ev.key === 'Enter') {
+            search()
+        }
     }
 
     return (
@@ -46,23 +56,28 @@ export function SongsSearch() {
         <div className='songs-search'>
             {!openSearch && <div className="find-more" onClick={onFindMore}>Find more</div>}
             {openSearch &&
-                <div className="search-header">
-                    <div> Let's find something for your playlist </div>
-                    <div className="search-area">
-                        <div className="container"><BiSearchAlt2 className="search-img" onClick={search} /> </div>
-                        <input
-                            type="text"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search for songs"
-                        />
+                <header>
+                    <div className="search-header">
+                        <div> Let's find something for your playlist </div>
+                        <div className="search-area">
+                            <div className="container"><BiSearchAlt2 className="search-img" onClick={search} /> </div>
+                            <input
+                                type="text"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search for songs"
+                                onKeyDown={handleKeyDown}
+                            />
+                        </div>
                     </div>
-                </div>}
+                    <IoClose className="close" onClick={resetSearch} />
+                </header>}
+            {(songs.length == 0) && <div><br></br> <br></br> <br></br> <br></br> <br></br></div>}
             {(songs.length !== 0) && <div className="songs">
                 <ul className="font-normal">
                     {(songs).map((song, index) => (
                         <li key={song.url}>
-                            <SongPreview song={song} index={index} />
+                            <SongPreview song={song} index={index} onAddSong={onAddSong}/>
                         </li>
                     ))}
 

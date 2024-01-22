@@ -21,7 +21,7 @@ export function SearchPage() {
                 <BeatHeader isSearch={true} />
                 <h1> Search Results </h1>
 
-              <SongsSearch />
+              <SongsSearch showSearch={true} />
             </div>
         </>
     )

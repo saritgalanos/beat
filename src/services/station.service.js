@@ -115,11 +115,39 @@ function getDefaultFilter() {
 }
 
 
-function getEmptyStation() {
+function getEmptyStation(stations) {
+    const myStationNumber = _getNextStationNumber(stations)
     return {
-
-
+        _id: '',
+        name: `My Playlist #${myStationNumber}`,
+        createdBy: {
+            _id: utilService.makeId(),
+            fullname: loggedinUser.fullname,
+            imgUrl: ''
+        },
+        songs: []
     }
+}
+
+function _getNextStationNumber(stations) {
+    let highestNumber = 0;
+    stations.forEach(station => {
+        console.log(station.name)
+        if (station.name.startsWith('My Playlist #')) {
+            const numberPart = station.name.split('#')[1];
+
+            // Check if the part after '#' is a valid number
+            if (!isNaN(numberPart)) {
+                const number = parseInt(numberPart, 10);
+
+                // Update highest number if this number is greater
+                if (number > highestNumber) {
+                    highestNumber = number;
+                }
+            }
+        }
+    })
+    return highestNumber + 1;
 }
 
 function createSongsListFromSearchResults(data) {
@@ -128,9 +156,9 @@ function createSongsListFromSearchResults(data) {
         title: item.snippet.title,
         url: item.id.videoId,
         imgUrl: item.snippet.thumbnails.default.url,
-        addedBy:'',
-        addedAt:'',
-      }))   
+        addedBy: '',
+        addedAt: '',
+    }))
     return songs
 }
 
