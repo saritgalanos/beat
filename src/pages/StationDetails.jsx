@@ -40,9 +40,10 @@ export function StationDetails() {
     song.addedAt = Date.now()
 
     const updatedSongs = [...station.songs, song]
+    //const updatedStation = [...station, songs: ...updatedSongs ]
     setSongs(updatedSongs)
-    setStation(station)
     station.songs = updatedSongs
+    setStation(station)
     try {
       saveStation(station)
     } catch (err) {

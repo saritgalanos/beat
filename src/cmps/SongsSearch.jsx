@@ -16,6 +16,8 @@ export function SongsSearch({ showSearch, onAddSong }) {
 
     }, [])
 
+    const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
+
     async function search() {
         try {
             const response = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
@@ -23,7 +25,7 @@ export function SongsSearch({ showSearch, onAddSong }) {
                     part: 'snippet',
                     maxResults: 30,
                     type: 'video',
-                    key: 'AIzaSyB3zk7PRQP35r2OxzIPwABfUO6uS9kP0RU',
+                    key: API_KEY,
                     q: query,
                     order: 'viewCount'
                 },
