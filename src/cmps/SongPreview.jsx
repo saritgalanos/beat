@@ -3,39 +3,35 @@ import YouTube from "react-youtube"
 import React, { useState, useRef } from 'react'
 import { utilService } from "../services/util.service"
 import { IoPlay } from "react-icons/io5"
-import { HiPause } from "react-icons/hi2"
-import { GiPauseButton } from "react-icons/gi";
+import { GiPauseButton } from "react-icons/gi"
+import { useDispatch, useSelector } from 'react-redux'
+import { setActiveSong , togglePlay} from '../store/actions/player.actions'
 
 
 
-export function SongPreview({ song, index, isPlayList, onAddSong }) {
+export function SongPreview({ song, index, isPlaylist, onAddSong }) {
 
     const [songToPreview, setSongToPreview] = useState(song)
-    const [isPlaying, setIsPlaying] = useState(false)
+
     const [isMouseOn, setMouseOn] = useState(false)
     const playerRef = useRef(null)
+    const dispatch = useDispatch()
 
-    const videoId = songToPreview.url;
+    const { activeSong, isPlaying } = useSelector(state => state.playerModule);
 
-    const opts = {
-        height: '0',
-        width: '0',
-        playerVars: {
-            autoplay: 1,
-            controls: 1,
-            loop: 1,
-            modestbranding: 1,
-        },
+    const isActive = activeSong && songToPreview._id === activeSong._id;
+    const isThisSongPlaying = isActive && isPlaying;
+
+
+    function onPlay() {
+        dispatch(setActiveSong(songToPreview));
     }
 
-    const toggleAudio = () => {
-        if (isPlaying) {
-            if (playerRef.current) {
-                playerRef.current.internalPlayer.pauseVideo()
-            }
-        }
-        setIsPlaying(!isPlaying)
+    function onPause() {
+        console.log('clicked')
+        dispatch(togglePlay())
     }
+
 
     function onAdd() {
         onAddSong(songToPreview)
@@ -49,18 +45,18 @@ export function SongPreview({ song, index, isPlayList, onAddSong }) {
         ? <div className="thumbnail" style={{ backgroundImage: `url(${songToPreview.imgUrl})` }}></div>
         : <div className="pic" style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
-    const currentlyPlaying = (isPlaying) ? 'currently-playing' : ''
+    const currentlyPlaying = (isThisSongPlaying) ? 'currently-playing' : ''
     return (
         <div className='song-preview'
             onMouseEnter={() => { setMouseOn(true) }}
             onMouseLeave={() => { setMouseOn(false) }}>
             < div className="search-row" >
                 {
-                    isPlaying ? (
-                        <GiPauseButton  className='index' onClick={toggleAudio} />
+                    isThisSongPlaying ? (
+                        <GiPauseButton className='index' onClick={onPause} />
                     ) : isMouseOn ? (
-                        <div><IoPlay className='index' onClick={toggleAudio} /></div>
-                    ) : isPlayList ? (
+                        <div><IoPlay className='index' onClick={onPlay} /></div>
+                    ) : isPlaylist ? (
                         <div className='index'>{index + 1}</div>
                     ) : (
                         <div></div>
@@ -75,16 +71,12 @@ export function SongPreview({ song, index, isPlayList, onAddSong }) {
 
 
                 {
-                    isPlayList
+                    isPlaylist
                         ? <div>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
                         : <button className="add" onClick={onAdd}>Add</button>
                 }
 
             </div >
-            <div >
-                {isPlaying && <YouTube videoId={videoId} opts={opts} ref={playerRef} className="youtube" />}
-            </div>
-
         </div>
 
     )

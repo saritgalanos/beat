@@ -11,7 +11,8 @@ export const stationService = {
     save,
     remove,
     getEmptyStation,
-    createSongsListFromSearchResults
+    createSongsListFromSearchResults,
+    addSongToStation
 }
 
 ///////////////////////////////////////////////////////////////
@@ -114,6 +115,26 @@ function getDefaultFilter() {
     }
 }
 
+function addSongToStation(station, newSong) {
+    newSong.addedAt = Date.now()
+    //add song only if no such id in the list
+    const exists = station.songs.find(song => song._id === newSong._id);
+
+    // If the song doesn't exist, add it to the array
+    if (exists) {
+      console.log('song already in list')
+      return station
+    }
+
+    const updatedSongs = [...station.songs, newSong]
+    const updatedStation = { ...station, songs: updatedSongs };
+
+    console.log(updatedStation)
+    return updatedStation;
+}
+
+
+
 
 function getEmptyStation(stations) {
     const myStationNumber = _getNextStationNumber(stations)
@@ -128,6 +149,8 @@ function getEmptyStation(stations) {
         songs: []
     }
 }
+
+
 
 function _getNextStationNumber(stations) {
     let highestNumber = 0;

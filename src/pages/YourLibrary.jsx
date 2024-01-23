@@ -32,7 +32,7 @@ export function YourLibrary() {
     if (!stations) return <div>Loading...</div>
     return (
         <div className="your-library">
-            <header>
+            <div className="lib-header">
                 <div className="nav-control-item">
                     <IoLibraryOutline className='nav-control-icon' />
                     Your Library
@@ -42,7 +42,7 @@ export function YourLibrary() {
                     <IoArrowForwardOutline className='add-icon' />
 
                 </div>
-            </header>
+            </div>
 
             <ul className="stations">
                 {stations.map(station =>

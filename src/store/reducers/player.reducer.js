@@ -1,0 +1,30 @@
+import { SET_ACTIVE_SONG, TOGGLE_PLAY, STOP } from '../actions/player.actions'
+
+const initialState = {
+  activeSong: null,
+  isPlaying: false
+}
+
+export function playerReducer (state = initialState, action) {
+    switch (action.type) {
+        case SET_ACTIVE_SONG:
+            // If the clicked song is the same as the active song, toggle its playing state
+            if (state.activeSong && state.activeSong._id === action.payload._id) {
+              return { ...state, isPlaying: !state.isPlaying };
+            }
+            // If it's a different song, make it the active song and start playing
+            return { ...state, activeSong: action.payload, isPlaying: true };
+      
+          case TOGGLE_PLAY:
+            // Toggle the playing state of the current song
+            return { ...state, isPlaying: !state.isPlaying };
+      
+          case STOP:
+            // Stop the playback but keep the current song active
+            return { ...state, isPlaying: false };
+      
+          // ... other cases
+          default:
+            return state;
+        }
+}
