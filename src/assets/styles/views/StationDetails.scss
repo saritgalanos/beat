@@ -1,12 +1,11 @@
 .station-details {
     background-color: $clr3;
     border-radius: 0 0 $border-radius $border-radius;
-    /*temp*/
-    padding: 8px 16px;
+   
 
     .station-header {
         display: flex;
-        padding: em(15px);
+        padding: em(15px) em(25px);
         gap: 20px;
 
         .station-pic {
@@ -55,6 +54,7 @@
         gap: 30px;
         align-items: center;
         margin: 0 16px;
+        padding: em(15px) em(15px);
 
         .play {
             background-color: $clr8;

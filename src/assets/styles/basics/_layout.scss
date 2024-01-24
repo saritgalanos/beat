@@ -6,9 +6,9 @@
     background-color: black;
     gap: 8px;
     padding: 12px;
- 
-  
-    
+
+
+
 
 
     >* {
@@ -50,14 +50,15 @@
     }
 
     .main {
+        position: relative;
         height: 89vh;
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
-        border-radius:$border-radius;
-        padding: 8px 16px;
-       
-     
+        border-radius: $border-radius;
+        //padding: 8px 16px;
+
+
     }
 
     .footer {
@@ -70,23 +71,26 @@
     }
 
 
-    .main  {
+    .main {
         overflow: auto; // Enables scrolling on these elements
 
-        // For Webkit browsers (Chrome, Safari)
-        &::-webkit-scrollbar {
-            width: 12px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: darkgrey;
-            border-radius: 0 4px 0 0;
-        }
+       
+            // For Webkit browsers (Chrome, Safari)
+            &::-webkit-scrollbar {
+                width: 12px;
+            }
 
-        // For Firefox
-        scrollbar-width: thin;
-        scrollbar-color: darkgrey lightgrey;
+            &::-webkit-scrollbar-thumb {
+                background-color: darkgrey;
+                border-radius: 0 4px 0 0;
+            }
 
-        // For IE and Edge
-        -ms-overflow-style: auto;
+            // For Firefox
+            scrollbar-width: thin;
+            scrollbar-color: darkgrey lightgrey;
+
+            // For IE and Edge
+            -ms-overflow-style: auto;
+        
     }
 }

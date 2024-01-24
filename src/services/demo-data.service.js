@@ -62,7 +62,8 @@ const songs = [
     "Michael Jackson - Thriller",
     "Madonna - Like a Virgin",
     "The Beatles - Yesterday",
-    "Led Zeppelin - Whole Lotta Love",
+    "Led Zeppelin - Whole Lotta Love"
+    /*,
     "The Rolling Stones - Gimme Shelter",
     "Elvis Presley - Jailhouse Rock",
     "Pink Floyd - Wish You Were Here",
@@ -79,7 +80,7 @@ const songs = [
     "Elton John - Crocodile Rock",
     "Michael Jackson - Beat It",
     "Queen - Another One Bites the Dust",
-    "Madonna - Like a Prayer"
+    "Madonna - Like a Prayer"*/
 ]
 
 const artist_songs = {
