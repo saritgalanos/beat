@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { BeatHeader } from "../cmps/BeatHeader"
-import { RiMusic2Line } from "react-icons/ri"
-import { useParams } from "react-router"
+import { RiDeleteBin5Line, RiMusic2Line } from "react-icons/ri"
+import { useNavigate, useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { RxDotFilled } from "react-icons/rx"
 import { IoMdHeartEmpty } from "react-icons/io"
 import { IoEllipsisHorizontalSharp, IoPlaySharp, IoClose } from "react-icons/io5"
-import { saveStation } from "../store/actions/station.actions"
+import { deleteStation, saveStation } from "../store/actions/station.actions"
 import { BiSearchAlt2 } from "react-icons/bi"
 import { SongList } from "../cmps/SongList"
 import { youtubeService } from "../services/youtube.service"
@@ -17,21 +17,25 @@ export function StationDetails() {
   const [station, setStation] = useState(null)
   const [songsFromSearch, setSongsFromSearch] = useState(null)
   const [query, setQuery] = useState('');
-  const [openSearch, setOpenSearch] = useState(false);
+  const [isOpenSearch, setOpenSearch] = useState(false);
 
 
   const params = useParams()
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (params.stationId) {
       loadStation()
-      if (station) {
-        setOpenSearch(station.songs.length == 0)
-      }
       setQuery('');
       setSongsFromSearch([]);
+      setOpenSearch(false)
     }
   }, [params.stationId])
+
+  useEffect(() => {
+    if (station && station.songs.length === 0) {
+      setOpenSearch(true);
+    }
+  }, [station])
 
   async function loadStation() {
     try {
@@ -53,6 +57,18 @@ export function StationDetails() {
     }
   }
 
+  function onDeleteSong(songToDelete) {
+    const updatedStation = stationService.deleteSongFromStation(station, songToDelete)
+    setStation(updatedStation)
+    try {
+      saveStation(updatedStation)
+    } catch (err) {
+      Console.log('StationDetails:onDeleteSong ' + err)
+    }
+
+
+  }
+
   function resetSearch() {
     setQuery('');
     setSongsFromSearch([]);
@@ -61,6 +77,16 @@ export function StationDetails() {
 
   function onFindMore() {
     setOpenSearch(true)
+  }
+
+  function onMoreActions() {
+    //temp - now only delete
+    try {
+      deleteStation(station)
+    } catch (err) {
+      console.log('StationDetails:onDeleteSong ' + err)
+    }
+    navigate('/')
   }
 
   function handleKeyDown(ev) {
@@ -74,8 +100,9 @@ export function StationDetails() {
     setSongsFromSearch(returnedSongs)
   }
 
-  if (!station) return <div>Loading data</div>
 
+
+  if (!station) return <div>Loading data</div>
   return (
     <div className='station-details main'>
       <BeatHeader isSearch={false} />
@@ -100,16 +127,17 @@ export function StationDetails() {
       <div className="station-control">
         <IoPlaySharp className="play" />
         <IoMdHeartEmpty className="like" />
-        <IoEllipsisHorizontalSharp className="more" />
+        <RiDeleteBin5Line className="more" onClick={onMoreActions} />
+        {/* <IoEllipsisHorizontalSharp className="more" /> */}
       </div>
 
 
       <div className="songs">
-        <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} />
+        <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
       </div>
 
       <div className='songs-search'>
-        {!openSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
+        {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
           <header>
             <div className="search-header">
               <div> Let's find something for your playlist </div>

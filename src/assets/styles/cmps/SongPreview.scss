@@ -1,7 +1,8 @@
 .song-preview {
     .youtube {
-        display:none;
+        display: none;
     }
+
     .search-row {
         padding: 7px 6px;
         display: grid;
@@ -65,6 +66,7 @@
         font-size: 0.96rem;
         font-weight: 300;
         margin: 0 12px;
+
         &.currently-playing {
             color: $clr8;
         }
@@ -75,12 +77,19 @@
         border: 0.3px solid rgba(247, 245, 245, 0.5);
         border-radius: 50px;
         font-weight: 900;
-        color:$clr1;
-        width:60px;
+        color: $clr1;
+        width: 60px;
         height: 30px;
+
         &:hover {
             cursor: pointer;
             border: 1.7px solid rgba(247, 245, 245, 0.9);
+        }
+    }
+
+    .more-actions {
+        &:hover {
+            cursor: pointer;
         }
     }
 

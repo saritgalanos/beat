@@ -1,0 +1,16 @@
+    .song-list {
+        padding: 10px;
+        color: $clr9;
+        font-weight: 300;
+        font-size: 0.95rem;
+
+        .table-header {
+            padding: 7px 6px;
+            display: grid;
+            grid-template-columns: 30px 1fr 0.2fr 40px;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(211, 211, 211, 0.1);
+        }
+
+    }

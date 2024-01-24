@@ -34,3 +34,19 @@ export async function saveStation(stationToSave) {
        // store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     }
 }
+
+export async function deleteStation(stationToDelete) {
+    try {
+        console.log (stationToDelete._id)
+        await stationService.remove(stationToDelete._id)
+        store.dispatch({
+            type: REMOVE_STATION, 
+             stationId: stationToDelete._id
+         })
+    } catch (err) {
+        console.log('deleteStation failed:', err);
+        throw err
+    } finally {
+       // store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+    }
+}

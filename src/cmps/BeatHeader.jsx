@@ -6,8 +6,8 @@ import { deepPurple } from '@mui/material/colors'
 import Avatar from '@mui/material/Avatar'
 
 
-export function BeatHeader({ isSearch }) {
-    const [searchValue, setSearchValue] = useState('')
+export function BeatHeader({ isSearch, search }) {
+    const [query, setQuery] = useState('')
     useEffect(() => {
 
     }, [])
@@ -15,17 +15,15 @@ export function BeatHeader({ isSearch }) {
      /*temp*/
     function handleSubmit(event) {
         event.preventDefault();
-        console.log('handleSubmit')
+        search(query)
+
     }
 
-    /*temp*/
-    function handleChange(ev) {
-        console.log('handle change')
-        // let { value, type } = target
-        // console.log(value)
-        // if (type === 'number') value = +value
-        setSearchValue(ev.target.value)
-    }
+    function handleKeyDown(ev) {
+        if (ev.key === 'Enter') {
+          search(query)
+        }
+      }
 
 
 
@@ -42,9 +40,14 @@ export function BeatHeader({ isSearch }) {
                     <form onSubmit={handleSubmit} className="search-form">
                         <BiSearchAlt2 className='search-icon' />
                         <label htmlFor="search">
-                            <input id="search" name="txt" type="text" placeholder={'What do you want to listen to?'}
-                                value={searchValue}
-                                onChange={handleChange} />
+                            <input 
+                            id="search" 
+                            name="txt" 
+                            type="text" 
+                            placeholder={'What do you want to listen to?'}
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            onKeyDown={handleKeyDown} />
                         </label>
                     </form>
                 }

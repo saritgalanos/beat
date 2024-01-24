@@ -109,7 +109,6 @@ function createDemoStations() {
             songs: [..._generateRandomSongsList()]
         }
     })
-    console.log(demoStations)
     return demoStations
 
 }

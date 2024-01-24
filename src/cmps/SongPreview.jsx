@@ -2,14 +2,15 @@
 import YouTube from "react-youtube"
 import React, { useState, useRef } from 'react'
 import { utilService } from "../services/util.service"
-import { IoPlay } from "react-icons/io5"
+import { IoEllipsisHorizontalSharp, IoPlay } from "react-icons/io5"
 import { GiPauseButton } from "react-icons/gi"
 import { useDispatch, useSelector } from 'react-redux'
-import { setActiveSong , togglePlay} from '../store/actions/player.actions'
+import { setActiveSong, togglePlay } from '../store/actions/player.actions'
+import { RiDeleteBin5Line } from "react-icons/ri"
 
 
 
-export function SongPreview({ song, index, isPlaylist, onAddSong }) {
+export function SongPreview({ song, index, isPlaylist, onAddSong ,onDeleteSong}) {
 
     const [songToPreview, setSongToPreview] = useState(song)
 
@@ -35,6 +36,10 @@ export function SongPreview({ song, index, isPlaylist, onAddSong }) {
 
     function onAdd() {
         onAddSong(songToPreview)
+    }
+
+    function onMoreActions() {
+        onDeleteSong(songToPreview)
     }
 
     const songDetails = songToPreview.title.split('-');
@@ -75,6 +80,13 @@ export function SongPreview({ song, index, isPlaylist, onAddSong }) {
                         ? <div>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
                         : <button className="add" onClick={onAdd}>Add</button>
                 }
+
+                {
+                    (isPlaylist && isMouseOn)
+                        ? <div><RiDeleteBin5Line className='more-actions' onClick={onMoreActions} /></div>
+                        : <div></div>
+                }
+
 
             </div >
         </div>

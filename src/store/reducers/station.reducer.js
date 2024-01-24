@@ -31,10 +31,11 @@ export function stationReducer(state = initialState, action = {}) {
                 stations: state.stations.map(station => station._id === action.station._id ? action.station : station)
             }
         case REMOVE_STATION:
-            return {
+        console.log(action.stationId)    
+        return {
                 ...state,
-                stations: state.stations.filter(station => station._id !== action.stationId),
-                lastStations: [...state.stations]
+                stations: state.stations.filter(station => station._id !== action.stationId)
+                //lastStations: [...state.stations]
             }
         case SET_FILTER_BY:
             return {

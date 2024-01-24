@@ -12,7 +12,8 @@ export const stationService = {
     remove,
     getEmptyStation,
     createSongsListFromSearchResults,
-    addSongToStation
+    addSongToStation,
+    deleteSongFromStation
 }
 
 ///////////////////////////////////////////////////////////////
@@ -129,10 +130,15 @@ function addSongToStation(station, newSong) {
     const updatedSongs = [...station.songs, newSong]
     const updatedStation = { ...station, songs: updatedSongs };
 
-    console.log(updatedStation)
     return updatedStation;
 }
 
+function deleteSongFromStation(station, songToDelete) {
+    
+    const updatedSongs = station.songs.filter((song) => song._id !== songToDelete._id);
+    const updatedStation = { ...station, songs: updatedSongs };
+    return updatedStation;
+}
 
 
 
