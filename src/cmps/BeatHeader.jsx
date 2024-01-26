@@ -6,7 +6,7 @@ import { deepPurple } from '@mui/material/colors'
 import Avatar from '@mui/material/Avatar'
 
 
-export function BeatHeader({ isSearch, search }) {
+export function BeatHeader({ isSearch, search , bgColor=null }) {
     const [query, setQuery] = useState('')
     useEffect(() => {
 
@@ -26,9 +26,8 @@ export function BeatHeader({ isSearch, search }) {
       }
 
 
-
     return (
-        <div className="beat-header">
+        <div className="beat-header" style={{ backgroundColor: bgColor }}>
             <div className="page-control" >
                 <MdNavigateBefore className='page-control-img' />
                 <MdNavigateNext className='page-control-img' />

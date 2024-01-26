@@ -1,3 +1,5 @@
+import ColorThief from 'colorthief'
+
 export const utilService = {
     makeId,
     getImgUrl,
@@ -7,7 +9,10 @@ export const utilService = {
     randomPastTime,
     saveToStorage,
     loadFromStorage,
-    getDateToDisplay
+    getDateToDisplay,
+    getDominantColorFromImage,
+    darkenColor
+
 }
 
 function getMonthName(date) {
@@ -18,15 +23,15 @@ function getMonthName(date) {
 }
 
 
-function getDateToDisplay(timestamp, isFullDate=false) {
+function getDateToDisplay(timestamp, isFullDate = false) {
     const date = new Date(timestamp)
     const minutes = date.getMinutes()
     const hours = date.getHours()
     const year = date.getFullYear()
     const month = date.getMonth()
     const dayOfMonth = date.getDate()
-  
-    if(isFullDate) {
+
+    if (isFullDate) {
         return `${getMonthName(date)} ${dayOfMonth}, ${year}`
     }
 
@@ -52,9 +57,71 @@ function getImgUrl(name) {
     return mod.default
 }
 
-// function getImgUrl(url) {
-//     return new URL(url, import.meta.url).href
-// }
+/*--------color manipulation ---------------*/
+
+async function getDominantColorFromImage(imageUrl) {
+    const colorThief = new ColorThief()
+    const image = new Image()
+    image.crossOrigin = 'Anonymous'
+    image.src = imageUrl
+
+    return new Promise((resolve, reject) => {
+        image.onload = () => {
+            const dominantColor = colorThief.getColor(image);
+            const relaxedColor = _relaxColor(dominantColor, 100);
+            resolve(`rgb(${relaxedColor[0]}, ${relaxedColor[1]}, ${relaxedColor[2]})`);
+        }
+
+        image.onerror = () => {
+            reject('Error loading image');
+        }
+    })
+}
+
+
+function _relaxColor(color, relaxationFactor) {
+    const [r, g, b] = color;
+
+    // Calculate the relaxed RGB values by reducing each channel
+    const relaxedR = r - relaxationFactor;
+    const relaxedG = g - relaxationFactor;
+    const relaxedB = b - relaxationFactor;
+
+    // Ensure that RGB values are within the valid range [0, 255]
+    const relaxedColor = [
+        Math.max(0, Math.min(255, relaxedR)),
+        Math.max(0, Math.min(255, relaxedG)),
+        Math.max(0, Math.min(255, relaxedB)),
+    ];
+
+    return relaxedColor;
+}
+
+function darkenColor(rgbString, darkenPercent=40) {
+    // Parse the RGB string to extract red, green, and blue values
+    const rgbValues = rgbString.match(/\d+/g).map(Number);
+
+    // Calculate the darkened values
+    const darkened = rgbValues.map(value => {
+        return Math.max(Math.min(Math.floor(value * (1 - darkenPercent / 100)), 255), 0);
+    });
+
+    // Combine the darkened values back into an RGB string
+    return `rgb(${darkened[0]}, ${darkened[1]}, ${darkened[2]})`;
+}
+
+
+//-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 function makeId(length = 6) {

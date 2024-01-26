@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 
 export function StationPreview({ station }) {
   const navigate = useNavigate()
-  
+
   useEffect(() => {
 
   }, [])
@@ -16,13 +16,14 @@ export function StationPreview({ station }) {
     <div className='station-preview' onClick={() => navigate(`/${station._id}`)}>
       <div className='station-info'>
         {!station.createdBy.imgUrl &&
-          <div className='station-card'><RiMusic2Line className='station-no-img' /></div>}
+          <div className='station-card'><RiMusic2Line className='no-img' /></div>}
         {station.createdBy.imgUrl &&
           < div className='station-card'><img src={station.createdBy.imgUrl} className='station-img' /></div>}
 
-
-        <div className='station-name'>{station.name} </div>
-        <div className='station-creator'>Playlist<RxDotFilled />{station.createdBy.fullname}</div>
+        <div className="station-txt">
+          <div className='station-name'>{station.name} </div>
+          <div className='station-creator'>{station.createdBy.fullname}</div>
+        </div>
       </div>
     </div >
   )

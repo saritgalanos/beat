@@ -5,7 +5,8 @@
 
     .station-header {
         display: flex;
-        padding: em(15px) em(25px);
+        padding: em(15px) em(25px) em(25px) em(25px);
+        
         gap: 20px;
 
         .station-pic {
@@ -16,15 +17,15 @@
 
 
             .station-img {
-                height: em(250px);
-                width: em(250px);
+                height: em(232px);
+                width: em(232px);
                 border-radius: 4px;
             }
 
             .station-no-img {
                 box-sizing: border-box;
-                width: em(250px);
-                height: em(250px);
+                width: em(232px);
+                height: em(232px);
                 padding: em(80px);
                 background-color: $clr5;
                 color: $clr2;
@@ -48,13 +49,15 @@
         }
 
     }
+    .gradient-bg {
+        border-radius: 0 0 5px 5px;
 
     .station-control {
         display: flex;
         gap: 30px;
         align-items: center;
         margin: 0 16px;
-        padding: em(15px) em(15px);
+        padding: em(15px) em(15px) 0 em(15px);
 
         .play {
             background-color: $clr8;
@@ -83,6 +86,7 @@
 
         height:100px;
     }
+}
 
 
 
@@ -115,6 +119,7 @@ header {
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(211, 211, 211, 0.1);
+    margin: em(15px) em(15px);
 
     .close {
         height: 40px;

@@ -23,7 +23,7 @@ export function YourLibrary() {
             setTimeout(() => {
                 navigate(`/${stationAdded._id}`)
             }, 10);
-            
+
         } catch (err) {
             console.log('Had issues adding station', err);
         }

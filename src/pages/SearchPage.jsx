@@ -25,12 +25,12 @@ export function SearchPage() {
     return (
         <div className='search-page main'>
             <BeatHeader isSearch={true} search={search} />
-
-            {(songsFromSearch?.length > 0) && <h1> Songs </h1>}
-            <div className="songs">
-                <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+            <div className="main-content">
+                {(songsFromSearch?.length > 0) && <h1> Songs </h1>}
+                <div className="songs">
+                    <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                </div>
             </div>
-
         </div>
 
     )

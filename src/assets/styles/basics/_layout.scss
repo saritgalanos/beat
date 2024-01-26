@@ -27,7 +27,7 @@
     }
 
     @include for-normal-layout {
-        grid-template-columns: 0.4fr 1fr;
+        grid-template-columns: 0.28fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 80px;
         grid-template-areas:
@@ -36,7 +36,7 @@
     }
 
     @include for-wide-layout {
-        grid-template-columns: 0.35fr 1fr;
+        grid-template-columns: 0.28fr 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 80px;
         grid-template-areas:
@@ -46,18 +46,18 @@
 
     .nav {
         grid-area: nav;
-        height: 89vh;
+        height: calc(100vh - 100px);
     }
 
     .main {
+        
         position: relative;
-        height: 89vh;
+        height: calc(100vh - 100px);
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
         border-radius: $border-radius;
-        //padding: 8px 16px;
-
+       
 
     }
 
@@ -72,25 +72,29 @@
 
 
     .main {
-        overflow: auto; // Enables scrolling on these elements
-
-       
-            // For Webkit browsers (Chrome, Safari)
-            &::-webkit-scrollbar {
-                width: 12px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background-color: darkgrey;
-                border-radius: 0 4px 0 0;
-            }
-
-            // For Firefox
-            scrollbar-width: thin;
-            scrollbar-color: darkgrey lightgrey;
-
-            // For IE and Edge
-            -ms-overflow-style: auto;
+        overflow-y: auto; /* Enable vertical scrolling */
         
+        box-sizing: border-box; /* Include padding in the element's total width and height */
+           
+    
+        /* For Webkit browsers (Chrome, Safari) */
+        &::-webkit-scrollbar {
+            width: 12px;
+            position: absolute;
+            right: 0;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(200, 200, 200, 0.8); /* Lighter scrollbar thumb */
+            border-radius: 0 4px 0 0 ;
+        }
+    
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(180, 180, 180, 0.9);
+        }
+    
+        /* For Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: rgba(200, 200, 200, 0.8) transparent;
     }
 }

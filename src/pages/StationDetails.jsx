@@ -10,6 +10,10 @@ import { deleteStation, saveStation } from "../store/actions/station.actions"
 import { BiSearchAlt2 } from "react-icons/bi"
 import { SongList } from "../cmps/SongList"
 import { youtubeService } from "../services/youtube.service"
+import { utilService } from "../services/util.service"
+import { css } from "@emotion/react"
+
+const BEAT_BG = "#121212"
 
 
 export function StationDetails() {
@@ -17,21 +21,30 @@ export function StationDetails() {
   const [station, setStation] = useState(null)
   const [songsFromSearch, setSongsFromSearch] = useState(null)
   const [query, setQuery] = useState('');
-  const [isOpenSearch, setOpenSearch] = useState(false);
+  const [isOpenSearch, setOpenSearch] = useState(false)
+  const [bgColor, setBgColor] = useState(BEAT_BG)
 
 
   const params = useParams()
   const navigate = useNavigate()
+
   useEffect(() => {
     if (params.stationId) {
       loadStation()
       setQuery('');
       setSongsFromSearch([]);
       setOpenSearch(false)
+      setBgColor(BEAT_BG)
     }
   }, [params.stationId])
 
   useEffect(() => {
+    if (station && station.createdBy.imgUrl) {
+      console.log(station.createdBy.imgUrl)
+      fetchColor()
+    }
+
+
     if (station && station.songs.length === 0) {
       setOpenSearch(true);
     }
@@ -46,6 +59,19 @@ export function StationDetails() {
       console.log('error:', error)
     }
   }
+
+
+  async function fetchColor() {
+
+    try {
+      const rgbColor = await utilService.getDominantColorFromImage(station.createdBy.imgUrl)
+      setBgColor(rgbColor)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
 
   function onAddSong(newSong) {
     const updatedStation = stationService.addSongToStation(station, newSong)
@@ -100,14 +126,19 @@ export function StationDetails() {
     setSongsFromSearch(returnedSongs)
   }
 
+  const darkenColor = (bgColor != BEAT_BG) ? utilService.darkenColor(bgColor) : BEAT_BG
+  const gradientStyle = {
+    background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG}`
+  }
+
 
 
   if (!station) return <div>Loading data</div>
   return (
     <div className='station-details main'>
-      <BeatHeader isSearch={false} />
+      <BeatHeader isSearch={false} bgColor={bgColor} />
 
-      <div className="station-header">
+      <div className="station-header" style={{ backgroundColor: bgColor }}>
         <div className='station-pic'>
           {station.createdBy.imgUrl
             ? <img src={station.createdBy.imgUrl} className='station-img' />
@@ -123,17 +154,18 @@ export function StationDetails() {
           </div>
         </div>
       </div>
+      <div className="gradient-bg" style={gradientStyle}>
+        <div className="station-control" >
+          <IoPlaySharp className="play" />
+          <IoMdHeartEmpty className="like" />
+          <RiDeleteBin5Line className="more" onClick={onMoreActions} />
+          {/* <IoEllipsisHorizontalSharp className="more" /> */}
+        </div>
 
-      <div className="station-control">
-        <IoPlaySharp className="play" />
-        <IoMdHeartEmpty className="like" />
-        <RiDeleteBin5Line className="more" onClick={onMoreActions} />
-        {/* <IoEllipsisHorizontalSharp className="more" /> */}
-      </div>
 
-
-      <div className="songs">
-        <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+        <div className="songs">
+          <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+        </div>
       </div>
 
       <div className='songs-search'>

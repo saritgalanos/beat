@@ -1,12 +1,17 @@
 .station-preview {
-    height: 210px;
-    width: 150px;
+    // height: 210px;
+    // width: 144px;
+    height: auto; /* Remove fixed height */
+    width: 100%; /* Make stations take up full width within their grid cell */
+    position: relative;
+    aspect-ratio: 141/198;
+  
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    overflow: auto; 
-
+    overflow: auto;
+    transition: background-color 0.3s;
     &:hover {
         cursor: pointer;
         background-color: $clr6;
@@ -15,13 +20,15 @@
     .station-info {
         display: flex;
         flex-direction: column;
-        width: 120px;
-        height:190px;
+        // width: 120px;
+        // height: 190px;
+        width: 83%;
+        //height: 88%;
         gap: 8px;
         @include limit-text-to-width;
 
         .station-card {
-            height: 120px;
+            width: 100%; /* Make the station-card 100% width */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -30,32 +37,40 @@
 
 
             .station-img {
-                height: 120px;
-                width: 120px;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
                 border-radius: 10px;
             }
 
-            
-            .station-no-img {
-                height: 70px;
-                width: 70px;
+            .no-img {
+                padding:20%;
+                width: 100%;
+                height: 100%;
+                
             }
 
         }
-        .station-name {
-            color: $clr1;
-            @include limit-text-to-width;
-            font-weight: bold;
-            font-size: 1.2rem;
+
+        .station-txt {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            .station-name {
+                color: $clr1;
+                @include limit-text-to-width;
+                font-weight: 500;
+                font-size: 1.1rem;
+            }
+
+            .station-creator {
+                @include limit-text-to-width;
+                font-size: 0.9rem;
+  
+            }
         }
 
-        .station-creator {
-            @include limit-text-to-width;
-            font-size: 0.9rem;
-
-        }
-
-     
     }
 
 }

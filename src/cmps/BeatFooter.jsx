@@ -25,14 +25,15 @@ export function BeatFooter() {
     }
     return (
         <div className="footer beat-footer">
-            {(activeSong !== null) &&
+            
                 <section className="currently-playing-preview">
+                {(activeSong !== null) &&
                     <div className='song-title'>
                         {renderThumbnail}
                         <div className="artist">{artist}</div>
                         <div className="song-name">{songName}</div>
-                    </div>
-                </section>}
+                    </div>}
+                </section>
 
             <Player />
 
