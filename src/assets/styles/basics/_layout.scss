@@ -17,8 +17,18 @@
         }
     }
 
+
+    @include for-mobile-layout {
+        grid-template-columns:  1fr;
+        // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
+        grid-template-rows: 1fr;
+        grid-template-areas: "main";
+           
+    }
+
+
     @include for-narrow-layout {
-        grid-template-columns: 0.5fr 1fr;
+        grid-template-columns:  80px 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 80px;
         grid-template-areas:
@@ -27,7 +37,7 @@
     }
 
     @include for-normal-layout {
-        grid-template-columns: 0.28fr 1fr;
+        grid-template-columns:  minmax(300px, 0.3fr) 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 80px;
         grid-template-areas:
@@ -36,7 +46,7 @@
     }
 
     @include for-wide-layout {
-        grid-template-columns: 0.28fr 1fr;
+        grid-template-columns: minmax(300px, 0.28fr) 1fr;
         // minmax(100px, 1fr) minmax(auto, $normal-breakpoint);
         grid-template-rows: 1fr 80px;
         grid-template-areas:
@@ -57,21 +67,8 @@
         color: $clr1;
         background-color: $clr3;
         border-radius: $border-radius;
-       
 
-    }
-
-    .footer {
-        grid-area: footer;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        padding: 10px 0;
-    }
-
-
-    .main {
+         
         overflow-y: auto; /* Enable vertical scrolling */
         
         box-sizing: border-box; /* Include padding in the element's total width and height */
@@ -96,5 +93,18 @@
         /* For Firefox */
         scrollbar-width: thin;
         scrollbar-color: rgba(200, 200, 200, 0.8) transparent;
+       
+
     }
+
+    .footer {
+        grid-area: footer;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+
 }

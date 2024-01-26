@@ -1,10 +1,13 @@
 .station-preview {
-    // height: 210px;
-    // width: 144px;
     height: auto; /* Remove fixed height */
     width: 100%; /* Make stations take up full width within their grid cell */
     position: relative;
+    
+   
     aspect-ratio: 141/198;
+    @media screen and (max-width: 768px) {
+        aspect-ratio: 1/1;
+    }   
   
     display: flex;
     justify-content: center;
@@ -20,10 +23,7 @@
     .station-info {
         display: flex;
         flex-direction: column;
-        // width: 120px;
-        // height: 190px;
         width: 83%;
-        //height: 88%;
         gap: 8px;
         @include limit-text-to-width;
 
@@ -52,6 +52,7 @@
 
         }
 
+
         .station-txt {
             display: flex;
             flex-direction: column;
@@ -61,13 +62,19 @@
                 color: $clr1;
                 @include limit-text-to-width;
                 font-weight: 500;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             .station-creator {
                 @include limit-text-to-width;
                 font-size: 0.9rem;
   
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .station-txt {
+                display:none;
             }
         }
 

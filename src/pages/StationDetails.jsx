@@ -148,7 +148,7 @@ export function StationDetails() {
 
         <div className="header-details">
           <div className="font-normal">Playlist</div>
-          <div className='station-name'>{station.name} </div>
+          <div className='name no-wrap'>{station.name} </div>
           <div className='details font-normal'>{station.createdBy.fullname}<RxDotFilled />
             {station.likes}<RxDotFilled /> {station.songs.length} songs,
           </div>

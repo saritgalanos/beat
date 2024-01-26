@@ -1,12 +1,12 @@
 .station-details {
     background-color: $clr3;
     border-radius: 0 0 $border-radius $border-radius;
-   
+
+
 
     .station-header {
         display: flex;
         padding: em(15px) em(25px) em(25px) em(25px);
-        
         gap: 20px;
 
         .station-pic {
@@ -41,16 +41,67 @@
             font-size: 0.95rem;
             letter-spacing: 1px;
 
-            .station-name {
-                font-size: 7rem;
+            .name {
                 font-weight: 900;
                 letter-spacing: -4px;
+                font-size: 7rem;
+
+                // Decrease font size every 150px
+                @include font-size-for-width(1500) {
+                    font-size: 6rem;
+                    letter-spacing: -3px;
+                }
+
+                @include font-size-for-width(1350) {
+                    font-size: 5rem;
+                    letter-spacing: -2px;
+                }
+
+                @include font-size-for-width(1200) {
+                    font-size: 4rem;
+                    letter-spacing: -1px;
+                }
+
+                @include font-size-for-width(1050) {
+                    font-size: 3rem;
+                }
+
+                @include font-size-for-width(900) {
+                    font-size: 2rem;
+                }
+
+                @include font-size-for-width(750) {
+                    font-size: 4rem;
+                }
+
+                @include font-size-for-width(600) {
+                    font-size: 3.5rem;
+                }
+
+                @include font-size-for-width(450) {
+                    font-size: 3rem;
+                }
+
+                @include font-size-for-width(300) {
+                    font-size: 2.5rem;
+                }
+
+                // Continue as needed
             }
+
         }
 
+
     }
-    .gradient-bg {
-        border-radius: 0 0 5px 5px;
+
+}
+
+
+
+
+
+.gradient-bg {
+    border-radius: 0 0 5px 5px;
 
     .station-control {
         display: flex;
@@ -79,6 +130,7 @@
             height: 20px;
             width: 20px;
             color: $clr2;
+
             &:hover {
                 cursor: pointer;
             }
@@ -91,7 +143,7 @@
 
 
 
-}
+
 
 
 .songs {
@@ -99,10 +151,10 @@
     color: $clr9;
     font-weight: 300;
     font-size: 0.95rem;
-}   
+}
 
 .empty-space {
-    height:300px;
+    height: 300px;
 }
 
 .find-more {

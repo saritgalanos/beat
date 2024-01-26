@@ -35,12 +35,11 @@ export function YourLibrary() {
             <div className="lib-header">
                 <div className="nav-control-item">
                     <IoLibraryOutline className='nav-control-icon' />
-                    Your Library
+                    <div className="txt">Your Library</div>
                 </div>
-                <div>
+                <div className='controls'>
                     <IoAdd className='add-icon' onClick={onAddNewStation} />
                     <IoArrowForwardOutline className='add-icon' />
-
                 </div>
             </div>
 

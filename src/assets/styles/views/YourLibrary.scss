@@ -3,9 +3,12 @@
     color: $clr2;
     border-radius: $border-radius;
     padding: 8px 12px 0px 12px;
+
+    @media screen and (max-width: 768px) {
+        padding: 3px;
+    }
+
     height: calc(100vh - 100px);
-
-
 
     overflow: auto; // Enables scrolling on these elements
 
@@ -22,45 +25,65 @@
     // For Firefox
     scrollbar-width: thin;
     scrollbar-color: darkgrey lightgrey;
-
     // For IE and Edge
     -ms-overflow-style: auto;
-
 
     /*temp*/
 
     .lib-header {
         display: flex;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: space-between;
 
-    }
+        @media screen and (max-width: 768px) {
+            .txt {
+                display: none;
+            }
 
-    ul {
-        padding: 0px;
-    }
+            justify-content: center;
+            padding-top:10px;
 
-    li {
-        list-style-type: none;
-    }
+        }
 
-    .add-icon {
-        height: 30px;
-        width: 30px;
-        padding: 3px;
-        margin: 0 4px;
+        ul {
+            padding: 0px;
+        }
 
-        &:hover {
-            background-color: $clr5;
-            color: $clr1;
-            border-radius: 500px;
-            cursor: pointer;
+        li {
+            list-style-type: none;
+        }
+
+        .controls {
+            .add-icon {
+                height: 30px;
+                width: 30px;
+                padding: 3px;
+                margin: 0 4px;
+
+                &:hover {
+                    background-color: $clr5;
+                    color: $clr1;
+                    border-radius: 500px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .controls {
+                display: none;
+            }
         }
     }
 
     .stations {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(auto-fill, 70px);
+        }
     }
 
 }

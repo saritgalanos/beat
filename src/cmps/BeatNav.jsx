@@ -29,13 +29,13 @@ export function BeatNav({ selectedPage, setPage }) {
                     {(selectedPage === 'home') ?
                         <GoHomeFill className="nav-control-icon" /> :
                         <GoHome className="nav-control-icon" />}
-                    Home
+                     <div className='txt'>Home</div>
                 </div>
                 <div className={searchClassName} onClick={onClickSearch}>
                     {(selectedPage === 'search') ?
                         <BiSolidSearchAlt2 className="nav-control-icon" /> :
                         <BiSearchAlt2 className="nav-control-icon" />}
-                    Search
+                    <div className='txt'> Search </div>
                 </div>
 
             </div>

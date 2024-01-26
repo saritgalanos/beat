@@ -1,14 +1,20 @@
 .beat-nav {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:8px;
+    gap: 8px;
    
+
 }
 
 .main-nav-links {
-    color:$clr2;
+    color: $clr2;
     background-color: $clr3;
     border-radius: $border-radius;
     padding: 8px 12px;
-}
 
+    @media screen and (max-width: 768px) {
+        .txt {
+            display: none;
+        }
+    }
+}
