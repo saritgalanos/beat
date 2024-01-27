@@ -24,20 +24,22 @@ export function BeatFooter() {
             : <div className="pic" style={{ backgroundColor: activeSong.randomColor }}></div>;
     }
     return (
-        <div className="footer beat-footer">
-            
+        <div className="footer ">
+            <div className="beat-footer">
+
                 <section className="currently-playing-preview">
-                {(activeSong !== null) &&
-                    <div className='song-title'>
-                        {renderThumbnail}
-                        <div className="artist">{artist}</div>
-                        <div className="song-name">{songName}</div>
-                    </div>}
+                    {(activeSong !== null) &&
+                        <div className='song-title'>
+                            {renderThumbnail}
+                            <div className="artist">{artist}</div>
+                            <div className="song-name">{songName}</div>
+                        </div>}
                 </section>
 
-            <Player />
+                <Player />
 
-            <section className="toolbar"> toolbar </section>
+                <section className="toolbar"> toolbar </section>
+            </div>
         </div>
     )
 }

@@ -17,6 +17,7 @@
 
 
             .station-img {
+               // width:20%;
                 height: em(232px);
                 width: em(232px);
                 border-radius: 4px;
@@ -46,7 +47,7 @@
                 letter-spacing: -4px;
                 font-size: 7rem;
 
-                // Decrease font size every 150px
+                //Decrease font size every 150px
                 @include font-size-for-width(1500) {
                     font-size: 6rem;
                     letter-spacing: -3px;

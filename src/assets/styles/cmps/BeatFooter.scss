@@ -1,12 +1,8 @@
 .beat-footer {
-   // height: 80px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-left:18px;
-
-
-   
+    margin-left: 18px;
 }
 
 .currently-playing-preview {
@@ -33,6 +29,7 @@
         background-size: cover;
         border-radius: 5px;
     }
+
     .pic {
         grid-area: pic;
         background-color: aqua;

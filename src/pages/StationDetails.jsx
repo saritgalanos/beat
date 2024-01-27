@@ -135,70 +135,72 @@ export function StationDetails() {
 
   if (!station) return <div>Loading data</div>
   return (
-    <div className='station-details main'>
-      <BeatHeader isSearch={false} bgColor={bgColor} />
+    <div className='main'>
+      <div className='station-details'>
+        <BeatHeader isSearch={false} bgColor={bgColor} />
 
-      <div className="station-header" style={{ backgroundColor: bgColor }}>
-        <div className='station-pic'>
-          {station.createdBy.imgUrl
-            ? <img src={station.createdBy.imgUrl} className='station-img' />
-            : <RiMusic2Line className='station-no-img' />
-          }
-        </div>
+        <div className="station-header" style={{ backgroundColor: bgColor }}>
+          <div className='station-pic'>
+            {station.createdBy.imgUrl
+              ? <img src={station.createdBy.imgUrl} className='station-img' />
+              : <RiMusic2Line className='station-no-img' />
+            }
+          </div>
 
-        <div className="header-details">
-          <div className="font-normal">Playlist</div>
-          <div className='name no-wrap'>{station.name} </div>
-          <div className='details font-normal'>{station.createdBy.fullname}<RxDotFilled />
-            {station.likes}<RxDotFilled /> {station.songs.length} songs,
+          <div className="header-details">
+            <div className="font-normal">Playlist</div>
+            <div className='name no-wrap'>{station.name} </div>
+            <div className='details font-normal'>{station.createdBy.fullname}<RxDotFilled />
+              {station.likes}<RxDotFilled /> {station.songs.length} songs,
+            </div>
           </div>
         </div>
-      </div>
-      <div className="gradient-bg" style={gradientStyle}>
-        <div className="station-control" >
-          <IoPlaySharp className="play" />
-          <IoMdHeartEmpty className="like" />
-          <RiDeleteBin5Line className="more" onClick={onMoreActions} />
-          {/* <IoEllipsisHorizontalSharp className="more" /> */}
+        <div className="gradient-bg" style={gradientStyle}>
+          <div className="station-control" >
+            <IoPlaySharp className="play" />
+            <IoMdHeartEmpty className="like" />
+            <RiDeleteBin5Line className="more" onClick={onMoreActions} />
+            {/* <IoEllipsisHorizontalSharp className="more" /> */}
+          </div>
+
+
+          <div className="songs">
+            <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+          </div>
         </div>
 
+        <div className='songs-search'>
+          {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
+            <header>
+              <div className="search-header">
+                <div> Let's find something for your playlist </div>
+                <div className="search-area">
+                  <div className="container"><BiSearchAlt2 className="search-img"
+                    onClick={search}
+                  /> </div>
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search for songs"
+                    onKeyDown={handleKeyDown}
+                  />
+                </div>
+              </div>
+              <IoClose className="close" onClick={resetSearch} />
+            </header>}
 
-        <div className="songs">
-          <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+          {
+            songsFromSearch !== null && (
+              songsFromSearch.length === 0
+                ? <div className="empty-space"></div>
+                : <div className="songs">
+                  <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                </div>
+            )
+          }
+
         </div>
-      </div>
-
-      <div className='songs-search'>
-        {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
-          <header>
-            <div className="search-header">
-              <div> Let's find something for your playlist </div>
-              <div className="search-area">
-                <div className="container"><BiSearchAlt2 className="search-img"
-                  onClick={search}
-                /> </div>
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search for songs"
-                  onKeyDown={handleKeyDown}
-                />
-              </div>
-            </div>
-            <IoClose className="close" onClick={resetSearch} />
-          </header>}
-
-        {
-          songsFromSearch !== null && (
-            songsFromSearch.length === 0
-              ? <div className="empty-space"></div>
-              : <div className="songs">
-                <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
-              </div>
-          )
-        }
-
       </div>
     </div>
   )

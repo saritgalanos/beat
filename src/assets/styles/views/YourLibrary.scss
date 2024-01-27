@@ -5,10 +5,14 @@
     padding: 8px 12px 0px 12px;
 
     @media screen and (max-width: 768px) {
+        height: calc(100vh - 205px);
         padding: 3px;
     }
 
-    height: calc(100vh - 100px);
+    height: calc(100vh - 225px);
+    
+   
+
 
     overflow: auto; // Enables scrolling on these elements
 

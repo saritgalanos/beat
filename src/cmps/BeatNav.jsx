@@ -23,23 +23,26 @@ export function BeatNav({ selectedPage, setPage }) {
     const homeClassName = (selectedPage === 'home') ? "nav-control-item selected" : "nav-control-item"
     const searchClassName = (selectedPage === 'search') ? "nav-control-item selected" : "nav-control-item"
     return (
-        <div className="nav beat-nav">
-            <div className="main-nav-links">
-                <div className={homeClassName} onClick={onClickHome}>
-                    {(selectedPage === 'home') ?
-                        <GoHomeFill className="nav-control-icon" /> :
-                        <GoHome className="nav-control-icon" />}
-                     <div className='txt'>Home</div>
-                </div>
-                <div className={searchClassName} onClick={onClickSearch}>
-                    {(selectedPage === 'search') ?
-                        <BiSolidSearchAlt2 className="nav-control-icon" /> :
-                        <BiSearchAlt2 className="nav-control-icon" />}
-                    <div className='txt'> Search </div>
-                </div>
+        <div className='nav'>
+            <div className="beat-nav">
+                <div className="main-nav-links">
+                    <div className={homeClassName} onClick={onClickHome}>
+                        {(selectedPage === 'home') ?
+                            <GoHomeFill className="nav-control-icon" /> :
+                            <GoHome className="nav-control-icon" />}
+                        <div className='txt'>Home</div>
+                    </div>
+                    <div className={searchClassName} onClick={onClickSearch}>
+                        {(selectedPage === 'search') ?
+                            <BiSolidSearchAlt2 className="nav-control-icon" /> :
+                            <BiSearchAlt2 className="nav-control-icon" />}
+                        <div className='txt'> Search </div>
+                    </div>
 
+                </div>
+                <YourLibrary />
             </div>
-            <YourLibrary />
+
         </div>
     )
 }
