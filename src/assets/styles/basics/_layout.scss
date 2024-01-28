@@ -2,10 +2,10 @@
     display: grid;
     height: 100vh;
     width: 100vw;
-    //min-width: $mobile-breakpoint;
     background-color: black;
     gap: 8px;
     padding: 12px;
+    min-width: $mobile-breakpoint;
 
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 80px;
@@ -15,7 +15,6 @@
 
 
     .main {
-
         position: relative;
         height: calc(100vh - 105px);
         grid-area: main;
@@ -55,7 +54,8 @@
 
     }
 
-    .nav, .footer {
+    .nav,
+    .footer {
         display: none;
     }
 
@@ -70,7 +70,8 @@
         display: block; // Show Mobile Nav on mobile
     }
 
-     @media (min-width: 600px) and (max-width: 767px) {
+    //--------------------------------------------------------------------
+    @media (min-width: $narrow-breakpoint) {
         grid-template-columns: 80px 1fr;
         grid-template-rows: 1fr 80px;
         grid-template-areas:
@@ -100,7 +101,9 @@
 
     }
 
-    @media (min-width: 768px) {
+    //-------------------------------------------------------------------------
+
+    @media (min-width: $normal-breakpoint) {
         grid-template-columns: minmax(300px, 0.3fr) 1fr;
         grid-template-areas: "nav main"
             "footer footer";
@@ -128,29 +131,5 @@
         }
     }
 
-    @media (min-width: 1024px) {
-        grid-template-columns: minmax(300px, 0.28fr) 1fr;
-        grid-template-areas: "nav main"
-            "footer footer";
-
-        .mobile-nav {
-            display: none; // Hide Mobile Nav on larger screens
-        }
-
-        .nav {
-            display: block; // Show Regular Nav on larger screens
-            grid-area: nav;
-        }
-
-        .footer {
-            display: block; // Show Footer on larger screens
-            grid-area: footer;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            padding: 10px 0;
-        }
-    }
 
 }
