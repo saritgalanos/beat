@@ -10,7 +10,7 @@ export function HomePage() {
 
     return (
         <div className='home-page main'>
-            <BeatHeader isSearch={false} />
+            <BeatHeader isSearch={false} className="dynamic-display"/>
             <div className="main-content">
                 <h1> Good Evening </h1>
             </div>

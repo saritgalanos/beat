@@ -27,6 +27,7 @@ export function BeatHeader({ isSearch, search , bgColor=null }) {
 
 
     return (
+        <div className="dynamic-display">
         <div className="beat-header" style={{ backgroundColor: bgColor }}>
             <div className="page-control" >
                 <MdNavigateBefore className='page-control-img' />
@@ -63,6 +64,7 @@ export function BeatHeader({ isSearch, search , bgColor=null }) {
             </div>
 
 
+        </div>
         </div>
     )
 }

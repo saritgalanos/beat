@@ -41,3 +41,26 @@
 .portrait-ratio {
     @include aspect-ratio(9, 16);
 }
+
+
+/*don't display on mobile view*/
+.dynamic-display{
+    display: none;
+    @media (min-width: $narrow-breakpoint) {
+        display: block;
+    }
+}
+
+.mobile-display {
+    display: block;
+    @media (min-width: $narrow-breakpoint) {
+        display: none;
+    }
+}
+
+.normal-display {
+    display: none;
+    @media (min-width: $narrow-breakpoint) {
+        display: block;
+    }
+}

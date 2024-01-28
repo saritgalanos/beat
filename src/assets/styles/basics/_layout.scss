@@ -8,7 +8,7 @@
     min-width: $mobile-breakpoint;
 
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 80px;
+    grid-template-rows: 1fr 50px;
     grid-template-areas:
         "main"
         "mobileNav";
@@ -16,42 +16,16 @@
 
     .main {
         position: relative;
-        height: calc(100vh - 105px);
+        height: calc(100vh - 76px);
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
         border-radius: $border-radius;
-
-
-        overflow-y: auto;
-        /* Enable vertical scrolling */
-
         box-sizing: border-box;
-        /* Include padding in the element's total width and height */
+        overflow: hidden;
+        @include add-scroll-bar(0);
 
-
-        /* For Webkit browsers (Chrome, Safari) */
-        &::-webkit-scrollbar {
-            width: 12px;
-            position: absolute;
-            right: 0;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba(200, 200, 200, 0.8);
-            /* Lighter scrollbar thumb */
-            border-radius: 0 4px 0 0;
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(180, 180, 180, 0.9);
-        }
-
-        /* For Firefox */
-        scrollbar-width: thin;
-        scrollbar-color: rgba(200, 200, 200, 0.8) transparent;
-
-
+      
     }
 
     .nav,
@@ -86,8 +60,14 @@
         .nav {
             display: block; // Show Regular Nav on larger screens
             grid-area: nav;
+           
         }
 
+        .main {
+            height: calc(100vh - 105px);
+            @include add-scroll-bar;
+          
+        }
 
         .footer {
             display: block; // Show Footer on larger screens
@@ -104,8 +84,10 @@
     //-------------------------------------------------------------------------
 
     @media (min-width: $normal-breakpoint) {
-        grid-template-columns: minmax(300px, 0.3fr) 1fr;
-        grid-template-areas: "nav main"
+        grid-template-columns: minmax(300px, 0.25fr) 1fr;
+        grid-template-rows: 1fr 80px;
+        grid-template-areas:
+            "nav main"
             "footer footer";
 
 
@@ -115,7 +97,7 @@
 
         .nav {
             display: block; // Show Regular Nav on larger screens
-            grid-area: nav;
+            grid-area: nav;            
         }
 
 

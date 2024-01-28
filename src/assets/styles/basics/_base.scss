@@ -12,6 +12,7 @@ html {
     font-size:1rem;
     line-height: normal;
     color: $clr2;
+    margin-left:-5px;  /*temp need to check this one*/
 
 }
 
@@ -20,6 +21,7 @@ body {
     font-size:1rem;
     min-height: 100vh;
     margin: 0;
+    padding: 0;
     overflow: hidden; 
 
 }
@@ -55,3 +57,5 @@ ul {
 li {
     list-style-type: none;
 }
+
+

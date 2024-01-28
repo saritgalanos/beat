@@ -1,7 +1,50 @@
 .search-page {
     position: relative;
+    padding: em(15px) em(15px);
+
+    .search-header {
+        h1 {
+            margin: 32px 0 16px 0;
+        }
+
+        .search-area {
+            position: relative;
+            display: flex;
+            align-content: flex-start;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+
+            .search-img {
+                //box-sizing:border-box;
+                overflow-x: hidden;
+                overflow-y: hidden;
+                position: absolute;
+                height: 16px;
+                color: black;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%)
+            }
+
+
+            input {
+                width: 100%;
+                padding: 8px 40px;
+                border-radius: 4px;
+                border-style: none;
+                box-sizing: border-box;
+                font-size: 1rem;
+                font-family: CircularSP;
+                font-weight: 400;
+
+            }
+
+
+        }
+    }
 
     .main-content {
-        padding: em(15px) em(15px);
+        //padding: em(15px) em(15px);
     }
 }

@@ -3,10 +3,32 @@
         display: none;
     }
 
-    .search-row {
+    .playlist-row {
         padding: 7px 6px;
         display: grid;
-        grid-template-columns: 30px 1fr 0.2fr 40px;
+        grid-template-columns: 1fr  40px;
+        
+        @media (min-width: $narrow-breakpoint) {
+            grid-template-columns: 30px 1fr 0.2fr 40px;
+        }
+        align-items: center;
+        gap: 12px;
+
+        &:hover {
+            background-color: rgba(58, 56, 56, 0.5);
+            border-radius: 4px;
+        }
+        .img-more{
+            width: 20px;
+            height: 20px;
+        }
+
+    }
+
+    .song-from-search {
+        padding: 7px 8px;
+        display: grid;
+        grid-template-columns: 1fr 0.2fr;
         align-items: center;
         gap: 12px;
 
@@ -58,6 +80,7 @@
         color: $clr1;
         letter-spacing: 0.5px;
         margin: 0 12px;
+        @include limit-text-to-width;
     }
 
     .song-name {
@@ -66,6 +89,7 @@
         font-size: 0.96rem;
         font-weight: 300;
         margin: 0 12px;
+        @include limit-text-to-width;
 
         &.currently-playing {
             color: $clr8;

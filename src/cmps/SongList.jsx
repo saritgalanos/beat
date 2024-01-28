@@ -5,6 +5,7 @@ export function SongList({ songs, includeTitles, isPlaylist, onAddSong, onDelete
   if (!songs || songs.length == 0) return <></>
   return (
     <div className = "song-list">
+    <div className = "dynamic-display">
     {includeTitles &&
       <div className="table-header font-normal">
         <div>#</div>
@@ -13,6 +14,7 @@ export function SongList({ songs, includeTitles, isPlaylist, onAddSong, onDelete
         <div></div>
 
       </div>}
+      </div>
     
     <ul className="font-normal">
       {(songs).map((song, index) => (

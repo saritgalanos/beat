@@ -20,7 +20,7 @@ export function StationDetails() {
 
   const [station, setStation] = useState(null)
   const [songsFromSearch, setSongsFromSearch] = useState(null)
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('')
   const [isOpenSearch, setOpenSearch] = useState(false)
   const [bgColor, setBgColor] = useState(BEAT_BG)
 
@@ -169,37 +169,38 @@ export function StationDetails() {
           </div>
         </div>
 
-        <div className='songs-search'>
-          {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
-            <header>
-              <div className="search-header">
-                <div> Let's find something for your playlist </div>
-                <div className="search-area">
-                  <div className="container"><BiSearchAlt2 className="search-img"
-                    onClick={search}
-                  /> </div>
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search for songs"
-                    onKeyDown={handleKeyDown}
-                  />
+        <div className="dynamic-display">
+          <div className='songs-search'>
+            {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
+              <header>
+                <div className="search-header">
+                  <div> Let's find something for your playlist </div>
+                  <div className="search-area">
+                    <div className="container"><BiSearchAlt2 className="search-img"
+                      onClick={search}
+                    /> </div>
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search for songs"
+                      onKeyDown={handleKeyDown}
+                    />
+                  </div>
                 </div>
-              </div>
-              <IoClose className="close" onClick={resetSearch} />
-            </header>}
+                <IoClose className="close" onClick={resetSearch} />
+              </header>}
 
-          {
-            songsFromSearch !== null && (
-              songsFromSearch.length === 0
-                ? <div className="empty-space"></div>
-                : <div className="songs">
-                  <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
-                </div>
-            )
-          }
-
+            {
+              songsFromSearch !== null && (
+                songsFromSearch.length === 0
+                  ? <div className="empty-space"></div>
+                  : <div className="songs">
+                    <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                  </div>
+              )
+            }
+          </div>
         </div>
       </div>
     </div>

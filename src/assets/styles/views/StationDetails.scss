@@ -6,28 +6,57 @@
 
     .station-header {
         display: flex;
-        padding: em(15px) em(25px) em(25px) em(25px);
+        padding: em(72px) em(16px) em(16px) em(16px);
+
+        @media (min-width: $narrow-breakpoint) {
+            padding: em(15px) em(25px) em(25px) em(25px);
+        }
+
         gap: 20px;
+        flex-direction: column;
+        align-items: left;
+
+        @media (min-width: $narrow-breakpoint) {
+            flex-direction: row;
+            align-items: center;
+        }
 
         .station-pic {
             display: flex;
-            align-items: center;
-            justify-content: left;
+            justify-content: center;
             border-radius: 5px;
+
+            @media (min-width: $narrow-breakpoint) {
+                justify-content: left;
+            }
 
 
             .station-img {
-               // width:20%;
-                height: em(232px);
-                width: em(232px);
+                width: 172px;
+
+                @media (min-width: $narrow-breakpoint) {
+                    width: 12vw;
+                    min-width: 140px;
+                }
+
                 border-radius: 4px;
             }
 
             .station-no-img {
                 box-sizing: border-box;
-                width: em(232px);
-                height: em(232px);
-                padding: em(80px);
+                width: em(172px);
+                height: em(172px);
+                padding: em(50px);
+               
+                @media (min-width: $narrow-breakpoint) {
+                    
+                    width: em(232px);
+                    height: em(232px);
+                    padding: em(70px);
+                }
+
+
+
                 background-color: $clr5;
                 color: $clr2;
                 border-radius: 4px;
@@ -44,50 +73,29 @@
 
             .name {
                 font-weight: 900;
-                letter-spacing: -4px;
-                font-size: 7rem;
+                letter-spacing: 0px;
+                font-size: 32px;
 
-                //Decrease font size every 150px
-                @include font-size-for-width(1500) {
-                    font-size: 6rem;
-                    letter-spacing: -3px;
+                @media (min-width: $narrow-breakpoint) {
+                    font-size: 52px;
                 }
 
-                @include font-size-for-width(1350) {
-                    font-size: 5rem;
-                    letter-spacing: -2px;
+                @media (min-width: $middle-breakpoint) {
+                    font-size: 58px;
                 }
 
-                @include font-size-for-width(1200) {
-                    font-size: 4rem;
-                    letter-spacing: -1px;
+                @media (min-width: $normal-breakpoint) {
+                    font-size: 62px;
                 }
 
-                @include font-size-for-width(1050) {
-                    font-size: 3rem;
+                @media (min-width: $wide-breakpoint) {
+                    font-size: 96px;
                 }
 
-                @include font-size-for-width(900) {
-                    font-size: 2rem;
-                }
+                @include limit-text-to-two-lines;
 
-                @include font-size-for-width(750) {
-                    font-size: 4rem;
-                }
 
-                @include font-size-for-width(600) {
-                    font-size: 3.5rem;
-                }
 
-                @include font-size-for-width(450) {
-                    font-size: 3rem;
-                }
-
-                @include font-size-for-width(300) {
-                    font-size: 2.5rem;
-                }
-
-                // Continue as needed
             }
 
         }
@@ -148,7 +156,7 @@
 
 
 .songs {
-    padding: 10px;
+    padding: 1px 25px 15px 25px;
     color: $clr9;
     font-weight: 300;
     font-size: 0.95rem;
@@ -189,7 +197,7 @@ header {
         gap: 8px;
         font-size: 1.4rem;
         font-weight: 700;
-        padding: 24px 24px 5px 24px;
+        padding: 24px 24px 5px 10px;
 
 
         .search-area {

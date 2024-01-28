@@ -15,7 +15,9 @@ $clr10:#ffffff1a;
 $mobile-breakpoint: 420px;
 //$narrow-breakpoint: 720px;
 $narrow-breakpoint: 600px;
-$normal-breakpoint: 860px;
+$middle-breakpoint: 700px;
+$normal-breakpoint: 820px;
+$wide-breakpoint: 1120px;
 
 // Define font sizes
 $font-small: 0.75rem;  // 12px
@@ -28,4 +30,7 @@ $font-weight-bold: 700;
 
 //other sizes
 $border-radius: 8px;
+
+
+$scrollbar-width: 13px;
 

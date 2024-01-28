@@ -3,71 +3,36 @@
     color: $clr2;
     border-radius: $border-radius;
 
-
-    height: calc(100vh - 225px);
+    height: calc(100vh - 205px);
     padding: 3px;
 
     @media (min-width: $normal-breakpoint) {
-        height: calc(100vh - 205px);
-        padding: 8px 12px 0px 12px;
+        height: calc(100vh - 226px);
+        padding: 8px 0px 0px 12px;
 
     }
-
-
-
-
-
-
-    overflow: auto; // Enables scrolling on these elements
-
-    // For Webkit browsers (Chrome, Safari)
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: darkgrey;
-        border-radius: 4px;
-    }
-
-    // For Firefox
-    scrollbar-width: thin;
-    scrollbar-color: darkgrey lightgrey;
-    // For IE and Edge
-    -ms-overflow-style: auto;
-
-    /*temp*/
 
     .lib-header {
-
-        .txt {
-            display: none;
-        }
-
-
+ 
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-        justify-content: space-between;
+        
 
+        padding:10px 30px 0 0;
 
-
+        
         justify-content: center;
-        padding-top:10px;
+        .txt { 
+            display: none;
+        }
 
         @media (min-width: $normal-breakpoint) {
+            justify-content: space-between;
             .txt {
                 display: block;
             }
-        }
-
-
-        ul {
-            padding: 0px;
-        }
-
-        li {
-            list-style-type: none;
+          
         }
 
 
@@ -99,17 +64,28 @@
 
     }
 
-    .stations {
-        display: grid;
-        //narrow
-        grid-template-columns: repeat(auto-fill, 70px);
+    .stations-area {
 
-        @media (min-width: $normal-breakpoint) {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        margin-bottom: 0;
+        padding-right: 12px;
+        height: calc(100vh - 273px);
+        border-bottom: 8px;
+        @include add-scroll-bar(6px);
+        @media (min-width:$normal-breakpoint) {
+            @include add-scroll-bar;
+
         }
 
+        .stations {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 65px);
+            max-height: 100%;
 
+            @media (min-width: $normal-breakpoint) {
+                grid-template-columns: repeat(auto-fill, minmax(105px, auto));
 
+            }
+        }
     }
 
 }

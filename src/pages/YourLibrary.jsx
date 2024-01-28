@@ -43,7 +43,8 @@ export function YourLibrary() {
                 </div>
             </div>
 
-            <ul className="stations">
+            <ul className="stations-area">
+                <div className="stations">
                 {stations.map(station =>
                     <li key={station._id}>
 
@@ -51,6 +52,7 @@ export function YourLibrary() {
 
                     </li>
                 )}
+                </div>
             </ul>
 
 
