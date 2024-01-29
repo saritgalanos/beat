@@ -3,10 +3,12 @@ export const TOGGLE_PLAY = 'TOGGLE_PLAY';
 export const STOP = 'STOP';
 
 // Action creator for setting the active song
-export function setActiveSong(song) {
+export function setActiveSong(song, fromStationId) {
+
     return {
         type: SET_ACTIVE_SONG,
-        payload: song
+        payload: song,
+        stationId: fromStationId
     }
 }
 // Action creator for toggling play/pause

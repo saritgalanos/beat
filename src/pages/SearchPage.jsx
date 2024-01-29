@@ -66,7 +66,7 @@ export function SearchPage() {
                 <div className="main-content">
                     {(songsFromSearch?.length > 0) && <h1 className="normal-display"> Songs </h1>}
                     <div>
-                        <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                        <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
                     </div>
                 </div>
             </div>

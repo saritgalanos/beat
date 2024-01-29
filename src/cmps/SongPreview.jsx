@@ -11,9 +11,10 @@ import { IoMdMore } from "react-icons/io"
 
 
 
-export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }) {
+export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
 
     const [songToPreview, setSongToPreview] = useState(song)
+    const [songFromStation, setSongFromStation] = useState(station)
 
     const [isMouseOn, setMouseOn] = useState(false)
     const playerRef = useRef(null)
@@ -31,7 +32,8 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
     }
 
     function onPlay() {
-        dispatch(setActiveSong(songToPreview));
+        const stationId = (songFromStation) ? songFromStation._id : null
+        dispatch(setActiveSong(songToPreview, stationId));
     }
 
     function onPause() {
@@ -48,6 +50,8 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
         onDeleteSong(songToPreview)
     }
 
+    
+ 
     const songDetails = songToPreview.title.split('-');
     const artist = songDetails[0];
     const songName = songDetails[1];
@@ -57,6 +61,7 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
         : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
     const currentlyPlaying = (isThisSongPlaying) ? 'currently-playing' : ''
+    
     return (
         <div className='song-preview'
             onMouseEnter={() => { setMouseOn(true) }}

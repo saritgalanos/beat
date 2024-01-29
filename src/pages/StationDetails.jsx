@@ -131,8 +131,6 @@ export function StationDetails() {
     background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG}`
   }
 
-
-
   if (!station) return <div>Loading data</div>
   return (
     <div className='main'>
@@ -155,6 +153,7 @@ export function StationDetails() {
             </div>
           </div>
         </div>
+
         <div className="gradient-bg" style={gradientStyle}>
           <div className="station-control" >
             <IoPlaySharp className="play" />
@@ -165,7 +164,8 @@ export function StationDetails() {
 
 
           <div className="songs">
-            <SongList songs={station.songs} includeTitles={true} isPlaylist={true} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+            <SongList songs={station.songs} station={station} includeTitles={true} isPlaylist={true}
+              onAddSong={onAddSong} onDeleteSong={onDeleteSong}  />
           </div>
         </div>
 
@@ -196,7 +196,7 @@ export function StationDetails() {
                 songsFromSearch.length === 0
                   ? <div className="empty-space"></div>
                   : <div className="songs">
-                    <SongList songs={songsFromSearch} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                    <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
                   </div>
               )
             }
