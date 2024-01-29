@@ -1,4 +1,4 @@
-import {LinearProgress } from "@mui/material"
+import { LinearProgress } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
 import { BiRepeat } from "react-icons/bi"
 import { FaCirclePause, FaCirclePlay } from "react-icons/fa6"
@@ -42,26 +42,27 @@ export function Player() {
     }
 
     return (
-     
-            <div className='player'>
-                <div className='controls'>
-                    <PiShuffleBold className="player-icon" />
-                    <IoPlaySkipBack className="player-icon" />
-                    <div onClick={toggleAudio}>
-                        {isPlaying ? <FaCirclePause className="play-icon" /> : <FaCirclePlay className="play-icon" />}
-                    </div>
-                    <IoPlaySkipForward className="player-icon" />
-                    <BiRepeat className="player-icon" />
+
+        <div className='player'>
+            <div className='controls'>
+                <PiShuffleBold className="player-icon" />
+                <IoPlaySkipBack className="player-icon" />
+                <div onClick={toggleAudio}>
+                    {isPlaying ? <FaCirclePause className="play-icon" /> : <FaCirclePlay className="play-icon" />}
                 </div>
-                <div className='details'>
-                    0.10 <LinearProgress variant="determinate" value={10} className="progress-bar" /> 3.05
-                </div>
-                {activeSong && (
-                    <div className="youtube">
-                        <YouTube videoId={activeSong.url} opts={opts} ref={playerRef} />
-                    </div>
-                )}
+                <IoPlaySkipForward className="player-icon" />
+                <BiRepeat className="player-icon" />
             </div>
-        )
-       
+            <div className='details'>
+                0.10 <LinearProgress variant="determinate" value={10} className="progress-bar"
+                /> 3.05
+            </div>
+            {activeSong && (
+                <div className="youtube">
+                    <YouTube videoId={activeSong.url} opts={opts} ref={playerRef} />
+                </div>
+            )}
+        </div>
+    )
+
 }

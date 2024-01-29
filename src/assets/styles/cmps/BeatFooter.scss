@@ -3,6 +3,7 @@
     justify-content: space-around;
     align-items: center;
     margin-left: 18px;
+    gap:20px;
 }
 
 .currently-playing-preview {
@@ -73,8 +74,17 @@
 }
 
 .toolbar {
-    width: 400px;
-    /*temp*/
+
     display: flex;
-    justify-content: center;
+    justify-content: right;
+    align-items: center;
+    min-width: 30vw;
+    padding-top:15px;
+   // width: 400px;
+    /*temp*/
+    // display: flex;
+    // justify-content: center;
+    // .volume-bar {
+       
+    // }
 }
