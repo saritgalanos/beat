@@ -13,7 +13,18 @@ export function SearchPage() {
 
     }, [])
 
-    async function search() {
+    function handleKeyDown(ev) {
+        if (ev.key === 'Enter') {
+            search(query)
+        }
+    }
+
+    function onSearch()
+    {
+        search(query)
+    }
+
+    async function search(query) {
         const songs = await youtubeService.search(query)
         setSongsFromSearch(songs)
     }
@@ -22,11 +33,7 @@ export function SearchPage() {
 
     }
 
-    function handleKeyDown(ev) {
-        if (ev.key === 'Enter') {
-            search()
-        }
-    }
+   
 
 
     return (
@@ -39,7 +46,7 @@ export function SearchPage() {
                         <h1> Search </h1>
                         <div className="search-area">
                             <div className="container"><FiSearch className="search-img"
-                                onClick={search}
+                                onClick={onSearch}
                             /> </div>
                             <input
                                 type="text"

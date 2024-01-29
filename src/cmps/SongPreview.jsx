@@ -26,8 +26,8 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
 
     //temp function
     function onPic() {
-       
-        (isActive && isPlaying) ? onPause(): onPlay() 
+
+        (isActive && isPlaying) ? onPause() : onPlay()
     }
 
     function onPlay() {
@@ -53,7 +53,7 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
     const songName = songDetails[1];
 
     const renderThumbnail = songToPreview.imgUrl
-        ? <div className="thumbnail" onClick={onPic}  style={{ backgroundImage: `url(${songToPreview.imgUrl})` }}></div>
+        ? <div className="thumbnail" onClick={onPic} style={{ backgroundImage: `url(${songToPreview.imgUrl})` }}></div>
         : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
     const currentlyPlaying = (isThisSongPlaying) ? 'currently-playing' : ''
@@ -89,12 +89,13 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
                     </div>
                     <div className="mobile-display">
                         < div className="playlist-row" >
+
                             <div className='song-title'>
                                 {renderThumbnail}
                                 <div className="artist">{artist}</div>
                                 <div className={`song-name ${currentlyPlaying}`}>{songName}</div>
                             </div>
-                            <IoMdMore className="img-more"/>
+                            <IoMdMore className="img-more" />
                         </div>
                     </div>
 
@@ -106,13 +107,17 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
             {!isPlaylist &&
                 <div className="song-from-search">
                     <div className='song-title'>
-                        {renderThumbnail}
+                        <div className="thumbnail-container">
+                            {renderThumbnail}
+                           <div className="dynamic-display"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
+                           <div className="dynamic-display">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
+                        </div>
                         <div className="artist">{artist}</div>
                         <div className={`song-name ${currentlyPlaying}`}>{songName}</div>
                     </div>
 
                     <button className="add dynamic-display" onClick={onAdd}>Add</button>
-                  <IoMdMore className=" img-more mobile-display" Click={onAdd}/>
+                    <IoMdMore className=" img-more mobile-display" Click={onAdd} />
                 </div>
             }
 

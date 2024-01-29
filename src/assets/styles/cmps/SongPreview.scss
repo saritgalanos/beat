@@ -42,6 +42,32 @@
             border-radius: 4px;
         }
 
+        .thumbnail-container {
+            position: relative;
+
+            .thumbnail {
+                @include hover-supported {
+                    filter: brightness(40%);
+                }
+            }
+
+            .display-on-thumbnail {
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 25px;
+                height: 25px;
+                color: $clr1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                //opacity: 1;
+                transition: opacity 0.3s ease;
+            }
+
+        }
+
     }
 
     .table-header {
