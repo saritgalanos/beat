@@ -51,7 +51,7 @@
                     padding: 3px;
                     margin: 0 4px;
 
-                    &:hover {
+                    @include hover-supported {
                         background-color: $clr5;
                         color: $clr1;
                         border-radius: 500px;

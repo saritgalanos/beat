@@ -111,7 +111,8 @@ export function SongPreview({ song, index, isPlaylist, onAddSong, onDeleteSong }
                         <div className={`song-name ${currentlyPlaying}`}>{songName}</div>
                     </div>
 
-                    <div><button className="add" onClick={onAdd}>Add</button></div>
+                    <button className="add dynamic-display" onClick={onAdd}>Add</button>
+                  <IoMdMore className=" img-more mobile-display" Click={onAdd}/>
                 </div>
             }
 

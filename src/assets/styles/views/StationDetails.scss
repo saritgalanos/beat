@@ -1,8 +1,10 @@
 .station-details {
     background-color: $clr3;
     border-radius: 0 0 $border-radius $border-radius;
-
-
+    padding: em(5px);
+    @media (min-width: $narrow-breakpoint) {
+        padding: 0px;
+    }
 
     .station-header {
         display: flex;
@@ -140,7 +142,7 @@
             width: 20px;
             color: $clr2;
 
-            &:hover {
+            @include hover-supported {
                 cursor: pointer;
             }
         }
@@ -156,7 +158,10 @@
 
 
 .songs {
-    padding: 1px 25px 15px 25px;
+    @media (min-width: $narrow-breakpoint) {
+        padding: 1px 25px 15px 25px;
+    }
+
     color: $clr9;
     font-weight: 300;
     font-size: 0.95rem;
@@ -237,7 +242,7 @@ header {
 
                     //background-color: $clr10;
 
-                    &:hover {
+                    @include hover-supported {
                         cursor: pointer;
                     }
                 }

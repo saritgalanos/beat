@@ -6,23 +6,28 @@
     .playlist-row {
         padding: 7px 6px;
         display: grid;
-        grid-template-columns: 1fr  40px;
-        
+        grid-template-columns: 1fr 40px;
+
         @media (min-width: $narrow-breakpoint) {
             grid-template-columns: 30px 1fr 0.2fr 40px;
         }
+
         align-items: center;
         gap: 12px;
 
-        &:hover {
+        @include hover-supported {
             background-color: rgba(58, 56, 56, 0.5);
             border-radius: 4px;
         }
-        .img-more{
-            width: 20px;
-            height: 20px;
-        }
 
+
+    }
+
+    .img-more {
+        width: 25px;
+        height: 25px;
+        justify-self: right;
+        cursor: pointer;
     }
 
     .song-from-search {
@@ -32,7 +37,7 @@
         align-items: center;
         gap: 12px;
 
-        &:hover {
+        @include hover-supported {
             background-color: rgba(58, 56, 56, 0.5);
             border-radius: 4px;
         }
@@ -105,14 +110,14 @@
         width: 60px;
         height: 30px;
 
-        &:hover {
+        @include hover-supported {
             cursor: pointer;
             border: 1.7px solid rgba(247, 245, 245, 0.9);
         }
     }
 
     .more-actions {
-        &:hover {
+        @include hover-supported {
             cursor: pointer;
         }
     }
