@@ -6,13 +6,12 @@ import { deepPurple } from '@mui/material/colors'
 import Avatar from '@mui/material/Avatar'
 
 
-export function BeatHeader({ isSearch, search , bgColor=null }) {
+export function BeatHeader({ isSearch, search, bgColor = null }) {
     const [query, setQuery] = useState('')
-    useEffect(() => {
-
-    }, [])
-
-     /*temp*/
+   
+    
+    
+    /*temp*/
     function handleSubmit(event) {
         event.preventDefault();
         search(query)
@@ -21,50 +20,50 @@ export function BeatHeader({ isSearch, search , bgColor=null }) {
 
     function handleKeyDown(ev) {
         if (ev.key === 'Enter') {
-          search(query)
+            search(query)
         }
-      }
+    }
 
-
+  
     return (
         <div className="dynamic-display">
-        <div className="beat-header" style={{ backgroundColor: bgColor }}>
-            <div className="page-control" >
-                <MdNavigateBefore className='page-control-img' />
-                <MdNavigateNext className='page-control-img' />
+            <div className="beat-header" style={{ backgroundColor: bgColor }}>
+                <div className="page-control" >
+                    <MdNavigateBefore className='page-control-img' />
+                    <MdNavigateNext className='page-control-img' />
+                </div>
+
+                <div className="search-area">
+
+                    {isSearch &&
+                        <form onSubmit={handleSubmit} className="search-form">
+                            <BiSearchAlt2 className='search-icon' />
+                            <label htmlFor="search">
+                                <input
+                                    id="search"
+                                    name="txt"
+                                    type="text"
+                                    placeholder={'What do you want to listen to?'}
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    onKeyDown={handleKeyDown} />
+                            </label>
+                        </form>
+                    }
+                </div>
+
+                <div className="avatar">
+                    <Tooltip title={
+                        <div>
+                            Sarit Galanos
+                        </div>
+                    }>
+                        <Avatar sx={{ bgcolor: deepPurple[500] }}>SG</Avatar>
+                    </Tooltip>
+                </div>
+
+
             </div>
-
-            <div className="search-area">
-
-                {isSearch &&
-                    <form onSubmit={handleSubmit} className="search-form">
-                        <BiSearchAlt2 className='search-icon' />
-                        <label htmlFor="search">
-                            <input 
-                            id="search" 
-                            name="txt" 
-                            type="text" 
-                            placeholder={'What do you want to listen to?'}
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            onKeyDown={handleKeyDown} />
-                        </label>
-                    </form>
-                }
-            </div>
-
-            <div className="avatar">
-                <Tooltip title={
-                    <div>
-                        Sarit Galanos
-                    </div>
-                }>
-                    <Avatar sx={{ bgcolor: deepPurple[500] }}>SG</Avatar>
-                </Tooltip>
-            </div>
-
-
-        </div>
         </div>
     )
 }

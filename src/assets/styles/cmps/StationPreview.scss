@@ -1,5 +1,6 @@
 .station-preview {
     height: auto;
+    position: relative;
    
     /* Remove fixed height */
     width: 100%;
@@ -19,10 +20,49 @@
     overflow: auto;
     transition: background-color 0.3s;
 
+    .play {
+        display: none;
+    }
+
+    .pause {
+        background-color: $clr8;
+        position: absolute;
+        top: 47%;
+        left: 62%;
+        transform: translate(-50%, -50%);
+        background-color: $clr8;
+        border-radius: 200px;
+        height: 50px;
+        width: 50px;
+        padding: 10px 10px 10px 10px;
+        color: black;
+        cursor: pointer;
+    }
     @include hover-supported {
         cursor: pointer;
         background-color: $clr6;
+        .play {
+            display: block;
+            background-color: $clr8;
+            position: absolute;
+            top: 47%;
+            left: 62%;
+            transform: translate(-50%, -50%);
+            background-color: $clr8;
+            border-radius: 200px;
+            height: 50px;
+            width: 50px;
+            padding: 10px 10px 10px 16px;
+            color: black;
+            cursor: pointer;
+           
+        }
+    
+    
+    
     }
+
+
 
     .station-info {
         display: flex;
@@ -68,10 +108,14 @@
 
                 .station-name {
                     color: $clr1;
+                    &.active-station {
+                        color: $clr8;
+                    }
                     @include limit-text-to-width;
                     font-weight: 500;
                     font-size: 1rem;
                 }
+                
 
                 .station-creator {
                     @include limit-text-to-width;

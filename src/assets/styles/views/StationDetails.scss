@@ -130,7 +130,15 @@
             color: black;
             cursor: pointer;
         }
-
+        .pause {
+            background-color: $clr8;
+            border-radius: 200px;
+            height: 60px;
+            width: 60px;
+            padding: 15px 15px 15px 15px;
+            color: black;
+            cursor: pointer;
+        }
         .like {
             height: 40px;
             width: 40px;

@@ -9,6 +9,10 @@ import { BeatMobileNav } from "../cmps/BeatMobileNav"
 
 
 export function BeatIndex() {
+  
+
+
+
 
     const [selectedPage, setSelectedPage] = useState('home')
 

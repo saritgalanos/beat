@@ -60,7 +60,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         ? <div className="thumbnail" onClick={onPic} style={{ backgroundImage: `url(${songToPreview.imgUrl})` }}></div>
         : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
-    const currentlyPlaying = (isThisSongPlaying) ? 'currently-playing' : ''
+    const isActiveClass = (isActive) ? 'active-song' : ''
     
     return (
         <div className='song-preview'
@@ -82,7 +82,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                             <div className='song-title'>
                                 {renderThumbnail}
                                 <div className="artist">{artist}</div>
-                                <div className={`song-name ${currentlyPlaying}`}>{songName}</div>
+                                <div className={`song-name ${isActiveClass}`}>{songName}</div>
                             </div>
 
                             <div>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
@@ -98,7 +98,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                             <div className='song-title'>
                                 {renderThumbnail}
                                 <div className="artist">{artist}</div>
-                                <div className={`song-name ${currentlyPlaying}`}>{songName}</div>
+                                <div className={`song-name ${isActiveClass}`}>{songName}</div>
                             </div>
                             <IoMdMore className="img-more" />
                         </div>
@@ -118,7 +118,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                            <div className="dynamic-display">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
                         </div>
                         <div className="artist">{artist}</div>
-                        <div className={`song-name ${currentlyPlaying}`}>{songName}</div>
+                        <div className={`song-name ${isActiveClass}`}>{songName}</div>
                     </div>
 
                     <button className="add dynamic-display" onClick={onAdd}>Add</button>

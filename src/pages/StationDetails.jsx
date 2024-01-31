@@ -5,13 +5,15 @@ import { useNavigate, useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { RxDotFilled } from "react-icons/rx"
 import { IoMdHeartEmpty } from "react-icons/io"
-import { IoEllipsisHorizontalSharp, IoPlaySharp, IoClose } from "react-icons/io5"
+import { IoEllipsisHorizontalSharp, IoPlaySharp, IoClose, IoPauseSharp } from "react-icons/io5"
 import { deleteStation, saveStation } from "../store/actions/station.actions"
 import { BiSearchAlt2 } from "react-icons/bi"
 import { SongList } from "../cmps/SongList"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
+import { useDispatch, useSelector } from "react-redux"
+import { setActiveSong, togglePlay } from "../store/actions/player.actions"
 
 const BEAT_BG = "#121212"
 
@@ -24,7 +26,10 @@ export function StationDetails() {
   const [isOpenSearch, setOpenSearch] = useState(false)
   const [bgColor, setBgColor] = useState(BEAT_BG)
 
-
+  const activeStationId = useSelector(state => state.playerModule.activeStationId)
+  const isPlaying = useSelector(state => state.playerModule.isPlaying)
+  const activeSong = useSelector(state => state.playerModule.activeSong)
+  const dispatch = useDispatch()
   const params = useParams()
   const navigate = useNavigate()
 
@@ -59,6 +64,20 @@ export function StationDetails() {
       console.log('error:', error)
     }
   }
+
+  function onPlay() {
+    //play the active if belongs to this station or the first song from this station
+    const songToPlay = (station._id === activeStationId) ? activeSong : ((station.songs.length > 0) ? station.songs[0] : null)
+    if (songToPlay != null) {
+      dispatch(setActiveSong(songToPlay, station._id));
+    }
+  }
+
+  function onPause() {
+    console.log('clicked')
+    dispatch(togglePlay())
+  }
+
 
 
   async function fetchColor() {
@@ -131,7 +150,10 @@ export function StationDetails() {
     background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG}`
   }
 
+
   if (!station) return <div>Loading data</div>
+  const isActiveStation = (station._id === activeStationId)
+  const stationPlaying = (isPlaying && isActiveStation)
   return (
     <div className='main'>
       <div className='station-details'>
@@ -156,7 +178,8 @@ export function StationDetails() {
 
         <div className="gradient-bg" style={gradientStyle}>
           <div className="station-control" >
-            <IoPlaySharp className="play" />
+            {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
+            {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
             <IoMdHeartEmpty className="like" />
             <RiDeleteBin5Line className="more" onClick={onMoreActions} />
             {/* <IoEllipsisHorizontalSharp className="more" /> */}
@@ -165,7 +188,7 @@ export function StationDetails() {
 
           <div className="songs">
             <SongList songs={station.songs} station={station} includeTitles={true} isPlaylist={true}
-              onAddSong={onAddSong} onDeleteSong={onDeleteSong}  />
+              onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
           </div>
         </div>
 

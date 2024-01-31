@@ -122,7 +122,7 @@
         margin: 0 12px;
         @include limit-text-to-width;
 
-        &.currently-playing {
+        &.active-song {
             color: $clr8;
         }
     }
