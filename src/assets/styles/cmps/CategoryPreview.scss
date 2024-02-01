@@ -1,0 +1,55 @@
+.category-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    height: 91px;
+    padding: 12px;
+
+    @media (min-width: $narrow-breakpoint) {
+        aspect-ratio: 1/1;
+        height: auto;
+        padding: 0;
+    }
+
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+
+    .name {
+        font-family: CircularSP, sans-serif;
+        color: $clr1;
+        font-size: 18px;
+        font-weight: 700;
+        padding-right:32px;
+        letter-spacing: 0.4px;
+
+        @media (min-width: $narrow-breakpoint) {
+            font-size: 24px;
+            padding: 16px;
+            font-weight: 900;
+            letter-spacing: 0;
+        }
+
+        word-break: break-all;
+    }
+
+    img {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transform: translate(35%, 0%) rotate(25deg);
+        height: 65px;
+        width: 65px;
+
+        @media (min-width: $narrow-breakpoint) {
+            transform: translate(20%, 10%) rotate(25deg);
+            height: 113px;
+            width: 113px;
+
+        }
+
+    }
+
+}

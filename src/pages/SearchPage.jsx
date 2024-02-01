@@ -4,14 +4,31 @@ import { youtubeService } from "../services/youtube.service"
 import { SongList } from "../cmps/SongList"
 import { BiSearchAlt2 } from "react-icons/bi"
 import { FiSearch } from "react-icons/fi";
+import { CategoryPreview } from "../cmps/CategoryPreview"
+import { spotifyService } from "../services/spotify.service"
+import {categoryService} from "../services/category.services"
 
 
 export function SearchPage() {
     const [query, setQuery] = useState('')
     const [songsFromSearch, setSongsFromSearch] = useState(null)
+    const [categories, setCategories] = useState(null)
     useEffect(() => {
-
+        const spotifyCategories = categoryService.getCategories()
+        setCategories(spotifyCategories)
     }, [])
+
+
+    // async function fetchCategories() {
+    //     try {
+    //         const spotifyCategories = await spotifyService.fetchSpotifyCategories()
+    //         setCategories(spotifyCategories)
+    //         console.log('spotifyCategories' + spotifyCategories.length)
+    //     }
+    //     catch (error) {
+    //         Console.log("fetchCategories: " + error)
+    //     }
+    // }
 
     function handleKeyDown(ev) {
         if (ev.key === 'Enter') {
@@ -19,8 +36,7 @@ export function SearchPage() {
         }
     }
 
-    function onSearch()
-    {
+    function onSearch() {
         search(query)
     }
 
@@ -33,7 +49,9 @@ export function SearchPage() {
 
     }
 
-   
+
+
+
 
 
     return (
@@ -69,6 +87,22 @@ export function SearchPage() {
                         <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
                     </div>
                 </div>
+
+                {categories && <ul className="categories-area">
+                Browse all
+                    <div className="categories">
+               
+                        {categories.map(category =>
+                            <li key={category.id}>
+
+                                <CategoryPreview category={category} />
+
+                            </li>
+                        )}
+                    </div>
+                </ul>}
+
+
             </div>
         </div>
 

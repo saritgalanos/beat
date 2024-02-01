@@ -9,8 +9,8 @@ export function HomePage() {
         
         // spotifyService.searchPlaylists()
         // spotifyService.fetchSpotifyFeaturedPlaylists()
-        // spotifyService.fetchSpotifyCategories()
-        spotifyService.fetchSpotifyCategoriesPlaylistsAndTracks()
+        spotifyService.fetchSpotifyCategories()
+        //spotifyService.fetchSpotifyCategoriesPlaylistsAndTracks()
 
     }, [])
 

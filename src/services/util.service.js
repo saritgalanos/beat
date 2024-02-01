@@ -11,6 +11,7 @@ export const utilService = {
     loadFromStorage,
     getDateToDisplay,
     getDominantColorFromImage,
+    getRandomColor,
     darkenColor
 
 }
@@ -111,6 +112,35 @@ function darkenColor(rgbString, darkenPercent=40) {
 }
 
 
+// function getRandomColor() {
+//     return '#' + Math.floor(Math.random()*16777215).toString(16);
+// }
+
+
+function getRandomColor() {
+    // Define color ranges for vibrant colors
+    const colors = {
+        red: { r: [150, 255], g: [0, 100], b: [0, 100] },
+        green: { r: [0, 100], g: [150, 255], b: [0, 100] },
+        blue: { r: [0, 100], g: [0, 100], b: [150, 255] },
+        orange: { r: [240, 255], g: [100, 160], b: [0, 60] },
+        purple: { r: [128, 192], g: [0, 80], b: [128, 192] },
+        gray: { r: [100, 180], g: [100, 180], b: [100, 180] },
+        pink: { r: [230, 255], g: [100, 180], b: [120, 190] }
+    }
+
+    // Pick a random color category
+    const colorKeys = Object.keys(colors);
+    const randomColorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+    const colorRange = colors[randomColorKey];
+
+    // Generate and return a random color from the chosen range
+    const r = Math.floor(Math.random() * (colorRange.r[1] - colorRange.r[0]) + colorRange.r[0]);
+    const g = Math.floor(Math.random() * (colorRange.g[1] - colorRange.g[0]) + colorRange.g[0]);
+    const b = Math.floor(Math.random() * (colorRange.b[1] - colorRange.b[0]) + colorRange.b[0]);
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
 //-----------------------------------------------------------------
 
 

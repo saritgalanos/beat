@@ -7,6 +7,7 @@ export const spotifyService = {
     logout,
     fetchSpotifyFeaturedPlaylists,
     fetchSpotifyCategories,
+    fetchCategoryDetails,
     fetchSpotifyCategoriesPlaylistsAndTracks
 
 }
@@ -109,72 +110,35 @@ async function fetchSpotifyFeaturedPlaylists() {
         console.error('Error fetching featured playlists:', error);
     }
 }
+fetchSpotifyCategories() 
 
-
-async function fetchSpotifyCategories () {
+async function fetchSpotifyCategories() {
     const accessToken = getSpotifyToken()
-    const url = 'https://api.spotify.com/v1/browse/categories';
+    const url = 'https://api.spotify.com/v1/browse/categories?limit=50'
 
     try {
         const response = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + accessToken
             }
-        });
+        })
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        const categoriesData  = await response.json();
+        const categoriesData = await response.json();
         console.log("=================fetchSpotifyCategories====================")
         // Extracting and displaying details of each category
-        // categoriesData .categories.items.forEach(category => {
-        //     console.log('Category ID:', category.id);
-        //     console.log('Category Name:', category.name);
-        //     console.log('Category URL:', category.href);
-        //     console.log('Category Icon URL:', category.icons[0].url);
-        //     console.log('----------------------');
-        // });
-
-        for (const category of categoriesData.categories.items) {
+       /* categoriesData.categories.items.forEach(category => {
             console.log('Category ID:', category.id);
             console.log('Category Name:', category.name);
             console.log('Category URL:', category.href);
             console.log('Category Icon URL:', category.icons[0].url);
-
-            // Fetching playlists for each category
-            const playlistsUrl = `https://api.spotify.com/v1/browse/categories/${category.id}/playlists`;
-            const playlistsResponse = await fetch(playlistsUrl, {
-                headers: { 'Authorization': 'Bearer ' + accessToken }
-            });
-
-            if (!playlistsResponse.ok) {
-                throw new Error(`HTTP error! status: ${playlistsResponse.status}`);
-            }
-
-            const playlistsData = await playlistsResponse.json();
-            console.log('Playlists in this category:');
-            playlistsData.playlists.items.forEach(playlist => {
-                console.log(' - ', playlist.name);
-                console.log(playlist)
-                
-               
-            }
-
-
-
-
-
-
-            )
             console.log('----------------------');
-        }
-
-
-
-
-        return data.categories.items;
+        })*/
+console.log ( categoriesData.categories.items)
+        return categoriesData.categories.items;
     } catch (error) {
         console.error('Error fetching Spotify categories:', error);
     }
@@ -188,21 +152,21 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function _fetchSpotifyCategories (accessToken)  {
+async function _fetchSpotifyCategories(accessToken) {
     const url = 'https://api.spotify.com/v1/browse/categories'
     const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
     return response.json()
 }
 
-async function  _fetchPlaylistsForCategory (categoryId, accessToken)  {
+async function _fetchPlaylistsForCategory(categoryId, accessToken) {
     const url = `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`
     const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
     return response.json()
 }
 
-async function  _fetchTracksForPlaylist (playlistId, accessToken)  {
+async function _fetchTracksForPlaylist(playlistId, accessToken) {
     const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
     const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
@@ -210,7 +174,7 @@ async function  _fetchTracksForPlaylist (playlistId, accessToken)  {
 }
 
 
-async function  fetchSpotifyCategoriesPlaylistsAndTracks() {
+async function fetchSpotifyCategoriesPlaylistsAndTracks() {
     const accessToken = getSpotifyToken()
 
     try {
@@ -240,3 +204,23 @@ async function  fetchSpotifyCategoriesPlaylistsAndTracks() {
 }
 
 
+async function fetchCategoryDetails(categoryId) {
+    const url = `https://api.spotify.com/v1/browse/categories/${categoryId}`;
+    const accessToken = getSpotifyToken()
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching category details:', error);
+    }
+}

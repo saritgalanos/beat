@@ -1,6 +1,7 @@
 .search-page {
     position: relative;
     padding: em(16px);
+
     @media (min-width: $narrow-breakpoint) {
         padding: em(15px) em(15px);
     }
@@ -46,7 +47,35 @@
         }
     }
 
-    .main-content {
-        //padding: em(15px) em(15px);
+    .categories-area {
+        font-size: 1.5rem;
+        font-weight: 700;
+
+        .categories {
+            padding-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-height: 100%;
+            gap: 20px;
+
+            @media (min-width: $narrow-breakpoint) {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+
+            }
+
+            @media (min-width: $middle-breakpoint) {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+
+
+            }
+
+
+            @media (min-width: $normal-breakpoint) {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
+            }
+        }
+
     }
 }
