@@ -2,14 +2,14 @@
 $clr1: #ffffff;
 $clr2: #B3B3B3B3;
 $clr3: #121212;
-$clr4: rgba(0,0,0,.7);
+$clr4: rgba(0, 0, 0, .7);
 $clr5: #242424;
-$clr6:#6a6a6a;
+$clr6: #6a6a6a;
 $clr6: #1a1a1a;
 $clr7: #2a2a2a;
-$clr8:#1ed760;
-$clr9:#a7a7a7;
-$clr10:#ffffff1a;
+$clr8: #1ed760;
+$clr9: #a7a7a7;
+$clr10: #ffffff1a;
 
 // Breakpoints
 $mobile-breakpoint: 420px;
@@ -20,9 +20,9 @@ $normal-breakpoint: 820px;
 $wide-breakpoint: 1120px;
 
 // Define font sizes
-$font-small: 0.75rem;  // 12px
-$font-medium: 1rem;    // 16px
-$font-large: 1.5rem;   // 24px
+$font-small: 0.75rem; // 12px
+$font-medium: 1rem; // 16px
+$font-large: 1.5rem; // 24px
 
 // Define font weights
 $font-weight-normal: 400;
@@ -33,4 +33,3 @@ $border-radius: 8px;
 
 
 $scrollbar-width: 13px;
-

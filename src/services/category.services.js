@@ -13,7 +13,7 @@ const categories = [
     { id: '0JQ5DAqbMKFA6SOHvT3gck', color: '#5b96c9', name: 'Party', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafcbf80f8ea695536eace4fd2c' },
     { id: '0JQ5DAudkNjCgYMM0TZXDw', color: '#9374b3', name: 'Charts', imgUrl: 'https://charts-images.scdn.co/assets/locale_en/regional/weekly/region_global_default.jpg' },
     { id: '0JQ5DAqbMKFIRybaNTYXXy', color: '#433ae0', name: 'In the car', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf341265d27be641506e56c346' },
-    { id: '0JQ5DAqbMKFHOzuVTgTizF', color: '#f54414', name: 'Dance Electronic', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf9ed6e364e8839210dc4dbff7' },
+    { id: '0JQ5DAqbMKFHOzuVTgTizF', color: '#f54414', name: 'Dance Electronic', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafdfdaac1cf9574a196ca25196' },
     { id: '0JQ5DAqbMKFAXlCG6QvYQ4', color: '#96918f', name: 'Workout', imgUrl: 'https://i.scdn.co/image/ab67706f000000029249b35f23fb596b6f006a15' },
     { id: '0JQ5DAqbMKFPw634sFwguI', color: '#1f6640', name: 'EQUAL', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf9ed6e364e8839210dc4dbff7' },
     { id: '0JQ5DAtOnAEpjOgUKwXyxj', color: '#9374b3', name: 'Discover', imgUrl: 'https://t.scdn.co/images/d0fb2ab104dc4846bdc56d72b0b0d785.jpeg' },

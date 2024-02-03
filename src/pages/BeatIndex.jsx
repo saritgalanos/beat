@@ -5,6 +5,8 @@ import { BeatFooter } from "../cmps/BeatFooter"
 import { BeatHeader } from "../cmps/BeatHeader"
 import { HomePage } from "./HomePage"
 import { BeatMobileNav } from "../cmps/BeatMobileNav"
+import { LuGhost } from "react-icons/lu"
+import { CleanHands } from "@mui/icons-material"
 
 
 
@@ -15,6 +17,8 @@ export function BeatIndex() {
 
 
     const [selectedPage, setSelectedPage] = useState('home')
+    const [isWide, setIsWide] = useState(false)
+   
 
     useEffect(() => {
 
@@ -24,10 +28,15 @@ export function BeatIndex() {
         setSelectedPage(page)
     }
 
-
+    function onNavWidth() {
+        console.log("got it")
+        setIsWide(!isWide)
+    }
+    
+    const wideClassName = (isWide) ? "wide-library" : ""
     return (
-        <div className="main-container">
-            <BeatNav selectedPage={selectedPage} setPage={setPage} />
+        <div className={`main-container  ${wideClassName}`}>
+            <BeatNav selectedPage={selectedPage} setPage={setPage} onNavWidth={onNavWidth} isWide={isWide}/>
             <BeatMobileNav selectedPage={selectedPage} setPage={setPage} />
             <div>
                 <Outlet />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { IoAdd, IoLibraryOutline, IoArrowForwardOutline } from "react-icons/io5"
+import { IoAdd, IoLibraryOutline, IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5"
 import { stationService } from "../services/station.service"
 import { StationPreview } from "../cmps/StationPreview"
 import { utilService } from "../services/util.service"
@@ -9,9 +9,10 @@ import { useNavigate } from "react-router"
 
 
 
-export function YourLibrary() {
+export function YourLibrary({ onNavWidth, isWide }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
-    
+
+
     const navigate = useNavigate()
     useEffect(() => {
         loadStations()
@@ -40,19 +41,20 @@ export function YourLibrary() {
                 </div>
                 <div className='controls'>
                     <IoAdd className='add-icon' onClick={onAddNewStation} />
-                    <IoArrowForwardOutline className='add-icon' />
+                    {(!isWide) ? <IoArrowForwardOutline className='add-icon' onClick={onNavWidth} /> :
+                        <IoArrowBackOutline className='add-icon' onClick={onNavWidth} />}
                 </div>
             </div>
 
             <ul className="stations-area">
                 <div className="stations">
-                {stations.map(station =>
-                    <li key={station._id}>
+                    {stations.map(station =>
+                        <li key={station._id}>
 
-                        <StationPreview station={station} />
+                            <StationPreview station={station} />
 
-                    </li>
-                )}
+                        </li>
+                    )}
                 </div>
             </ul>
 

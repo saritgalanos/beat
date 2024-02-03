@@ -6,7 +6,7 @@ import { BiSearchAlt2 } from "react-icons/bi"
 import { FiSearch } from "react-icons/fi";
 import { CategoryPreview } from "../cmps/CategoryPreview"
 import { spotifyService } from "../services/spotify.service"
-import {categoryService} from "../services/category.services"
+import { categoryService } from "../services/category.services"
 
 
 export function SearchPage() {
@@ -58,7 +58,6 @@ export function SearchPage() {
         <div className="main">
             <div className='search-page'>
                 <BeatHeader isSearch={true} search={search} />
-
                 <div className="mobile-display">
                     <div className="search-header">
                         <h1> Search </h1>
@@ -81,7 +80,7 @@ export function SearchPage() {
 
 
 
-                <div className="main-content">
+                <div className="songs-from-search">
                     {(songsFromSearch?.length > 0) && <h1 className="normal-display"> Songs </h1>}
                     <div>
                         <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
@@ -89,9 +88,9 @@ export function SearchPage() {
                 </div>
 
                 {categories && <ul className="categories-area">
-                Browse all
+                    Browse all
                     <div className="categories">
-               
+
                         {categories.map(category =>
                             <li key={category.id}>
 

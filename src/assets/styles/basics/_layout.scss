@@ -6,7 +6,7 @@
     gap: 8px;
     padding: 0px;
     @media (min-width: $narrow-breakpoint) {
-        padding: 12px;
+        padding: 12px 3px 12px 3px;
     }
 
     min-width: $mobile-breakpoint;
@@ -26,7 +26,7 @@
         background-color: $clr3;
         
         box-sizing: border-box;
-        overflow: hidden;
+      //  overflow: hidden;
         @include add-scroll-bar(0);
 
       
@@ -64,7 +64,7 @@
         .nav {
             display: block; // Show Regular Nav on larger screens
             grid-area: nav;
-           
+            
         }
 
         .main {
@@ -89,7 +89,10 @@
     //-------------------------------------------------------------------------
 
     @media (min-width: $normal-breakpoint) {
-        grid-template-columns: minmax(300px, 0.25fr) 1fr;
+        grid-template-columns: minmax(300px, 0.30fr) 1fr;
+        &.wide-library {
+            grid-template-columns: minmax(300px, 0.50fr) 1fr;
+        }
         grid-template-rows: 1fr 80px;
         grid-template-areas:
             "nav main"

@@ -3,7 +3,8 @@
     padding: em(16px);
 
     @media (min-width: $narrow-breakpoint) {
-        padding: em(15px) em(15px);
+       // padding: em(15px) em(15px);
+       padding:0px;
     }
 
     .search-header {
@@ -47,7 +48,15 @@
         }
     }
 
+    .songs-from-search {
+        @media (min-width: $narrow-breakpoint) {
+            padding: em(16px) em(16px);
+         }
+    }
     .categories-area {
+        @media (min-width: $narrow-breakpoint) {
+            padding: em(16px) em(16px);
+         }
         font-size: 1.5rem;
         font-weight: 700;
 

@@ -4,7 +4,7 @@ import { BiSolidSearchAlt2, BiSearchAlt2 } from "react-icons/bi"
 import { YourLibrary } from "../pages/YourLibrary"
 import { useNavigate } from "react-router"
 
-export function BeatNav({ selectedPage, setPage }) {
+export function BeatNav({ selectedPage, setPage, onNavWidth, isWide }) {
     const navigate = useNavigate()
     useEffect(() => {
 
@@ -40,7 +40,7 @@ export function BeatNav({ selectedPage, setPage }) {
                     </div>
 
                 </div>
-                <YourLibrary />
+                <YourLibrary onNavWidth={onNavWidth} isWide={isWide} />
             </div>
 
         </div>
