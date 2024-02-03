@@ -9,7 +9,7 @@
 
     aspect-ratio: 1/1; //narrow
 
-    @media (min-width: $normal-breakpoint) {
+    @include for-normal-layout  {
         aspect-ratio: 141/198;
     }
 
@@ -101,7 +101,7 @@
         .station-txt {
             display: none;
 
-            @media (min-width: $normal-breakpoint) {
+            @include for-normal-layout  {
                 display: flex;
                 flex-direction: column;
                 gap: 2px;

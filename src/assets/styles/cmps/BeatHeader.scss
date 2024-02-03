@@ -1,7 +1,7 @@
 .beat-header {
     display: none;
 
-    @media (min-width: $narrow-breakpoint) {
+    @include for-narrow-layout {
 
         position: sticky;
         top: 0;
@@ -56,7 +56,6 @@
                 border-style: none;
                 box-sizing: border-box;
                 font-size: 0.9rem;
-                font-family: CircularSP, sans-serif;
                 background-color: $clr5;
                 color: $clr1;
                 font-weight: 400;
@@ -67,12 +66,27 @@
                 }
             }
 
+            .close {
+                overflow-x: hidden;
+                overflow-y: hidden;
+                position: absolute;
+                //height: 40px;
+                color: $clr1;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+
+            }
+
+
         }
 
 
 
         .avatar {
             margin-left: auto;
+            margin-right: 12px;
 
             .avatar-circle {
                 height: 32px;

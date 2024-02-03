@@ -2,7 +2,7 @@
     position: relative;
     padding: em(16px);
 
-    @media (min-width: $narrow-breakpoint) {
+    @include for-narrow-layout {
        // padding: em(15px) em(15px);
        padding:0px;
     }
@@ -39,7 +39,6 @@
                 border-style: none;
                 box-sizing: border-box;
                 font-size: 1rem;
-                font-family: CircularSP, sans-serif;
                 font-weight: 400;
 
             }
@@ -49,12 +48,12 @@
     }
 
     .songs-from-search {
-        @media (min-width: $narrow-breakpoint) {
+        @include for-narrow-layout {
             padding: em(16px) em(16px);
          }
     }
     .categories-area {
-        @media (min-width: $narrow-breakpoint) {
+        @include for-narrow-layout {
             padding: em(16px) em(16px);
          }
         font-size: 1.5rem;
@@ -67,20 +66,13 @@
             max-height: 100%;
             gap: 20px;
 
-            @media (min-width: $narrow-breakpoint) {
+            @include for-narrow-layout {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 
 
             }
 
-            @media (min-width: $middle-breakpoint) {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-
-
-            }
-
-
-            @media (min-width: $normal-breakpoint) {
+            @include for-normal-layout {
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 
             }

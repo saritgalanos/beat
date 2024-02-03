@@ -9,31 +9,43 @@
 
 html {
     font-family: CircularSP, sans-serif;
-    font-size:1rem;
+    font-size: 1rem;
     line-height: normal;
     color: $clr2;
-    margin-left:-5px;  /*temp need to check this one*/
+    margin-left: -5px;
+    /*temp need to check this one*/
 
 }
 
 body {
     font-family: CircularSP, sans-serif;
-    font-size:1rem;
+    font-size: 1rem;
     min-height: 100vh;
     min-width: $mobile-breakpoint;
     margin: 0;
     padding: 0;
-   // overflow: hidden; 
+    overflow: hidden; /*hide scroll bars*/
 
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: inherit;
     margin: 0 0 0.6em;
     line-height: 1;
 }
 
-section, main, footer {
+input {
+    font-family: inherit;
+}
+
+section,
+main,
+footer {
     padding: 5px;
 }
 
@@ -48,15 +60,15 @@ p {
 a {
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 ul {
-    padding:0;
+    padding: 0;
 }
 
 li {
     list-style-type: none;
 }
-
-

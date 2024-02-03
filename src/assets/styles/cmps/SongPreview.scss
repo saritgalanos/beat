@@ -8,7 +8,7 @@
         display: grid;
         grid-template-columns: 1fr 40px;
 
-        @media (min-width: $narrow-breakpoint) {
+        @include for-narrow-layout {
             grid-template-columns: 30px 1fr 0.2fr 40px;
         }
 

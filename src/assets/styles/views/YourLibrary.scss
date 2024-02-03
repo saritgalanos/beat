@@ -6,7 +6,7 @@
     height: calc(100vh - 205px);
     padding: 3px;
 
-    @media (min-width: $normal-breakpoint) {
+    @include for-normal-layout  {
         height: calc(100vh - 226px);
         padding: 8px 0px 0px 12px;
 
@@ -27,7 +27,7 @@
             display: none;
         }
 
-        @media (min-width: $normal-breakpoint) {
+        @include for-normal-layout  {
             justify-content: space-between;
             .txt {
                 display: block;
@@ -41,7 +41,7 @@
             display: none;
         }
 
-        @media (min-width: $normal-breakpoint) {
+        @include for-normal-layout  {
             .controls {
                 display: block;
 
@@ -68,10 +68,10 @@
 
         margin-bottom: 0;
         padding-right: 12px;
-        height: calc(100vh - 273px);
+        height: calc(100vh - 308px);
         border-bottom: 8px;
         @include add-scroll-bar(6px);
-        @media (min-width:$normal-breakpoint) {
+        @include for-normal-layout  {
             @include add-scroll-bar;
 
         }
@@ -81,8 +81,8 @@
             grid-template-columns: repeat(auto-fill, 65px);
             max-height: 100%;
 
-            @media (min-width: $normal-breakpoint) {
-                grid-template-columns: repeat(auto-fill, minmax(105px, auto));
+            @include for-normal-layout  {
+                grid-template-columns: repeat(auto-fill, minmax(95px, auto));
 
             }
         }

@@ -7,7 +7,7 @@
     height: 91px;
     padding: 12px;
 
-    @media (min-width: $narrow-breakpoint) {
+    @include for-narrow-layout {
         aspect-ratio: 1/1;
         height: auto;
         padding: 0;
@@ -25,7 +25,7 @@
         padding-right:32px;
         letter-spacing: 0.4px;
 
-        @media (min-width: $narrow-breakpoint) {
+        @include for-narrow-layout {
             font-size: 24px;
             padding: 16px;
             font-weight: 900;
@@ -43,7 +43,7 @@
         height: 65px;
         width: 65px;
 
-        @media (min-width: $narrow-breakpoint) {
+        @include for-narrow-layout {
             transform: translate(20%, 10%) rotate(25deg);
             height: 113px;
             width: 113px;

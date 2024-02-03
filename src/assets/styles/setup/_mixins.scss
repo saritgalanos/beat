@@ -1,28 +1,24 @@
 /* Breakpoint mixins */
 @mixin for-mobile-layout {
   @media (max-width: calc($mobile-breakpoint + 40px)) {
-    $big-font: 14px; // Example font size for mobile
     @content;
   }
 }
 
 @mixin for-narrow-layout {
   @media (min-width: calc($mobile-breakpoint + 40px)) {
-    $big-font: 16px; // Example font size for narrow layout
     @content;
   }
 }
 
 @mixin for-normal-layout {
   @media (min-width: calc($narrow-breakpoint + 40px)) {
-    $big-font: 18px; // Example font size for normal layout
     @content;
   }
 }
 
 @mixin for-wide-layout {
   @media (min-width: calc($normal-breakpoint + 40px)) {
-    $big-font: 20px; // Example font size for wide layout
     @content;
   }
 }

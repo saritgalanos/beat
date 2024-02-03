@@ -41,8 +41,13 @@ export function SearchPage() {
     }
 
     async function search(query) {
-        const songs = await youtubeService.search(query)
-        setSongsFromSearch(songs)
+        if(!query) {
+            setSongsFromSearch(null)
+        }
+        else {
+            const songs = await youtubeService.search(query)
+            setSongsFromSearch(songs)
+        }
     }
 
     function onAddSong() {
@@ -79,13 +84,13 @@ export function SearchPage() {
 
 
 
-
-                <div className="songs-from-search">
-                    {(songsFromSearch?.length > 0) && <h1 className="normal-display"> Songs </h1>}
-                    <div>
-                        <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
-                    </div>
-                </div>
+                {(songsFromSearch?.length > 0) &&
+                    <div className="songs-from-search">
+                        <h1 className="normal-display"> Songs </h1>
+                        <div>
+                            <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                        </div>
+                    </div>}
 
                 {categories && <ul className="categories-area">
                     Browse all
