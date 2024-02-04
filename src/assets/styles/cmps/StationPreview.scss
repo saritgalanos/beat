@@ -6,7 +6,7 @@
 
     aspect-ratio: 1/1; //narrow
 
-    @include for-narrow-layout {
+    @include for-normal-layout {
         aspect-ratio: 114/166;
     }
 
@@ -75,21 +75,7 @@
 
 
         .station-txt {
-            //mobile first in library
-            display:none;
-            @include for-normal-layout {
-                display: none;
-            }
-            @include for-normal-layout {
-                display: none;
-            }
-
-
             &.category-styling {
-                display: block;
-            }
-
-            @include for-narrow-layout {
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
@@ -106,13 +92,6 @@
                     font-size: 1rem;
                 }
 
-
-                .station-creator {
-                    @include limit-text-to-width;
-                    font-size: 0.9rem;
-
-                }
-
                 .station-description {
                     white-space: normal;
                     overflow: hidden;
@@ -126,13 +105,40 @@
                     a {
                         color: $clr9;
                     }
-
                 }
             }
+
+            &.library-styling {
+                display: none;
+
+                @include for-normal-layout {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2px;
+
+                    .station-name {
+                        color: $clr1;
+
+                        &.active-station {
+                            color: $clr8;
+                        }
+
+                        @include limit-text-to-width;
+                        font-weight: 500;
+                        font-size: 1rem;
+                    }
+
+                    .station-creator {
+                        @include limit-text-to-width;
+                        font-size: 0.9rem;
+
+                    }
+                }
+
+            }
         }
-
-
     }
+
 
 
 

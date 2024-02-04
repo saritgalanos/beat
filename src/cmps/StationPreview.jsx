@@ -39,7 +39,7 @@ export function StationPreview({ station, fromCategory=false }) {
 
 
  const categoryStations = (fromCategory)? "category-stations": ""
- const categoryStyling = (fromCategory)? "category-styling": ""
+ const adjustStyling = (fromCategory)? "category-styling": "library-styling"
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
   return (
@@ -47,7 +47,7 @@ export function StationPreview({ station, fromCategory=false }) {
 
       {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
       {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
-      <div className={`station-info ${categoryStyling}`}>
+      <div className={`station-info ${adjustStyling}`}>
         {!station.createdBy.imgUrl &&
           <div className='station-card'><RiMusic2Line className='no-img' /></div>}
         {station.createdBy.imgUrl &&
@@ -56,7 +56,7 @@ export function StationPreview({ station, fromCategory=false }) {
 
           </div>}
 
-        <div className={`station-txt ${categoryStyling}`}>
+        <div className={`station-txt ${adjustStyling}`}>
           <div className={`station-name ${activeStationClass}`}>{station.name} </div>
           {(fromCategory) ? 
           <div className='station-description' dangerouslySetInnerHTML={{ __html: station.description }}></div>:
