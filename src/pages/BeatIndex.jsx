@@ -29,7 +29,6 @@ export function BeatIndex() {
     }
 
     function onNavWidth() {
-        console.log("got it")
         setIsWide(!isWide)
     }
     

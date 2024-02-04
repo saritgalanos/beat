@@ -42,8 +42,7 @@
         grid-area: artist;
         display: flex;
         align-items: center;
-        font-weight: 300;
-        font-size: 0.9rem;
+        font-weight: 400;
         color: $clr1;
         letter-spacing: 0.5px;
         margin: 0 12px;
@@ -52,8 +51,7 @@
 
     .song-name {
         grid-area: song-name;
-        color: $clr2;
-        font-size: 0.7rem;
+        color: $clr9;
         font-weight: 300;
         margin: 0 12px;
         overflow: hidden;

@@ -1,6 +1,8 @@
 // Font Sizes
+.fs11 { font-size: rem(11px); }
 .fs12 { font-size: rem(12px); }
 .fs14 { font-size: rem(14px); }
+.fs15 { font-size: rem(15px); }
 .fs18 { font-size: rem(18px); }
 .fs20 { font-size: rem(20px); }
 .fs24 { font-size: rem(24px); }
@@ -26,9 +28,7 @@
         align-items: center;
     }
 }
-.font-normal {
-    font-weight: 300;
-}
+
 
 // Media helpers
 

@@ -1,7 +1,10 @@
 import { spotifyService } from "./spotify.service"
+import { stationService } from "./station.service"
 
 export const categoryService = {
-    getCategories
+    getCategories,
+    getCategory,
+    fetchStationsForCategory
 }
 
 const categories = [
@@ -35,7 +38,7 @@ const categories = [
     { id: '0JQ5DAqbMKFx0uLQR2okcc', color: '#5c7991', name: 'At Home', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafe914a07d20cec7a65e2e5dad' },
     { id: '0JQ5DAqbMKFIVNxQgRNSg0', color: '#d96d16', name: 'Decades', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caff005a355830c374754d32868' },
     { id: '0JQ5DAqbMKFAUsdyVjCQuL', color: '#ff0000', name: 'Love', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafb03c6f8e7efca2ae36f41b31' },
-    { id: '0JQ5DAqbMKFJw7QLnM27p6', color: '#c43ba9', name: 'Student', imgUrl: 	'https://i.scdn.co/image/ab67fb8200005cafdad1281e13697e8d8cf8f347' },
+    { id: '0JQ5DAqbMKFJw7QLnM27p6', color: '#c43ba9', name: 'Student', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafdad1281e13697e8d8cf8f347' },
     { id: '0JQ5DAqbMKFQVdc2eQoH2s', color: '#f54414', name: 'Desi', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafae8338a83b96acd1ab54416d' },
     { id: '0JQ5DAqbMKFAJ5xb0fwo9m', color: '#96918f', name: 'Jazz', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafe289743024639ea8f202364d' },
     { id: '0JQ5DAqbMKFQIL0AXnG5AK', color: '#c43ba9', name: 'Trending', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf1867113f5218598847550acd' },
@@ -61,5 +64,42 @@ const categories = [
 
 
 function getCategories() {
-    return categories;
+    return categories
+}
+
+
+function getCategory(categoryId) {
+    return categories.find(category => category.id === categoryId)
+}
+
+async function fetchStationsForCategory(categoryId) {
+
+    try {
+
+        const categoryDetails = await spotifyService.fetchPlaylistsForCategory(categoryId);
+        const stations = _getStationsForCategory(categoryDetails)
+        return stations;
+    }
+    catch (err) {
+        console.log('fetchStationsForCategory failed:' + err)
+        return null
+    }
+}
+
+
+function _getStationsForCategory(categoryDetails) {
+    //console.log(categoryDetails)
+    var stations = []
+    categoryDetails.playlists.items.forEach((playlist) => {
+        var station = stationService.getEmptyStation()
+        station._id = playlist.id
+        station.name = playlist.name
+        station.createdBy._id = playlist.owner.id
+        station.createdBy.fullname = playlist.owner.display_name
+        station.createdBy.imgUrl = playlist.images[0].url
+        station.description = playlist.description
+        stations.push(station)
+        
+    })
+    return stations
 }

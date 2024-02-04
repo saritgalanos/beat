@@ -2,6 +2,8 @@
 export const spotifyService = {
     getSpotifyToken,
     setSpotifyToken,
+    fetchPlaylistsForCategory,
+
     searchPlaylists,
     login,
     logout,
@@ -17,8 +19,6 @@ const REDIRECT_URI = 'http://localhost:5173/beat'
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
 const RESPONSE_TYPE = "token"
 const SPOTIFY_TOKEN = "spotify-token"
-
-
 
 
 
@@ -44,6 +44,19 @@ function logout() {
     setToken("")
     window.localStorage.removeItem("spotify_token")
 }
+
+
+async function fetchPlaylistsForCategory(categoryId) {
+    const accessToken= getSpotifyToken()
+    const url = `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`
+    const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+    return response.json()
+}
+
+
+
 
 
 
@@ -110,7 +123,7 @@ async function fetchSpotifyFeaturedPlaylists() {
         console.error('Error fetching featured playlists:', error);
     }
 }
-fetchSpotifyCategories() 
+
 
 async function fetchSpotifyCategories() {
     const accessToken = getSpotifyToken()

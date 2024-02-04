@@ -82,7 +82,7 @@
             max-height: 100%;
 
             @include for-normal-layout  {
-                grid-template-columns: repeat(auto-fill, minmax(95px, auto));
+                grid-template-columns: repeat(auto-fill, minmax(102px, auto));
 
             }
         }

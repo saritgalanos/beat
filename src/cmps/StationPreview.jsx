@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveSong, togglePlay } from "../store/actions/player.actions";
 
 
-export function StationPreview({ station }) {
+export function StationPreview({ station, fromCategory=false }) {
   const navigate = useNavigate()
 
   const activeStationId = useSelector(state => state.playerModule.activeStationId)
@@ -38,15 +38,16 @@ export function StationPreview({ station }) {
 
 
 
-
+ const categoryStations = (fromCategory)? "category-stations": ""
+ const categoryStyling = (fromCategory)? "category-styling": ""
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
   return (
-    <div className='station-preview' onClick={() => navigate(`/${station._id}`)}>
+    <div className={`station-preview ${categoryStations}`} onClick={() => navigate(`/${station._id}`)}>
 
       {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
       {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
-      <div className='station-info'>
+      <div className={`station-info ${categoryStyling}`}>
         {!station.createdBy.imgUrl &&
           <div className='station-card'><RiMusic2Line className='no-img' /></div>}
         {station.createdBy.imgUrl &&
@@ -55,9 +56,11 @@ export function StationPreview({ station }) {
 
           </div>}
 
-        <div className="station-txt">
+        <div className={`station-txt ${categoryStyling}`}>
           <div className={`station-name ${activeStationClass}`}>{station.name} </div>
-          <div className='station-creator'>{station.createdBy.fullname}</div>
+          {(fromCategory) ? 
+          <div className='station-description' dangerouslySetInnerHTML={{ __html: station.description }}></div>:
+          <div className='station-creator'>{station.createdBy.fullname}</div>}
         </div>
       </div>
     </div >

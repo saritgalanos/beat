@@ -10,6 +10,7 @@
 html {
     font-family: CircularSP, sans-serif;
     font-size: 1rem;
+    font-weight: 300;
     line-height: normal;
     color: $clr2;
     margin-left: -5px;
@@ -20,6 +21,7 @@ html {
 body {
     font-family: CircularSP, sans-serif;
     font-size: 1rem;
+    font-weight: 300;
     min-height: 100vh;
     min-width: $mobile-breakpoint;
     margin: 0;
@@ -41,6 +43,7 @@ h6 {
 
 input {
     font-family: inherit;
+    font-size: rem(14px);
 }
 
 section,

@@ -5,6 +5,7 @@ import { SearchPage } from './pages/SearchPage'
 import { HomePage } from './pages/HomePage'
 import { StationDetails } from './pages/StationDetails'
 import { spotifyService } from './services/spotify.service';
+import { CategoryDetails } from './pages/CategoryDetails';
 
 
 
@@ -20,6 +21,7 @@ export function App() {
                     <Route path="/" element={<BeatIndex />} >
                         <Route path="/" element={<HomePage />} />
                         <Route path="/search" element={<SearchPage />} />
+                        <Route path="/genre/:categoryId" element={<CategoryDetails />} />
                         <Route path="/:stationId" element={<StationDetails />} />
                     </Route>
                 </Routes>

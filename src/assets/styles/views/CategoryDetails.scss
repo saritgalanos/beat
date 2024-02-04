@@ -1,0 +1,33 @@
+.category-details {
+    
+    padding: 12px;
+
+    .stations-area {
+
+        margin-bottom: 0;
+        padding: 12px;
+        height: calc(100vh - 308px);
+        border-bottom: 8px;
+              
+
+        
+
+        .stations {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 65px);
+            max-height: 100%;
+            
+
+            @include for-narrow-layout  {
+                grid-template-columns: repeat(auto-fill, minmax(145px, auto));
+                gap: 24px;
+
+            }
+            @include for-normal-layout  {
+                grid-template-columns: repeat(auto-fill, minmax(170px, auto));
+                gap: 24px;
+
+            }
+        }
+    }
+}

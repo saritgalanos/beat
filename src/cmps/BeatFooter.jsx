@@ -37,8 +37,8 @@ export function BeatFooter() {
                     {(activeSong !== null) &&
                         <div className='song-title'>
                             {renderThumbnail}
-                            <div className="artist">{artist}</div>
-                            <div className="song-name">{songName}</div>
+                            <div className="artist fs14">{artist}</div>
+                            <div className="song-name fs11">{songName}</div>
                         </div>}
                 </section>
 

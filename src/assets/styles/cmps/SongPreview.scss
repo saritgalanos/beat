@@ -106,8 +106,6 @@
 
     .artist {
         grid-area: artist;
-        font-weight: 300;
-        font-size: 1rem;
         color: $clr1;
         letter-spacing: 0.5px;
         margin: 0 12px;
@@ -118,7 +116,6 @@
         grid-area: song-name;
         color: $clr2;
         font-size: 0.96rem;
-        font-weight: 300;
         margin: 0 12px;
         @include limit-text-to-width;
 

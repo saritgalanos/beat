@@ -82,7 +82,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                             <div className='song-title'>
                                 {renderThumbnail}
                                 <div className="artist">{artist}</div>
-                                <div className={`song-name ${isActiveClass}`}>{songName}</div>
+                                <div className={`song-name  ${isActiveClass}`}>{songName}</div>
                             </div>
 
                             <div>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>

@@ -107,7 +107,8 @@ function createDemoStations() {
                 fullname: creators[index],
                 imgUrl: imgs[index]
             },
-            songs: [..._generateRandomSongsList()]
+            songs: [..._generateRandomSongsList()],
+            description:''
         }
     })
     return demoStations

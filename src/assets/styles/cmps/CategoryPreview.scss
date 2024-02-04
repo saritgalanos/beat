@@ -20,13 +20,13 @@
     .name {
         font-family: CircularSP, sans-serif;
         color: $clr1;
-        font-size: 18px;
+        font-size: rem(18px);
         font-weight: 700;
         padding-right:32px;
         letter-spacing: 0.4px;
 
         @include for-narrow-layout {
-            font-size: 24px;
+            font-size: rem(24px); 
             padding: 16px;
             font-weight: 900;
             letter-spacing: 0;

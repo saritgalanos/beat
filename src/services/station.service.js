@@ -143,10 +143,12 @@ function deleteSongFromStation(station, songToDelete) {
 
 
 function getEmptyStation(stations) {
-    const myStationNumber = _getNextStationNumber(stations)
+    const stationName = (stations)? `My Playlist #${_getNextStationNumber(stations)}`: ''
+ 
     return {
         _id: '',
-        name: `My Playlist #${myStationNumber}`,
+        name: stationName,
+        description:'',
         createdBy: {
             _id: utilService.makeId(),
             fullname: loggedinUser.fullname,

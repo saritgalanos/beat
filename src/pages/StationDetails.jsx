@@ -45,7 +45,6 @@ export function StationDetails() {
 
   useEffect(() => {
     if (station && station.createdBy.imgUrl) {
-      console.log(station.createdBy.imgUrl)
       fetchColor()
     }
 
@@ -168,9 +167,9 @@ export function StationDetails() {
           </div>
 
           <div className="header-details">
-            <div className="font-normal">Playlist</div>
+            <div>Playlist</div>
             <div className='name no-wrap'>{station.name} </div>
-            <div className='details font-normal'>{station.createdBy.fullname}<RxDotFilled />
+            <div className='details'>{station.createdBy.fullname}<RxDotFilled />
               {station.likes}<RxDotFilled /> {station.songs.length} songs,
             </div>
           </div>
