@@ -1,29 +1,55 @@
 .category-details {
-    
-    padding: 12px;
+
+    @include for-narrow-layout {
+        padding: 0px;
+        height: 209px;
+    }
+
+    .category-header {
+        padding: 0px 17px 17px 17px;
+        height: 120px;
+
+        @include for-narrow-layout {
+            height: 209px;
+        }
+
+        display: flex;
+        align-items: end;
+
+        .category-name {
+            font-size: 32px;
+            letter-spacing: -1px;
+
+            @include for-narrow-layout {
+                font-size: 6rem;
+                letter-spacing: -5px;
+            }
+
+            font-weight: 900;
+
+
+        }
+    }
 
     .stations-area {
 
         margin-bottom: 0;
-        padding: 12px;
-        height: calc(100vh - 308px);
-        border-bottom: 8px;
-              
-
-        
+        padding: 32px 12px 12px 12px;
 
         .stations {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 65px);
+            grid-template-columns: repeat(auto-fill, 180px);
+            gap: 24px;
             max-height: 100%;
-            
 
-            @include for-narrow-layout  {
+
+            @include for-narrow-layout {
                 grid-template-columns: repeat(auto-fill, minmax(145px, auto));
                 gap: 24px;
 
             }
-            @include for-normal-layout  {
+
+            @include for-normal-layout {
                 grid-template-columns: repeat(auto-fill, minmax(170px, auto));
                 gap: 24px;
 

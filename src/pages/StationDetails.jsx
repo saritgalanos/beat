@@ -14,6 +14,7 @@ import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
 import { useDispatch, useSelector } from "react-redux"
 import { setActiveSong, togglePlay } from "../store/actions/player.actions"
+import { spotifyService } from "../services/spotify.service"
 
 const BEAT_BG = "#121212"
 
@@ -56,9 +57,9 @@ export function StationDetails() {
 
   async function loadStation() {
     try {
-      const station = await stationService.getById(params.stationId)
+      //long ids are from spotify
+      const station = (params.stationId.length < 10) ? await stationService.getById(params.stationId) : await spotifyService.fetchPlaylist(params.stationId)
       setStation(station)
-
     } catch (error) {
       console.log('error:', error)
     }
@@ -146,7 +147,7 @@ export function StationDetails() {
 
   const darkenColor = (bgColor != BEAT_BG) ? utilService.darkenColor(bgColor) : BEAT_BG
   const gradientStyle = {
-    background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG}`
+    background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG})`
   }
 
 
@@ -192,6 +193,7 @@ export function StationDetails() {
         </div>
 
         <div className="dynamic-display">
+          {(station.createdBy._id !== "spotify") && 
           <div className='songs-search'>
             {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
               <header>
@@ -212,7 +214,7 @@ export function StationDetails() {
                 </div>
                 <IoClose className="close" onClick={resetSearch} />
               </header>}
-
+          
             {
               songsFromSearch !== null && (
                 songsFromSearch.length === 0
@@ -222,7 +224,7 @@ export function StationDetails() {
                   </div>
               )
             }
-          </div>
+          </div> }
         </div>
       </div>
     </div>

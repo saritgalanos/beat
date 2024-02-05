@@ -68,8 +68,8 @@
 
         margin-bottom: 0;
         padding-right: 12px;
-        height: calc(100vh - 308px);
-        border-bottom: 8px;
+        height: calc(100vh - 293px);
+        //border-bottom: 8px;
         @include add-scroll-bar(6px);
         @include for-normal-layout  {
             @include add-scroll-bar;

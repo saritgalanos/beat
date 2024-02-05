@@ -1,8 +1,10 @@
+import { stationService } from "./station.service"
 
 export const spotifyService = {
     getSpotifyToken,
     setSpotifyToken,
     fetchPlaylistsForCategory,
+    fetchPlaylist,
 
     searchPlaylists,
     login,
@@ -47,7 +49,7 @@ function logout() {
 
 
 async function fetchPlaylistsForCategory(categoryId) {
-    const accessToken= getSpotifyToken()
+    const accessToken = getSpotifyToken()
     const url = `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`
     const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
 
@@ -56,6 +58,57 @@ async function fetchPlaylistsForCategory(categoryId) {
 }
 
 
+
+
+async function fetchPlaylist(playlistId) {
+    const accessToken = getSpotifyToken()
+    const url = `https://api.spotify.com/v1/playlists/${playlistId}`
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        const playlist = await response.json();
+        const station = _createStationFromSpotifyPlayList(playlist)
+         return station
+    } catch (error) {
+        console.error('Error fetching playlist:', error);
+        throw error; // Re-throwing the error to be handled by the caller
+    }
+}
+
+
+
+function _createStationFromSpotifyPlayList(playlist) {
+    console.log(playlist)
+    var station = stationService.getEmptyStation()
+    station._id = playlist.id
+    station.name = playlist.name
+    station.createdBy._id = playlist.owner.id
+    station.createdBy.fullname = playlist.owner.display_name
+    station.createdBy.imgUrl = playlist.images[0].url
+    station.description = playlist.description
+    playlist.tracks.items.slice(0, 40).forEach(song => {
+        const songToAdd = {
+            id: song.track.id,
+            title: `${song.track.name} - ${song.track.artists[0].name}`,
+            url: song.track.href,
+            imgUrl: song.track.album.images[0].url,
+            addedBy: 'spotify',
+            addedAt: song.added_at
+        };
+        station.songs.push(songToAdd);
+    })
+
+
+    return station
+}
 
 
 
@@ -143,14 +196,14 @@ async function fetchSpotifyCategories() {
         const categoriesData = await response.json();
         console.log("=================fetchSpotifyCategories====================")
         // Extracting and displaying details of each category
-       /* categoriesData.categories.items.forEach(category => {
-            console.log('Category ID:', category.id);
-            console.log('Category Name:', category.name);
-            console.log('Category URL:', category.href);
-            console.log('Category Icon URL:', category.icons[0].url);
-            console.log('----------------------');
-        })*/
-console.log ( categoriesData.categories.items)
+        /* categoriesData.categories.items.forEach(category => {
+             console.log('Category ID:', category.id);
+             console.log('Category Name:', category.name);
+             console.log('Category URL:', category.href);
+             console.log('Category Icon URL:', category.icons[0].url);
+             console.log('----------------------');
+         })*/
+        console.log(categoriesData.categories.items)
         return categoriesData.categories.items;
     } catch (error) {
         console.error('Error fetching Spotify categories:', error);

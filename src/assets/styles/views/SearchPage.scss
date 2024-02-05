@@ -1,10 +1,10 @@
 .search-page {
     position: relative;
-    padding: em(16px);
+    padding: em(16px) em(16px) 0 em(16px);
 
     @include for-narrow-layout {
-       // padding: em(15px) em(15px);
-       padding:0px;
+        // padding: em(15px) em(15px);
+        padding: 0px;
     }
 
     .search-header {
@@ -35,7 +35,8 @@
             input {
                 &::placeholder {
                     font-weight: 400;
-                  }
+                }
+
                 width: 100%;
                 padding: 12px 40px;
                 border-radius: 4px;
@@ -52,12 +53,14 @@
     .songs-from-search {
         @include for-narrow-layout {
             padding: em(16px) em(16px);
-         }
+        }
     }
+
     .categories-area {
         @include for-narrow-layout {
             padding: em(16px) em(16px);
-         }
+        }
+
         font-size: 1.5rem;
         font-weight: 700;
 
@@ -70,8 +73,6 @@
 
             @include for-narrow-layout {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-
-
             }
 
             @include for-normal-layout {

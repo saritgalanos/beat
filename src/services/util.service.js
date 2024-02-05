@@ -98,10 +98,20 @@ function _relaxColor(color, relaxationFactor) {
     return relaxedColor;
 }
 
-function darkenColor(rgbString, darkenPercent=40) {
+function darkenColor(color, darkenPercent=40) {
     // Parse the RGB string to extract red, green, and blue values
-    const rgbValues = rgbString.match(/\d+/g).map(Number);
-
+    let rgbValues;
+    if (color.startsWith('#')) {
+        // Convert hex to RGB
+        const r = parseInt(color.slice(1, 3), 16);
+        const g = parseInt(color.slice(3, 5), 16);
+        const b = parseInt(color.slice(5, 7), 16);
+        rgbValues = [r, g, b];
+    } else {
+        // Parse the RGB string to extract red, green, and blue values
+        rgbValues = color.match(/\d+/g).map(Number);
+    }
+    
     // Calculate the darkened values
     const darkened = rgbValues.map(value => {
         return Math.max(Math.min(Math.floor(value * (1 - darkenPercent / 100)), 255), 0);

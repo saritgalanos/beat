@@ -6,7 +6,7 @@
     gap: 8px;
     padding: 0px;
     @include for-narrow-layout {
-        padding: 12px 3px 12px 3px;
+        padding: 8px 3px 12px 3px;
     }
 
     min-width: $mobile-breakpoint;
@@ -20,7 +20,7 @@
 
     .main {
         position: relative;
-        height: calc(100vh - 76px);
+        height: calc(100vh);
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
@@ -39,6 +39,7 @@
 
 
     .mobile-nav {
+        background-color: black;
         grid-area: mobileNav;
         position: fixed;
         left: 0;
@@ -98,9 +99,9 @@
             "footer footer";
 
 
-        .mobile-nav {
-            display: none; // Hide Mobile Nav on larger screens
-        }
+        // .mobile-nav {
+        //     display: none; // Hide Mobile Nav on larger screens
+        // }
 
         .nav {
             display: block; // Show Regular Nav on larger screens

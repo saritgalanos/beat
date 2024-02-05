@@ -1,21 +1,26 @@
 .station-preview {
-
-    height: auto;
-    position: relative;
-    width: 100%;
-
-    aspect-ratio: 1/1; //narrow
-
-    @include for-normal-layout {
-        aspect-ratio: 114/166;
-    }
-
     display: flex;
     justify-content: center;
     padding: 8%;
     border-radius: 8px;
     overflow: auto;
-    transition: background-color 0.3s;
+    transition: background-color 0.1s;
+
+
+    &.library-stations {
+
+        height: auto;
+        position: relative;
+        width: 100%;
+
+        aspect-ratio: 1/1; //narrow
+
+        @include for-normal-layout {
+            aspect-ratio: 114/166;
+        }
+
+        
+    }
 
     &.category-stations {
         aspect-ratio: 150/220;
