@@ -18,7 +18,7 @@
 }
 
 @mixin for-wide-layout {
-  @media (min-width: calc($normal-breakpoint + 40px)) {
+  @media (min-width: calc($wide-breakpoint + 40px)) {
     @content;
   }
 }
@@ -150,5 +150,12 @@
   /* For Firefox */
   scrollbar-width: thin;
   scrollbar-color: rgba(200, 200, 200, 0.8) transparent;
+
+}
+
+@mixin centered-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }

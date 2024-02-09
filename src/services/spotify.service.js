@@ -101,7 +101,7 @@ function _createStationFromSpotifyPlayList(playlist) {
             url: song.track.href,
             imgUrl: song.track.album.images[0].url,
             addedBy: 'spotify',
-            addedAt: song.added_at
+            addedAt: Date.parse(song.added_at)
         };
         station.songs.push(songToAdd);
     })

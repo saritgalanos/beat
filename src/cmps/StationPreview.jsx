@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveSong, togglePlay } from "../store/actions/player.actions";
 
 
-export function StationPreview({ station, fromCategory = false }) {
+export function StationPreview({ station, displayOn = "library" }) {
+  //station can be displayed as part of "library", "category" and "homepage"*/
+
   const navigate = useNavigate()
 
   const activeStationId = useSelector(state => state.playerModule.activeStationId)
@@ -38,16 +40,17 @@ export function StationPreview({ station, fromCategory = false }) {
 
 
 
-  const stationsSource = (fromCategory) ? "category-stations" : "library-stations"
-  const stationsStyling = (fromCategory) ? "category-styling" : "library-styling"
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
+
+
   return (
-    <div className={`station-preview ${stationsSource}`} onClick={() => navigate(`/${station._id}`)}>
+    <div className={`station-preview ${displayOn}`} onClick={() => navigate(`/${station._id}`)}>
 
       {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
       {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
-      <div className={`station-info ${stationsStyling}`}>
+
+      <div className="station-info">
         {!station.createdBy.imgUrl &&
           <div className='station-card'><RiMusic2Line className='no-img' /></div>}
         {station.createdBy.imgUrl &&
@@ -56,13 +59,14 @@ export function StationPreview({ station, fromCategory = false }) {
 
           </div>}
 
-        <div className={`station-txt ${stationsStyling}`}>
+        <div className="station-txt">
           <div className={`station-name ${activeStationClass}`}>{station.name} </div>
-          {(fromCategory) ?
+          {(displayOn === "category") ?
             <div className='station-description' dangerouslySetInnerHTML={{ __html: station.description }}></div> :
             <div className='station-creator'>{station.createdBy.fullname}</div>}
         </div>
       </div>
+
     </div >
   )
 }

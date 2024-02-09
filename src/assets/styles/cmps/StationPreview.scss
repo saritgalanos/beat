@@ -4,40 +4,19 @@
     padding: 8%;
     border-radius: 8px;
     overflow: auto;
+
     transition: background-color 0.1s;
 
+    /*library will be the default styling*/
+    height: auto;
+    width: 100%;
+    position: relative;
 
-    &.library-stations {
+    aspect-ratio: 1/1; //narrow
 
-        height: auto;
-        position: relative;
-        width: 100%;
-
-        aspect-ratio: 1/1; //narrow
-
-        @include for-normal-layout {
-            aspect-ratio: 114/166;
-        }
-
-        
+    @include for-normal-layout {
+        aspect-ratio: 114/166;
     }
-
-    &.category-stations {
-        aspect-ratio: 150/220;
-
-        @include for-normal-layout {
-            aspect-ratio: 150/220;
-        }
-
-        background-color: $clr11;
-
-        &:hover {
-            background-color: $clr7;
-        }
-
-    }
-
-
 
 
     .station-info {
@@ -46,21 +25,13 @@
         width: 100%;
         gap: 8px;
 
-        &.category-styling {
-            gap: 18px;
-        }
-
         @include limit-text-to-width;
 
         .station-card {
             width: 100%;
-            /* Make the station-card 100% width */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include centered-flex;
             border-radius: 8px;
             background-color: $clr5;
-
 
             .station-img {
                 width: 100%;
@@ -78,9 +49,10 @@
 
         }
 
-
         .station-txt {
-            &.category-styling {
+            display: none;
+
+            @include for-normal-layout {
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
@@ -97,53 +69,16 @@
                     font-size: 1rem;
                 }
 
-                .station-description {
-                    white-space: normal;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
+                .station-creator {
+                    @include limit-text-to-width;
                     font-size: 0.9rem;
-                    color: $clr9;
 
-                    a {
-                        color: $clr9;
-                    }
                 }
             }
 
-            &.library-styling {
-                display: none;
-
-                @include for-normal-layout {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 2px;
-
-                    .station-name {
-                        color: $clr1;
-
-                        &.active-station {
-                            color: $clr8;
-                        }
-
-                        @include limit-text-to-width;
-                        font-weight: 500;
-                        font-size: 1rem;
-                    }
-
-                    .station-creator {
-                        @include limit-text-to-width;
-                        font-size: 0.9rem;
-
-                    }
-                }
-
-            }
         }
-    }
 
+    }
 
 
 
@@ -192,16 +127,152 @@
 
     }
 
-    &.category-stations {
-        .play {
-            display: none;
+
+    &.category {
+        aspect-ratio: 150/220;
+
+        @include for-normal-layout {
+            aspect-ratio: 150/220;
         }
 
+        background-color: $clr11;
+
+        &:hover {
+            background-color: $clr7;
+        }
+
+        .station-info {
+            gap: 18px;
+
+            .station-txt {
+                display: block;
+
+                .station-description {
+                    white-space: normal;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    font-size: 0.9rem;
+                    color: $clr9;
+
+                    a {
+                        color: $clr9;
+                    }
+                }
+
+            }
+        }
+
+        .play,
         .pause {
             display: none;
         }
+
     }
 
+
+
+    &.homepage {
+
+        flex: 0 0 auto;
+        /* Prevent items from growing or shrinking */
+        min-width: 152px;
+        /* Minimum width for each item, adjust as needed */
+        aspect-ratio: 168/222;
+        padding: 8px;
+        .station-info {
+          
+           
+            .station-txt {
+                display: block;
+                .station-name {
+                    
+                    //font-family: CircularSP;
+                    font-size: 0.95rem;
+                    font-weight: 400;
+                    @include limit-text-to-width;
+                }
+               
+                .station-creator {
+                    display: none;
+                }
+            }
+        }
+
+
+        @include for-narrow-layout {
+            padding: 8%;
+            height: 48px;
+            min-width: auto;
+            background-color: $clr5;
+            padding: 0;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $clr7;
+            }
+
+            .station-info {
+
+                flex-direction: row;
+                width: 100%;
+                gap: 8px;
+
+                @include limit-text-to-width;
+
+                .station-card {
+                    @include for-narrow-layout {
+                        width: auto;
+                        border-radius: 4px 0 0 4px;
+                        background-color: $clr5;
+
+                        .station-img {
+                            border-radius: 4px 0 0 4px;
+                        }
+                    }
+
+                }
+
+                .station-txt {
+                    @include for-narrow-layout {
+                        @include centered-flex;
+                    }
+
+                    .station-name {
+                        font-weight: 900;
+                        font-size: 0.9rem;
+
+                    }
+
+                    .station-creator,
+                    .station-description {
+                        display: none;
+                        display: none;
+                    }
+                }
+
+            }
+        }
+
+        .play,
+        .pause {
+            background-color: $clr8;
+            position: absolute;
+            top: 50%;
+            left: 90%;
+            transform: translate(-50%, -50%);
+            height: 30px;
+            width: 30px;
+            padding: 4px 4px 4px 7px;
+            color: black;
+            cursor: pointer;
+        }
+
+
+
+    }
 
 
 }

@@ -1,6 +1,50 @@
 .home-page {
 
+
     .main-content {
-        padding: 0 em(17px) em(17px) 17px;
+        padding: 30px 12px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        @include for-narrow-layout {
+            padding: 0 em(17px) em(17px) 17px;
+        }
+    }
+
+    .stations-area {
+
+        margin-bottom: 0;
+        padding: 12px 12px 12px 12px;
+
+        .stations {
+            display: flex;
+            /* Change display from grid to flex */
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
+
+            /* Optional: Hide scrollbar for a cleaner look */
+            scrollbar-width: none;
+
+            /* For Firefox */
+            &::-webkit-scrollbar {
+                display: none;
+                /* For Chrome, Safari, and Opera */
+            }
+
+            @include for-narrow-layout {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(150px, auto));
+                grid-template-rows: 48px;
+                gap: 10px;
+
+            }
+
+            @include for-wide-layout {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(150px, auto));
+                //grid-template-rows: 64px;
+                gap: 10px;
+
+            }
+        }
     }
 }

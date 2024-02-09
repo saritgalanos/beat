@@ -77,16 +77,16 @@
 
             .name {
                 font-weight: 900;
-                letter-spacing: 0px;
-                font-size: 32px;
+                //letter-spacing: 0px;
+                //font-size: 32px;
 
-                @include for-narrow-layout {
-                    font-size: 52px;
-                }
+                // @include for-narrow-layout {
+                //     font-size: 52px;
+                // }
 
-                @include for-normal-layout {
-                    font-size: 96px;
-                }
+                // @include for-normal-layout {
+                //     font-size: 96px;
+                // }
 
                 @include limit-text-to-two-lines;
 

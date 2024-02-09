@@ -6,12 +6,13 @@ import { deepPurple } from '@mui/material/colors'
 import Avatar from '@mui/material/Avatar'
 import { FiSearch } from "react-icons/fi"
 import { IoClose } from "react-icons/io5"
+import { useNavigate } from "react-router"
 
 
 export function BeatHeader({ isSearch, search, bgColor = null }) {
     const [query, setQuery] = useState('')
 
-
+    let navigate = useNavigate()
 
     /*temp*/
     function onSearch() {
@@ -33,8 +34,8 @@ export function BeatHeader({ isSearch, search, bgColor = null }) {
     return (
         <div className='beat-header dynamic-display' style={{ backgroundColor: bgColor }}>
             <div className="page-control" >
-                <MdNavigateBefore className='page-control-img' />
-                <MdNavigateNext className='page-control-img' />
+                <MdNavigateBefore className='page-control-img' onClick={() => navigate(-1)} />
+                <MdNavigateNext className='page-control-img' onClick={() => navigate(1)}/>
             </div>
             {isSearch &&
                 <div className="search-area">

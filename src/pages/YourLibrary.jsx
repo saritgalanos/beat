@@ -51,7 +51,7 @@ export function YourLibrary({ onNavWidth, isWide }) {
                     {stations.map(station =>
                         <li key={station._id}>
 
-                            <StationPreview station={station} />
+                            <StationPreview station={station} displayOn={"library"}/>
 
                         </li>
                     )}

@@ -53,7 +53,7 @@ export function CategoryDetails() {
                     {stations && stations.map(station =>
                         <li key={station._id}>
 
-                            <StationPreview station={station} fromCategory={true} />
+                            <StationPreview station={station} displayOn={"category"} />
 
                         </li>
                     )}

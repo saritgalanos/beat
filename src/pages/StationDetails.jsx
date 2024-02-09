@@ -154,6 +154,8 @@ export function StationDetails() {
   if (!station) return <div>Loading data</div>
   const isActiveStation = (station._id === activeStationId)
   const stationPlaying = (isPlaying && isActiveStation)
+  const fsName = (station.name.length<15) ? "fs6rem" : "fs4rem"
+
   return (
     <div className='main'>
       <div className='station-details'>
@@ -169,7 +171,7 @@ export function StationDetails() {
 
           <div className="header-details">
             <div>Playlist</div>
-            <div className='name no-wrap'>{station.name} </div>
+            <div className={`name ${fsName}`}>{station.name} </div>
             <div className='details'>{station.createdBy.fullname}<RxDotFilled />
               {station.likes}<RxDotFilled /> {station.songs.length} songs,
             </div>
