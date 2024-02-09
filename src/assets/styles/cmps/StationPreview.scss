@@ -243,6 +243,9 @@
                     .station-name {
                         font-weight: 900;
                         font-size: 0.9rem;
+                        &.active-station {
+                            color: inherit;
+                        }
 
                     }
 

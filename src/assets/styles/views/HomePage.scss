@@ -47,4 +47,32 @@
             }
         }
     }
+
+
+
+    .suggested-area {
+
+        margin-bottom: 0;
+        padding: 32px 12px 12px 12px;
+
+        .stations {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 180px);
+            gap: 24px;
+            max-height: 100%;
+
+
+            @include for-narrow-layout {
+                grid-template-columns: repeat(auto-fill, minmax(145px, auto));
+                gap: 24px;
+
+            }
+
+            @include for-normal-layout {
+                grid-template-columns: repeat(auto-fill, minmax(170px, auto));
+                gap: 24px;
+
+            }
+        }
+    }
 }

@@ -4,16 +4,37 @@ import { spotifyService } from "../services/spotify.service"
 import { StationPreview } from "../cmps/StationPreview"
 import { useSelector } from "react-redux"
 import { loadStations } from "../store/actions/station.actions"
+import { categoryService } from "../services/category.services"
 
+const POP = '0JQ5DAqbMKFEC4WFtoNRpw'
 
 export function HomePage() {
 
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    const [suggestedStations, setSuggestedStations] = useState(null)
+    const [category, setCategory] = useState(null)
+   
 
     useEffect(() => {
         loadStations()
+        debugger
+        const pop = categoryService.getCategory(POP)
+        setCategory(pop)
+        loadCategoryStations(pop.id)
+
     }, [])
-    if (!stations) return <div>Loading...</div>
+
+    async function loadCategoryStations(categoryId) {
+        try {
+            const suggestedStations = await categoryService.fetchStationsForCategory(categoryId)
+            setSuggestedStations(suggestedStations)
+
+        } catch (error) {
+            console.log('loadCategoryStations failed:', error)
+        }
+    }
+
+    if (!stations || !suggestedStations) return <div>Loading...</div>
     //filter stations for display and take up to 6
     //const filteredLimitedItems = stations.filter(station => item.isActive).slice(0, 6)
     const stationsToDisplay = stations.slice(0, 6);
@@ -25,8 +46,11 @@ export function HomePage() {
     }
 
     return (
-        <div className='home-page main' style={gradientStyle}>
-            <BeatHeader isSearch={false} bgColor={baseColor} className="dynamic-display" />
+        // <div className='home-page main' style={gradientStyle}>
+        //     <BeatHeader isSearch={false} bgColor={baseColor} className="dynamic-display" />
+
+        <div className='home-page main'>
+            <BeatHeader isSearch={false} className="dynamic-display" />
             <div className="main-content">
                 Good Evening
             </div>
@@ -40,6 +64,17 @@ export function HomePage() {
                     )}
                 </div>
             </ul>
+
+            <ul className="suggested-area">
+                <div className="stations">
+                    {suggestedStations.map(station =>
+                        <li key={station._id}>
+                            <StationPreview station={station} displayOn={"category"} />
+                        </li>
+                    )}
+                </div>
+            </ul>
+
 
 
 
