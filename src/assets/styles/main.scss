@@ -16,7 +16,6 @@
 @import "views/AboutUs";
 @import "views/HomePage";
 @import "views/SearchPage";
-@import "views/CarIndex";
 @import "views/ReviewIndex";
 @import "views/UserDetails";
 @import "views/YourLibrary";
@@ -35,7 +34,8 @@
 @import "cmps/SongPreview";
 @import "cmps/SongList";
 @import "cmps/CategoryPreview";
-
+@import "cmps/DynamicModal";
+@import "cmps/StationEditModal";
 
 
 

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router"
 
 
 
+
 export function YourLibrary({ onNavWidth, isWide }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
 
@@ -19,6 +20,8 @@ export function YourLibrary({ onNavWidth, isWide }) {
     }, [])
 
     async function onAddNewStation(ev) {
+
+        
         const stationToAdd = stationService.getEmptyStation(stations)
         try {
             const stationAdded = await saveStation(stationToAdd)
@@ -63,3 +66,5 @@ export function YourLibrary({ onNavWidth, isWide }) {
         </div>
     )
 }
+
+

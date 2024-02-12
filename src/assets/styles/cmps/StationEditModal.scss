@@ -1,0 +1,133 @@
+.station-edit-modal {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 348px;
+    width: 524px;
+    background-color: $bgclr1;
+    border-radius: 8px;
+    color: $clr1;
+
+    .modal-header {
+        box-sizing: border-box;
+        justify-content: space-between;
+        display: flex;
+        padding: 24px;
+        color: $clr1;
+        font-size: 1.4rem;
+        font-weight: 900;
+
+
+    }
+
+    .modal-details {
+        display: grid;
+        grid-template: 32px 132px 32px auto/180px 1fr;
+        grid-template-areas:
+            "station-image title"
+            "station-image description"
+            ". save-button"
+            "disclaimer disclaimer";
+        grid-gap: 16px;
+        padding: 0 24px 24px;
+
+        .title {
+            box-sizing: border-box;
+            grid-area: title;
+            background: hsla(0, 0%, 100%, .1);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            height: 40px;
+            padding: 0 12px;
+            width: 100%;
+
+            &:focus {
+                background-color: $clr5;
+                border: 0.5px solid transparent;
+            }
+
+        }
+
+        .description {
+            box-sizing: border-box;
+            grid-area: description;
+            margin-top: 8px;
+            position: relative;
+            color: $clr1;
+
+            textarea {
+                background: hsla(0, 0%, 100%, .1);
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: #fff;
+                font-family: inherit;
+                font-size: 14px;
+                height: 100%;
+                padding: 8px 8px 28px;
+                width: 100%;
+                resize: none;
+
+                &:focus {
+                    background-color: $clr5;
+                }
+
+            }
+        }
+
+        .station-image {
+            grid-area: station-image;
+            box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.25);
+
+            .station-no-img {
+                box-sizing: border-box;
+                width:100%;
+                height:100%;
+                padding:35%;
+                background-color: $bgclr1;
+                color: $clr2;
+                border-radius: 4px;
+            }
+
+
+        }
+
+        .save-button {
+            grid-area: save-button;
+            display: flex;
+            justify-self: flex-end;
+            align-items: center;
+            .inner-button {
+                @include centered-flex;
+                box-sizing: border-box;
+                position: relative;
+                background-color: $clr1;
+                color: black;
+                border-radius: 9999px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                min-block-size: 48px;
+                padding: 8px 32px;
+            }
+
+            // padding-block-start:  8px;
+            // padding-block-end:  8px;
+            // padding-inline-start:32px;
+            // padding-inline-end: 32px;
+        }
+
+        .disclaimer {
+            grid-area: disclaimer;
+            font-size: rem(11px);
+            font-weight: 500;
+
+        }
+
+
+
+
+
+    }
+}

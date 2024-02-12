@@ -2,12 +2,14 @@
 import { combineReducers, compose, legacy_createStore as createStore } from 'redux'
 import { stationReducer } from './reducers/station.reducer.js'
 import { playerReducer } from './reducers/player.reducer.js'
+import { appReducer } from './reducers/app.reducer.js'
 
 
 
 const rootReducer = combineReducers({
     stationModule: stationReducer,
-    playerModule: playerReducer
+    playerModule: playerReducer,
+    appModule: appReducer
 })
 
 

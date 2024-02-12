@@ -7,6 +7,7 @@ import { HomePage } from "./HomePage"
 import { BeatMobileNav } from "../cmps/BeatMobileNav"
 import { LuGhost } from "react-icons/lu"
 import { CleanHands } from "@mui/icons-material"
+import { DynamicModal } from "../cmps/DynamicModal"
 
 
 
@@ -42,6 +43,7 @@ export function BeatIndex() {
             </div>
             <BeatFooter />
             <BeatMobileNav/>
+            <DynamicModal />
 
         </div>
     )

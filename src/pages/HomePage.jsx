@@ -17,7 +17,6 @@ export function HomePage() {
 
     useEffect(() => {
         loadStations()
-        debugger
         const pop = categoryService.getCategory(POP)
         setCategory(pop)
         loadCategoryStations(pop.id)

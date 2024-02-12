@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react"
-import { BeatHeader } from "../cmps/BeatHeader"
-import { RiDeleteBin5Line, RiMusic2Line } from "react-icons/ri"
 import { useNavigate, useParams } from "react-router"
-import { stationService } from "../services/station.service"
+
+
+import { RiDeleteBin5Line, RiMusic2Line } from "react-icons/ri"
 import { RxDotFilled } from "react-icons/rx"
 import { IoMdHeartEmpty } from "react-icons/io"
 import { IoEllipsisHorizontalSharp, IoPlaySharp, IoClose, IoPauseSharp } from "react-icons/io5"
-import { deleteStation, saveStation } from "../store/actions/station.actions"
 import { BiSearchAlt2 } from "react-icons/bi"
-import { SongList } from "../cmps/SongList"
+
+import { BeatHeader } from "../cmps/BeatHeader"
+import { stationService } from "../services/station.service"
+
+
+import { deleteStation, saveStation } from "../store/actions/station.actions"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
 import { useDispatch, useSelector } from "react-redux"
 import { setActiveSong, togglePlay } from "../store/actions/player.actions"
 import { spotifyService } from "../services/spotify.service"
+import { onToggleModal } from "../store/actions/app.actions"
+import { SongList } from "../cmps/SongList"
+import { StationEditModal } from "../cmps/StationEditModal"
 
 const BEAT_BG = "#121212"
 
@@ -140,6 +147,17 @@ export function StationDetails() {
     }
   }
 
+  function editStation() {
+
+    onToggleModal({
+      cmp: StationEditModal ,
+       props: {
+        station
+      }
+
+    })
+  }
+
   async function search() {
     const returnedSongs = await youtubeService.search(query)
     setSongsFromSearch(returnedSongs)
@@ -154,7 +172,10 @@ export function StationDetails() {
   if (!station) return <div>Loading data</div>
   const isActiveStation = (station._id === activeStationId)
   const stationPlaying = (isPlaying && isActiveStation)
-  const fsName = (station.name.length<15) ? "fs6rem" : "fs4rem"
+  const fsName = (station.name.length < 15) ? "fs6rem" : "fs4rem"
+  const bySpotify = (station.createdBy._id === "spotify") ? true : false
+  const editClass = (bySpotify) ? '' : "can-edit"
+  const supportClick = (bySpotify) ? null : editStation
 
   return (
     <div className='main'>
@@ -162,7 +183,7 @@ export function StationDetails() {
         <BeatHeader isSearch={false} bgColor={bgColor} />
 
         <div className="station-header" style={{ backgroundColor: bgColor }}>
-          <div className='station-pic'>
+          <div className={`station-pic ${editClass}`} onClick={supportClick}>
             {station.createdBy.imgUrl
               ? <img src={station.createdBy.imgUrl} className='station-img' />
               : <RiMusic2Line className='station-no-img' />
@@ -171,7 +192,7 @@ export function StationDetails() {
 
           <div className="header-details">
             <div>Playlist</div>
-            <div className={`name ${fsName}`}>{station.name} </div>
+            <div className={`name ${fsName} ${editClass}`} onClick={supportClick}>{station.name} </div>
             <div className='details'>{station.createdBy.fullname}<RxDotFilled />
               {station.likes}<RxDotFilled /> {station.songs.length} songs,
             </div>
@@ -195,41 +216,43 @@ export function StationDetails() {
         </div>
 
         <div className="dynamic-display">
-          {(station.createdBy._id !== "spotify") && 
-          <div className='songs-search'>
-            {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
-              <header>
-                <div className="search-header">
-                  <div> Let's find something for your playlist </div>
-                  <div className="search-area">
-                    <div className="container"><BiSearchAlt2 className="search-img"
-                      onClick={search}
-                    /> </div>
-                    <input
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search for songs"
-                      onKeyDown={handleKeyDown}
-                    />
+          {!bySpotify &&
+            <div className='songs-search'>
+              {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
+                <header>
+                  <div className="search-header">
+                    <div> Let's find something for your playlist </div>
+                    <div className="search-area">
+                      <div className="container"><BiSearchAlt2 className="search-img"
+                        onClick={search}
+                      /> </div>
+                      <input
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Search for songs"
+                        onKeyDown={handleKeyDown}
+                      />
+                    </div>
                   </div>
-                </div>
-                <IoClose className="close" onClick={resetSearch} />
-              </header>}
-          
-            {
-              songsFromSearch !== null && (
-                songsFromSearch.length === 0
-                  ? <div className="empty-space"></div>
-                  : <div className="songs">
-                    <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
-                  </div>
-              )
-            }
-          </div> }
+                  <IoClose className="close" onClick={resetSearch} />
+                </header>}
+
+              {
+                songsFromSearch !== null && (
+                  songsFromSearch.length === 0
+                    ? <div className="empty-space"></div>
+                    : <div className="songs">
+                      <SongList songs={songsFromSearch} station={null} includeTitles={false} isPlaylist={false} onAddSong={onAddSong} />
+                    </div>
+                )
+              }
+            </div>}
         </div>
       </div>
     </div>
   )
 }
+
+
 
