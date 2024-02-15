@@ -141,7 +141,6 @@ function deleteSongFromStation(station, songToDelete) {
 }
 
 
-
 function getEmptyStation(stations) {
     const stationName = (stations)? `My Playlist #${_getNextStationNumber(stations)}`: ''
  

@@ -147,15 +147,25 @@ export function StationDetails() {
     }
   }
 
+  async function onUpdateStation(stationToUpdate) {
+    try {
+      const updatedToUpdate = await saveStation(stationToUpdate)
+      setStation(updatedToUpdate)
+    } catch (err) {
+      console.log("onSaveStation:"+err)
+    }
+  }
+
   function editStation() {
+    onToggleModal(
+      {
+        cmp: StationEditModal,
+        props: {
+          station: station,
+          onUpdateStation: onUpdateStation,
 
-    onToggleModal({
-      cmp: StationEditModal ,
-       props: {
-        station
-      }
-
-    })
+        }
+      })
   }
 
   async function search() {

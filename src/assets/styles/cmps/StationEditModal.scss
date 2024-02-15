@@ -14,7 +14,7 @@
         display: flex;
         padding: 24px;
         color: $clr1;
-        font-size: 1.4rem;
+        font-size: 1.27rem;
         font-weight: 900;
 
 
@@ -78,8 +78,17 @@
         }
 
         .station-image {
+            cursor: pointer;
+            input {
+                display: none;
+            }
             grid-area: station-image;
             box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+
+            .station-img {
+                border-radius: 4px;
+            }
 
             .station-no-img {
                 box-sizing: border-box;
@@ -89,6 +98,9 @@
                 background-color: $bgclr1;
                 color: $clr2;
                 border-radius: 4px;
+            }
+            .img-loading {
+                cursor:auto;
             }
 
 
@@ -110,6 +122,10 @@
                 font-weight: 500;
                 min-block-size: 48px;
                 padding: 8px 32px;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
             // padding-block-start:  8px;
