@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setActiveSong, togglePlay } from '../store/actions/player.actions'
 import { RiDeleteBin5Line } from "react-icons/ri"
 import { IoMdMore } from "react-icons/io"
-
+import { Audio } from 'react-loader-spinner'
+import { DoubleArrow } from "@mui/icons-material"
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
@@ -22,8 +23,9 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
     const { activeSong, isPlaying } = useSelector(state => state.playerModule);
 
-    const isActive = activeSong && songToPreview._id === activeSong._id;
-    const isThisSongPlaying = isActive && isPlaying;
+    const isActive = activeSong && (songToPreview.id === activeSong.id)
+    const isThisSongPlaying = isActive && isPlaying
+
 
     //temp function
     function onPic() {
@@ -33,7 +35,8 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
     function onPlay() {
         const stationId = (songFromStation) ? songFromStation._id : null
-        dispatch(setActiveSong(songToPreview, stationId));
+        console.log("onPlay-stationId:"+ stationId)
+        dispatch(setActiveSong(songToPreview, stationId))
     }
 
     function onPause() {
@@ -74,7 +77,16 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
                             {
                                 isThisSongPlaying ? (
-                                    <GiPauseButton className='index' onClick={onPause} />
+                                    !isMouseOn?    <Audio
+                                    height="20"
+                                    width="20"
+                                    radius="3"
+                                    color="green"
+                                    ariaLabel="loading"
+                                    wrapperStyle
+                                    wrapperClass
+                                  />
+                                    :<GiPauseButton className='index' onClick={onPause} />
                                 ) : isMouseOn ? (
                                     <div><IoPlay className='index' onClick={onPlay} /></div>
                                 ) : <div className='index'>{index + 1}</div>

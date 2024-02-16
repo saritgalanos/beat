@@ -7,10 +7,14 @@ const initialState = {
 }
 
 export function playerReducer(state = initialState, action) {
+
   switch (action.type) {
+    
     case SET_ACTIVE_SONG:
+      debugger
       // If the clicked song is the same as the active song, toggle its playing state
-      if (state.activeSong && state.activeSong._id === action.payload._id) {
+      if (state.activeSong && (state.activeSong.id === action.payload.id)) {
+
         return { ...state, isPlaying: !state.isPlaying };
       }
       // If it's a different song, make it the active song and start playing

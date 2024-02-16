@@ -119,7 +119,7 @@ function getDefaultFilter() {
 function addSongToStation(station, newSong) {
     newSong.addedAt = Date.now()
     //add song only if no such id in the list
-    const exists = station.songs.find(song => song._id === newSong._id);
+    const exists = station.songs.find(song => song.id === newSong.id);
 
     // If the song doesn't exist, add it to the array
     if (exists) {
@@ -135,7 +135,7 @@ function addSongToStation(station, newSong) {
 
 function deleteSongFromStation(station, songToDelete) {
     
-    const updatedSongs = station.songs.filter((song) => song._id !== songToDelete._id);
+    const updatedSongs = station.songs.filter((song) => song.id !== songToDelete.id);
     const updatedStation = { ...station, songs: updatedSongs };
     return updatedStation;
 }

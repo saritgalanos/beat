@@ -52,6 +52,9 @@
     //--------------------------------------------------------------------
     @include for-narrow-layout {
         grid-template-columns: 80px 1fr;
+        &.wide-library {
+            grid-template-columns:  minmax(300px, 0.30fr) 1fr;
+        }
         grid-template-rows: 1fr 80px;
         grid-template-areas:
             "nav main"
@@ -98,10 +101,6 @@
             "nav main"
             "footer footer";
 
-
-        // .mobile-nav {
-        //     display: none; // Hide Mobile Nav on larger screens
-        // }
 
         .nav {
             display: block; // Show Regular Nav on larger screens

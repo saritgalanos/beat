@@ -22,6 +22,8 @@ import { spotifyService } from "../services/spotify.service"
 import { onToggleModal } from "../store/actions/app.actions"
 import { SongList } from "../cmps/SongList"
 import { StationEditModal } from "../cmps/StationEditModal"
+import { ThreeDots } from "react-loader-spinner"
+
 
 const BEAT_BG = "#121212"
 
@@ -152,7 +154,7 @@ export function StationDetails() {
       const updatedToUpdate = await saveStation(stationToUpdate)
       setStation(updatedToUpdate)
     } catch (err) {
-      console.log("onSaveStation:"+err)
+      console.log("onSaveStation:" + err)
     }
   }
 
@@ -179,7 +181,12 @@ export function StationDetails() {
   }
 
 
-  if (!station) return <div>Loading data</div>
+  if (!station) return (
+    <div className="page-center">
+      <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" />
+    </div>)
+
+
   const isActiveStation = (station._id === activeStationId)
   const stationPlaying = (isPlaying && isActiveStation)
   const fsName = (station.name.length < 15) ? "fs6rem" : "fs4rem"

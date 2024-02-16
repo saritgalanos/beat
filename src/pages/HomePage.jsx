@@ -5,6 +5,7 @@ import { StationPreview } from "../cmps/StationPreview"
 import { useSelector } from "react-redux"
 import { loadStations } from "../store/actions/station.actions"
 import { categoryService } from "../services/category.services"
+import { ThreeDots } from "react-loader-spinner"
 
 const POP = '0JQ5DAqbMKFEC4WFtoNRpw'
 
@@ -13,7 +14,7 @@ export function HomePage() {
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const [suggestedStations, setSuggestedStations] = useState(null)
     const [category, setCategory] = useState(null)
-   
+
 
     useEffect(() => {
         loadStations()
@@ -33,11 +34,15 @@ export function HomePage() {
         }
     }
 
-    if (!stations || !suggestedStations) return <div>Loading...</div>
-    //filter stations for display and take up to 6
-    //const filteredLimitedItems = stations.filter(station => item.isActive).slice(0, 6)
-    const stationsToDisplay = stations.slice(0, 6);
+    if (!stations || !suggestedStations) return (
+        <div className="page-center">
+            <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" />
+        </div> )
+        
+  
 
+
+        const stationsToDisplay = stations.slice(0, 6);
     const BEAT_BG = "#121212"
     const baseColor = "#232324"
     const gradientStyle = {
