@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveSong, togglePlay } from "../store/actions/player.actions";
 
 
-export function StationPreview({ station, displayOn = "library" }) {
+export function StationPreview({ station, displayOn = "library", libOpen=false}) {
   //station can be displayed as part of "library", "category" and "homepage"*/
 
   const navigate = useNavigate()
@@ -42,10 +42,11 @@ export function StationPreview({ station, displayOn = "library" }) {
 
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
-
+  const openLib = (libOpen) ? 'open-lib' : ''
+  console.log(openLib)
 
   return (
-    <div className={`station-preview ${displayOn}`} onClick={() => navigate(`/${station._id}`)}>
+    <div className={`station-preview ${displayOn} ${openLib}`} onClick={() => navigate(`/${station._id}`)}>
 
       {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
       {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}

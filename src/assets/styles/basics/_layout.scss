@@ -52,7 +52,7 @@
     //--------------------------------------------------------------------
     @include for-narrow-layout {
         grid-template-columns: 80px 1fr;
-        &.wide-library {
+        &.narrow-wide-lib {
             grid-template-columns:  minmax(300px, 0.30fr) 1fr;
         }
         grid-template-rows: 1fr 80px;
@@ -93,7 +93,7 @@
     //-------------------------------------------------------------------------
     @include for-normal-layout  {
         grid-template-columns: minmax(300px, 0.30fr) 1fr;
-        &.wide-library {
+        &.wide-lib {
             grid-template-columns: minmax(300px, 0.50fr) 1fr;
         }
         grid-template-rows: 1fr 80px;

@@ -6,21 +6,10 @@
     height: calc(100vh - 205px);
     padding: 3px;
 
-    @include for-normal-layout {
-        height: calc(100vh - 226px);
-        padding: 8px 0px 0px 12px;
-
-    }
-
     .lib-header {
-
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-
-
-        padding: 10px 30px 0 0;
-
 
         justify-content: center;
 
@@ -28,23 +17,40 @@
             display: none;
         }
 
-        @include for-normal-layout {
+        .controls {
+            display: none;
+        }
+    }
+
+    .stations-area {
+
+        margin-bottom: 0;
+        padding-right: 12px;
+        height: calc(100vh - 258px);
+        @include add-scroll-bar(6px);
+
+        .stations {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 65px);
+            max-height: 100%;
+        }
+    }
+
+
+
+
+    @include for-normal-layout {
+        height: calc(100vh - 226px);
+        padding: 8px 0px 0px 12px;
+
+        .lib-header {
             justify-content: space-between;
+            padding: 10px 30px 0 0;
 
             .txt {
                 display: block;
             }
 
-        }
-
-        
-        //narrow
-        .controls {
-            display: none;
-        }
-
-       
-        @include for-normal-layout {
             .controls {
                 display: block;
 
@@ -64,32 +70,34 @@
             }
         }
 
-
-    }
-
-    .stations-area {
-
-        margin-bottom: 0;
-        padding-right: 12px;
-        height: calc(100vh - 293px);
-        //border-bottom: 8px;
-        @include add-scroll-bar(6px);
-
-        @include for-normal-layout {
+        .stations-area {
             @include add-scroll-bar;
 
-        }
-
-        .stations {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 65px);
-            max-height: 100%;
-
-            @include for-normal-layout {
+            .stations {
                 grid-template-columns: repeat(auto-fill, minmax(102px, auto));
-
             }
         }
     }
 
+
+    &.nav-open {
+        height: calc(100vh - 226px);
+        padding: 8px 0px 0px 12px;
+
+        .lib-header {
+            justify-content: space-between;
+
+            .txt {
+                display: block;
+            }
+         }
+
+        .stations-area {
+            @include add-scroll-bar;
+
+            .stations {
+                grid-template-columns: repeat(auto-fill, minmax(102px, auto));
+            }
+        }
+    }
 }

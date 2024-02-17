@@ -18,7 +18,7 @@ export function BeatIndex() {
 
 
     const [selectedPage, setSelectedPage] = useState('home')
-    const [isWide, setIsWide] = useState(false)
+    const [libWidth, setLibWidth] = useState('normal')  /*other options are 'wide-lib' and 'narrow-wide-lib'*/
    
 
     useEffect(() => {
@@ -29,14 +29,15 @@ export function BeatIndex() {
         setSelectedPage(page)
     }
 
-    function onNavWidth() {
-        setIsWide(!isWide)
+    function onNavWidth(libWidthToSet) {
+       
+        setLibWidth(libWidthToSet)
+        console.log("libWidth"+libWidthToSet)
     }
     
-    const wideClassName = (isWide) ? "wide-library" : ""
     return (
-        <div className={`main-container  ${wideClassName}`}>
-            <BeatNav selectedPage={selectedPage} setPage={setPage} onNavWidth={onNavWidth} isWide={isWide}/>
+        <div className={`main-container  ${libWidth}`}>
+            <BeatNav selectedPage={selectedPage} setPage={setPage} onNavWidth={onNavWidth} />
             <BeatMobileNav selectedPage={selectedPage} setPage={setPage} />
             <div>
                 <Outlet />

@@ -14,9 +14,15 @@
 
     .txt {
         display: none;
+
         @include for-normal-layout {
             display: block;
         }
+
+        &.nav-open {
+            display: block;
+        }
+
     }
 
 }

@@ -18,6 +18,7 @@
         aspect-ratio: 114/166;
     }
 
+  
 
     .station-info {
         display: flex;
@@ -76,12 +77,42 @@
                 }
             }
 
+
+
         }
 
     }
 
 
+    &.open-lib {
+        aspect-ratio: 114/166;
+        .station-info {
+            .station-txt {
 
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                .station-name {
+                    color: $clr1;
+
+                    &.active-station {
+                        color: $clr8;
+                    }
+
+                    @include limit-text-to-width;
+                    font-weight: 500;
+                    font-size: 1rem;
+                }
+
+                .station-creator {
+                    @include limit-text-to-width;
+                    font-size: 0.9rem;
+
+                }
+            }
+        }
+    }
 
     .play {
         display: none;
@@ -182,19 +213,21 @@
         /* Minimum width for each item, adjust as needed */
         aspect-ratio: 168/222;
         padding: 8px;
+
         .station-info {
-          
-           
+
+
             .station-txt {
                 display: block;
+
                 .station-name {
-                    
+
                     //font-family: CircularSP;
                     font-size: 0.95rem;
                     font-weight: 400;
                     @include limit-text-to-width;
                 }
-               
+
                 .station-creator {
                     display: none;
                 }
@@ -243,6 +276,7 @@
                     .station-name {
                         font-weight: 900;
                         font-size: 0.9rem;
+
                         &.active-station {
                             color: inherit;
                         }
