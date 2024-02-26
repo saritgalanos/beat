@@ -123,7 +123,7 @@ function _generateRandomColor() {
 function _generateSongDetails() {
     return songs.map (song => {
         return {
-            _id:utilService.makeId(),
+            id: utilService.makeId(),
             title:song,
             randomColor: _generateRandomColor(),
             addedAt: _generateRandomTimestamp()

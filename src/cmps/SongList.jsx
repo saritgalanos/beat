@@ -21,7 +21,7 @@ export function SongList({ songs, station, includeTitles, isPlaylist, onAddSong,
 
       <ul>
         {(songs).map((song, index) => (
-          <li key={song._id}>
+          <li key={song.id}>
             <SongPreview song={song} station={station} index={index} isPlaylist={isPlaylist} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
           </li>
         ))}

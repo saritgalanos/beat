@@ -1,33 +1,87 @@
-import { LinearProgress } from "@mui/material"
+
 import { useEffect, useRef, useState } from "react"
-import { BiRepeat } from "react-icons/bi"
-import { FaCirclePause, FaCirclePlay } from "react-icons/fa6"
-import { IoPauseCircle, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5"
-import { PiShuffleBold } from "react-icons/pi"
 import { useDispatch, useSelector } from "react-redux"
 import { togglePlay } from "../store/actions/player.actions"
 import YouTube from "react-youtube"
-import { GiPauseButton } from "react-icons/gi"
-import { IoIosPause } from "react-icons/io"
 
-
+import { LinearProgress } from "@mui/material"
+import { BiRepeat } from "react-icons/bi"
+import { FaCirclePause, FaCirclePlay } from "react-icons/fa6"
+import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5"
+import { PiShuffleBold } from "react-icons/pi"
 
 export function Player() {
     const activeSong = useSelector(state => state.playerModule.activeSong)
     const isPlaying = useSelector(state => state.playerModule.isPlaying)
+
+    const [progress, setProgress] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+
     const dispatch = useDispatch()
     const playerRef = useRef(null)
+    const intervalRef = useRef(null)
 
     useEffect(() => {
-        if (playerRef.current && isPlaying) {
-            playerRef.current.internalPlayer.playVideo();
-        } else if (playerRef.current) {
-            playerRef.current.internalPlayer.pauseVideo();
+        if (playerRef.current && playerRef.current.internalPlayer) {
+            if (isPlaying) {
+                playerRef.current.internalPlayer.playVideo();
+                // Only set the interval if it's not already running
+                if (!intervalRef.current) {
+                    intervalRef.current = setInterval(() => {
+                        updateProgress();
+                    }, 1000); // Update progress every second
+                }
+            } else {
+                playerRef.current.internalPlayer.pauseVideo();
+                // Clear the interval when pausing
+                if (intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null; // Reset the ref to null after clearing
+                }
+            }
         }
-    }, [isPlaying, activeSong]);
 
-    const toggleAudio = () => {
-        dispatch(togglePlay()); // Dispatch an action to toggle play/pause
+        // Cleanup function to clear the interval on component unmount
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
+        };
+    }, [activeSong, isPlaying]); // Effect depends on isPlaying
+
+
+    async function updateProgress() {
+        const player = playerRef.current;
+        // Ensure the player is fully loaded and the methods exist
+        if (player && player.internalPlayer) {
+            // Call the methods directly and synchronously
+            const currentTime = await player.internalPlayer.getCurrentTime();
+            const duration = await player.internalPlayer.getDuration();
+            if (duration > 0) { // Ensure duration is a positive number
+                const progressValue = (currentTime / duration) * 100;
+                setProgress(progressValue);
+                setCurrentTime(currentTime); // Update state with the new current time
+                setDuration(duration);       // Update state with the new duration
+            }
+        }
+    }
+
+
+    function formatTime(timeInSeconds) {
+        const pad = (num, size) => ('000' + num).slice(size * -1);
+        const time = parseFloat(timeInSeconds).toFixed(3);
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor(time / 60) % 60;
+        const seconds = Math.floor(time - minutes * 60);
+
+        return `${pad(minutes, 2)}:${pad(seconds, 2)}`;
+    }
+
+    
+    function toggleAudio() {
+        dispatch(togglePlay())
     }
 
     const opts = {
@@ -54,8 +108,18 @@ export function Player() {
                 <BiRepeat className="player-icon" />
             </div>
             <div className='details'>
-                0.10 <LinearProgress variant="determinate" value={10} className="progress-bar"
-                /> 3.05
+                <div className='time-display'>{formatTime(currentTime)}</div>
+                <LinearProgress variant="determinate" value={progress}
+                     sx={{
+                        '& .MuiLinearProgress-bar1Determinate': {
+                          backgroundColor: 'white', // Set the initial color to white
+                        },
+                        '&:hover .MuiLinearProgress-bar1Determinate': {
+                          backgroundColor: 'green', // Change to green on hover
+                        }
+                      }}
+                    className="progress-bar" />
+                <div className='time-display'>{formatTime(duration)}</div>
             </div>
             {activeSong && (
                 <div className="youtube">
@@ -66,3 +130,31 @@ export function Player() {
     )
 
 }
+
+
+
+
+// useEffect(() => {
+//     const interval = setInterval(() => {
+//         updateProgress();
+//     }, 1000); // Update progress every second
+
+//     return () => clearInterval(interval);
+// }, [])
+
+// useEffect(() => {
+//    // debugger
+//     if (playerRef.current && isPlaying) {
+//         playerRef.current.internalPlayer.playVideo();
+//     } else if (playerRef.current) {
+//         playerRef.current.internalPlayer.pauseVideo();
+//     }
+// }, [isPlaying, activeSong]);
+
+// useEffect(() => {
+//     setProgress(0);
+// }, [activeSong]); // Only depend on activeSong
+
+
+
+

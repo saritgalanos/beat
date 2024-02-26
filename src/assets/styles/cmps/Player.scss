@@ -3,46 +3,54 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap:5px;
-    font-weight:100;
+    gap: 5px;
+    font-weight: 100;
     font-size: 0.8rem;
     color: $clr2;
-    
+
     .controls {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 25px;
- 
+
 
         .player-icon {
             height: 25px;
             width: 25px;
-          
+
         }
 
         .play-icon {
-            margin-top:5px;
+            margin-top: 5px;
             height: 35px;
             width: 35px;
             color: $clr1;
         }
-       
+
     }
 
     .details {
-      display: flex;
-      align-items: center;
-      
+        display: flex;
+        align-items: center;
+
+        .time-display {
+            display: inline-block;
+            width: 50px;
+            /* Adjust based on the maximum expected width */
+            text-align: center;
+        }
+
         .progress-bar {
             background-color: $clr2;
             width: 30vw;
             height: 3px;
             margin: 0 10px;
-           
-            
+
+
         }
     }
+
     .youtube {
         display: none;
     }

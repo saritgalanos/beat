@@ -33,7 +33,6 @@ export function StationPreview({ station, displayOn = "library", libOpen=false})
   }
 
   function onPause() {
-    console.log('clicked')
     dispatch(togglePlay())
   }
 
@@ -43,7 +42,6 @@ export function StationPreview({ station, displayOn = "library", libOpen=false})
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
   const openLib = (libOpen) ? 'open-lib' : ''
-  console.log(openLib)
 
   return (
     <div className={`station-preview ${displayOn} ${openLib}`} onClick={() => navigate(`/${station._id}`)}>
