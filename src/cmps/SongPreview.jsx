@@ -35,7 +35,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
     function onPlay() {
         const stationId = (songFromStation) ? songFromStation._id : null
-        console.log("onPlay-stationId:"+ stationId)
+        console.log("onPlay-stationId:" + stationId)
         dispatch(setActiveSong(songToPreview, stationId))
     }
 
@@ -53,8 +53,8 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         onDeleteSong(songToPreview)
     }
 
-    
- 
+
+
     const songDetails = songToPreview.title.split('-');
     const artist = songDetails[0];
     const songName = songDetails[1];
@@ -64,7 +64,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
     const isActiveClass = (isActive) ? 'active-song' : ''
-    
+
     return (
         <div className='song-preview'
             onMouseEnter={() => { setMouseOn(true) }}
@@ -77,16 +77,16 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
                             {
                                 isThisSongPlaying ? (
-                                    !isMouseOn?    <Audio
-                                    height="20"
-                                    width="20"
-                                    radius="3"
-                                    color="green"
-                                    ariaLabel="loading"
-                                    wrapperStyle
-                                    wrapperClass
-                                  />
-                                    :<GiPauseButton className='index' onClick={onPause} />
+                                    !isMouseOn ? <Audio
+                                        height="20"
+                                        width="20"
+                                        radius="3"
+                                        color="green"
+                                        ariaLabel="loading"
+                                        wrapperStyle
+                                        wrapperClass
+                                    />
+                                        : <GiPauseButton className='index' onClick={onPause} />
                                 ) : isMouseOn ? (
                                     <div><IoPlay className='index' onClick={onPlay} /></div>
                                 ) : <div className='index'>{index + 1}</div>
@@ -126,8 +126,8 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                     <div className='song-title'>
                         <div className="thumbnail-container">
                             {renderThumbnail}
-                           <div className="dynamic-display"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
-                           <div className="dynamic-display">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
+                            <div className="dynamic-display"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
+                            <div className="dynamic-display">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
                         </div>
                         <div className="artist">{artist}</div>
                         <div className={`song-name ${isActiveClass}`}>{songName}</div>

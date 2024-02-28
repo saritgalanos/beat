@@ -13,7 +13,7 @@ html {
     font-weight: 300;
     line-height: normal;
     color: $clr2;
-    margin-left: -5px;
+    margin-right: -5px;
     /*temp need to check this one*/
 
 }
@@ -46,11 +46,11 @@ input {
     font-size: rem(14px);
 }
 
-section,
-main,
-footer {
-    padding: 5px;
-}
+// section,
+// main,
+// footer {
+//     padding: 5px;
+// }
 
 img {
     width: 100%;

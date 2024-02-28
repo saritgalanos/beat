@@ -7,22 +7,52 @@
 
 
 .main-nav-links {
+    box-sizing: border-box;
     color: $clr2;
     background-color: $clr3;
     border-radius: $border-radius;
-    padding: 8px 12px;
+    padding: 13px 12px 3px 12px;
+
+    @include for-normal-layout {
+        padding: 8px 12px;
+
+    }
+
+    .link-item {
+        margin: 0px 0 10px 0;
+
+        @include for-normal-layout {
+            margin: 0px;
+
+        }
+
+    }
 
     .txt {
         display: none;
 
         @include for-normal-layout {
             display: block;
-        }
 
-        &.nav-open {
-            display: block;
         }
 
     }
 
+
+
+
+}
+
+.nav-open {
+    .main-nav-links {
+        padding: 8px 12px;
+        display: block;
+
+        .link-item {
+            margin: 0px;
+            .txt {
+                display: block;
+            }
+        }
+    }
 }

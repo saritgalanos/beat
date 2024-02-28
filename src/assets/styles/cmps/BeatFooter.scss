@@ -1,17 +1,17 @@
 .beat-footer {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    margin-left: 18px;
+    margin: 0 18px;
     gap:20px;
+    width:100%;
 }
 
 .currently-playing-preview {
     display: flex;
     justify-content: left;
-    min-width: 30vw;
-    /*temp*/
-
+    width: 25vw;
+  
     .song-title {
         display: grid;
         grid-template-columns: 55px 1fr;
@@ -64,25 +64,3 @@
     }
 }
 
-.player {
-    display: flex;
-    justify-content: center;
-    flex: 1;
-
-}
-
-.toolbar {
-
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    min-width: 30vw;
-    padding-top:15px;
-   // width: 400px;
-    /*temp*/
-    // display: flex;
-    // justify-content: center;
-    // .volume-bar {
-       
-    // }
-}

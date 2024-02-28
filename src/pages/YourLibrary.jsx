@@ -62,7 +62,7 @@ export function YourLibrary({ onNavWidth }) {
         <div className={`your-library ${navClass}`} ref={ref}>
             <div className="lib-header">
                 <div className="nav-control-item">
-                    <IoLibraryOutline className='nav-control-icon' onClick={onLibrary} />
+                    <IoLibraryOutline className='library-icon nav-control-icon ' onClick={onLibrary} />
                     <div className={`txt ${navClass}`}>Your Library</div>
                 </div>
                 <div className={`controls ${navClass}`}>

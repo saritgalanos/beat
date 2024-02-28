@@ -3,15 +3,24 @@
     color: $clr2;
     border-radius: $border-radius;
 
-    height: calc(100vh - 205px);
+    height: calc(100vh - 215px);
     padding: 3px;
 
     .lib-header {
+        padding: 14px 0px 2px 0px;
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
 
         justify-content: center;
+
+        .nav-control-item {
+           
+            .library-icon {
+                height: 28px;
+                width: 28px;
+            }
+        }
 
         .txt {
             display: none;
@@ -23,11 +32,12 @@
     }
 
     .stations-area {
-
+        padding: 8px 0px 0px 3px;
         margin-bottom: 0;
         padding-right: 12px;
-        height: calc(100vh - 258px);
-        @include add-scroll-bar(6px);
+        height: calc(100vh - 275px);
+        @include add-scroll-bar(8px);
+        margin-right: -3px;
 
         .stations {
             display: grid;
@@ -40,12 +50,11 @@
 
 
     @include for-normal-layout {
-        height: calc(100vh - 226px);
-        padding: 8px 0px 0px 12px;
-
+        // height: calc(100vh - 208px);
+       
         .lib-header {
             justify-content: space-between;
-            padding: 10px 30px 0 0;
+            padding: 8px 30px 0 0;
 
             .txt {
                 display: block;
@@ -55,8 +64,8 @@
                 display: block;
 
                 .add-icon {
-                    height: 30px;
-                    width: 30px;
+                    height: 28px;
+                    width: 28px;
                     padding: 3px;
                     margin: 0 4px;
 
@@ -71,7 +80,8 @@
         }
 
         .stations-area {
-            @include add-scroll-bar;
+            padding-right: 6px;
+            @include add-scroll-bar(13px);
 
             .stations {
                 grid-template-columns: repeat(auto-fill, minmax(102px, auto));
@@ -81,19 +91,21 @@
 
 
     &.nav-open {
-        height: calc(100vh - 226px);
-        padding: 8px 0px 0px 12px;
+        height: calc(100vh - 216px);
+        //height: calc(100vh - 226px);
+       
 
         .lib-header {
+            padding: 8px 20px 0px 12px;
             justify-content: space-between;
 
             .txt {
                 display: block;
             }
-         }
+        }
 
         .stations-area {
-            @include add-scroll-bar;
+            @include add-scroll-bar(13px);
 
             .stations {
                 grid-template-columns: repeat(auto-fill, minmax(102px, auto));

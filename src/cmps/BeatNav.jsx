@@ -26,23 +26,27 @@ export function BeatNav({ selectedPage, setPage, onNavWidth }) {
 
     const homeClassName = (selectedPage === 'home') ? "nav-control-item selected" : "nav-control-item"
     const searchClassName = (selectedPage === 'search') ? "nav-control-item selected" : "nav-control-item"
-    const navClass = ( size.width > 100 ) ? "nav-open" : 'nav-closed'
-    
+    const navClass = (size.width > 100) ? "nav-open" : 'nav-closed'
+
     return (
         <div className='nav'>
-            <div className="beat-nav" ref={ref}>
+            <div className={`beat-nav ${navClass} `} ref={ref}>
                 <div className="main-nav-links">
-                    <div className={homeClassName} onClick={onClickHome}>
-                        {(selectedPage === 'home') ?
-                            <GoHomeFill className="nav-control-icon" /> :
-                            <GoHome className="nav-control-icon" />}
-                        <div className={`txt ${navClass}`}>Home</div>
+                    <div className='link-item'>
+                        <div className={homeClassName} onClick={onClickHome}>
+                            {(selectedPage === 'home') ?
+                                <GoHomeFill className="nav-control-icon" /> :
+                                <GoHome className="nav-control-icon" />}
+                            <div className={`txt ${navClass}`}>Home</div>
+                        </div>
                     </div>
-                    <div className={searchClassName} onClick={onClickSearch}>
-                        {(selectedPage === 'search') ?
-                            <BiSolidSearchAlt2 className="nav-control-icon" /> :
-                            <BiSearchAlt2 className="nav-control-icon" />}
-                        <div className={`txt ${navClass}`}> Search </div>
+                    <div className='link-item'>
+                        <div className={searchClassName} onClick={onClickSearch}>
+                            {(selectedPage === 'search') ?
+                                <BiSolidSearchAlt2 className="nav-control-icon" /> :
+                                <BiSearchAlt2 className="nav-control-icon" />}
+                            <div className={`txt ${navClass}`}> Search </div>
+                        </div>
                     </div>
 
                 </div>

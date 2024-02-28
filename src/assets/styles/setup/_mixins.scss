@@ -128,8 +128,7 @@
 @mixin add-scroll-bar ($width:$scrollbar-width) {
   overflow-y: auto;
   overflow-x: hidden; 
-  /* Enable vertical scrolling */
-
+ 
   /* For Webkit browsers (Chrome, Safari) */
   &::-webkit-scrollbar {
       width: $width;
@@ -138,18 +137,13 @@
   }
 
   &::-webkit-scrollbar-thumb {
-      background-color: rgb(112, 110, 110);
-      /* Lighter scrollbar thumb */
-      border-radius: 0 4px 0 0;
+     background-color: rgb(87, 86, 86);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(180, 180, 180, 0.9);
+      //background-color: rgba(180, 180, 180, 0.9);
+      background-color: rgb(131, 131, 131);
   }
-
-  /* For Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(200, 200, 200, 0.8) transparent;
 
 }
 

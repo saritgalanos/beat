@@ -1,4 +1,5 @@
 .main-container {
+    box-sizing: border-box;
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -19,15 +20,17 @@
 
 
     .main {
+        
         position: relative;
         height: calc(100vh);
+        //height: 100vh;
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
         
         box-sizing: border-box;
         overflow: hidden;
-        @include add-scroll-bar(0);
+        @include add-scroll-bar(13px);
 
       
     }
@@ -39,6 +42,7 @@
 
 
     .mobile-nav {
+        box-sizing: border-box;
         background-color: black;
         grid-area: mobileNav;
         position: fixed;
@@ -51,6 +55,7 @@
 
     //--------------------------------------------------------------------
     @include for-narrow-layout {
+        padding: 8px;
         grid-template-columns: 80px 1fr;
         &.narrow-wide-lib {
             grid-template-columns:  minmax(300px, 0.30fr) 1fr;
@@ -66,26 +71,32 @@
         }
 
         .nav {
+            height: calc(100vh - 96px);        
+            box-sizing: border-box;
             display: block; // Show Regular Nav on larger screens
             grid-area: nav;
             
         }
 
         .main {
-            height: calc(100vh - 105px);
+            height: calc(100vh - 96px);
             border-radius: $border-radius;
-            @include add-scroll-bar;
+            overflow: auto;
+            
+            overflow: hidden;
+            @include add-scroll-bar(13px);
           
         }
 
         .footer {
+            box-sizing: border-box;
             display: block; // Show Footer on larger screens
             grid-area: footer;
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-            padding: 10px 0;
+            padding: 0;
         }
 
     }
@@ -96,7 +107,7 @@
         &.wide-lib {
             grid-template-columns: minmax(300px, 0.50fr) 1fr;
         }
-        grid-template-rows: 1fr 80px;
+        grid-template-rows: 1fr 76px;
         grid-template-areas:
             "nav main"
             "footer footer";
@@ -104,11 +115,13 @@
 
         .nav {
             display: block; // Show Regular Nav on larger screens
-            grid-area: nav;            
+            grid-area: nav; 
+            height: calc(100vh - 96px);           
         }
 
 
-        .footer {
+        .footer {    
+            box-sizing: border-box;       
             display: flex; // Show Footer on larger screens
             grid-area: footer;
             position: fixed;
@@ -116,7 +129,7 @@
             left: 0;
             bottom: 0;
             width: 100%;
-            padding: 10px 0;
+            padding: 0 0 8px 0;
         }
     }
 

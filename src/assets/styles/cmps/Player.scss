@@ -1,57 +1,88 @@
+// .player {
+//    
+//     flex: 1;
+
+// }
+
 .player {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 5px;
-    font-weight: 100;
-    font-size: 0.8rem;
-    color: $clr2;
-
-    .controls {
+    flex:1;
+    justify-content: space-between;
+    .song-control {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 25px;
+        flex-direction: column;
+        font-weight: 100;
+        font-size: 0.8rem;
+        color: $clr2;
+        //flex: 1;
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: -4px;
 
 
-        .player-icon {
-            height: 25px;
-            width: 25px;
+            .player-icon {
+                height: 20px;
+                width: 20px;
+
+            }
+
+            .play-icon {
+                margin-top: 5px;
+                height: 31px;
+                width: 31px;
+                color: $clr1;
+            }
 
         }
 
-        .play-icon {
-            margin-top: 5px;
-            height: 35px;
-            width: 35px;
-            color: $clr1;
-        }
+        .details {
+            display: flex;
+            align-items: center;
+            padding-bottom: 5px;
 
-    }
+            .time-display {
+                font-size: 12px;
+                display: inline-block;
+                width: 50px;
+                /* Adjust based on the maximum expected width */
+                text-align: center;
+            }
 
-    .details {
-        display: flex;
-        align-items: center;
-
-        .time-display {
-            display: inline-block;
-            width: 50px;
-            /* Adjust based on the maximum expected width */
-            text-align: center;
-        }
-
-        .progress-bar {
-            //background-color: $clr2;
-            width: 30vw;
-            height: 3px;
-            margin: 0 10px;
+            .progress-bar {
+                //background-color: $clr2;
+                width: 35vw;
+                height: 4px;
+                margin: 0 8px;
+                //padding: 5px 0 20px 0;
 
 
+            }
         }
     }
 
     .youtube {
         display: none;
+    }
+    .volume_control {
+        padding-right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;   
+     
+      
+    
+        .progress_bar {
+            width: 8vw;
+            min-width:5vw;
+            height: 2.5px;
+            margin: 0 10px;
+        }
+    
     }
 }

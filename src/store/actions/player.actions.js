@@ -4,9 +4,9 @@ export const STOP = 'STOP';
 
 // Action creator for setting the active song
 export function setActiveSong(song, fromStationId) {
-    if(!song || !song.id) {
-        console.log("here")
-    }
+    // if(!song || !song.id) {
+    //     console.log("here")
+    // }
 
     return {
       
