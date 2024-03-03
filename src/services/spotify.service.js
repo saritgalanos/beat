@@ -1,4 +1,7 @@
+import { TrackChanges } from "@mui/icons-material"
 import { stationService } from "./station.service"
+import { utilService } from "./util.service"
+import { categoryService } from "./category.services"
 
 export const spotifyService = {
     getSpotifyToken,
@@ -12,7 +15,7 @@ export const spotifyService = {
     fetchSpotifyFeaturedPlaylists,
     fetchSpotifyCategories,
     fetchCategoryDetails,
-    fetchSpotifyCategoriesPlaylistsAndTracks
+    fetchAllStations
 
 }
 
@@ -48,15 +51,32 @@ function logout() {
 }
 
 
-async function fetchPlaylistsForCategory(categoryId) {
-    const accessToken = getSpotifyToken()
-    const url = `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`
-    const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
+async function getAllStations() {
+    categories = categoryService.getCategories()
+    categories.map(category => {
+        station = fetchPlaylistsForCategory(category.categoryId)
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-    return response.json()
+
+
+
+
+    })
+
+
+
 }
 
+
+async function fetchPlaylistsForCategory(categoryId) {
+    const accessToken = getSpotifyToken()
+    try {
+        const playlistsData = await _fetchPlaylistsForCategory(categoryId, accessToken)
+        return playlistsData;
+    }
+    catch(err) {
+        console.log('fetchPlaylistsForCategory failed:',err)
+    }
+}
 
 
 
@@ -76,7 +96,7 @@ async function fetchPlaylist(playlistId) {
         }
         const playlist = await response.json();
         const station = _createStationFromSpotifyPlayList(playlist)
-         return station
+        return station
     } catch (error) {
         console.error('Error fetching playlist:', error);
         throw error; // Re-throwing the error to be handled by the caller
@@ -85,30 +105,6 @@ async function fetchPlaylist(playlistId) {
 
 
 
-function _createStationFromSpotifyPlayList(playlist) {
-    console.log(playlist)
-    var station = stationService.getEmptyStation()
-    station._id = playlist.id
-    station.name = playlist.name
-    station.createdBy._id = playlist.owner.id
-    station.createdBy.fullname = playlist.owner.display_name
-    station.createdBy.imgUrl = playlist.images[0].url
-    station.description = playlist.description
-    playlist.tracks.items.slice(0, 40).forEach(song => {
-        const songToAdd = {
-            id: song.track.id,
-            title: `${song.track.name} - ${song.track.artists[0].name}`,
-            url: song.track.href,
-            imgUrl: song.track.album.images[0].url,
-            addedBy: 'spotify',
-            addedAt: Date.parse(song.added_at)
-        };
-        station.songs.push(songToAdd);
-    })
-
-
-    return station
-}
 
 
 
@@ -121,16 +117,16 @@ async function searchPlaylists(query) {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
-        });
+        })
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok')
         }
 
         const data = await response.json();
         console.log("=================searchPlaylists====================")
         console.log(data)
-        return data.playlists.items; // Extracting playlist items
+        return data.playlists.items // Extracting playlist items
     } catch (error) {
         console.error('Error fetching data:', error);
         return []; // Returning an empty array in case of error
@@ -218,14 +214,101 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function _fetchSpotifyCategories(accessToken) {
-    const url = 'https://api.spotify.com/v1/browse/categories'
-    const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-    return response.json()
+
+
+
+async function fetchAllStations() {
+    console.log('fetchAllStations')
+    const data = await _fetchSpotifyCategoriesPlaylistsAndTracks()
+    const spotifyStations = []
+    data.map(playlist => {
+        const station = _createStationFromSpotifyPlayList(playlist)
+        if (station) {
+            spotifyStations.push(station)
+        }
+    })
+    return spotifyStations
+}
+
+
+async function _fetchSpotifyCategoriesPlaylistsAndTracks() {
+
+    const accessToken = getSpotifyToken()
+    const categories = categoryService.getCategories()
+    const spotifyPlayLists = []
+
+    try {
+        for (const category of categories) {
+
+            const playlistsData = await _fetchPlaylistsForCategory(category.id, accessToken)
+
+            /*fetch songs only for the first 2 categories*/
+            if (category.name === 'Pop' || category.name === 'New Releases') {
+                for (const playlist of playlistsData.playlists.items) {
+                    const tracksData = await _fetchTracksForPlaylist(playlist.id, accessToken)
+                    playlist.tracks = tracksData
+                    spotifyPlayLists.push(playlist)
+                    await delay(1500); // Assuming delay is an async function that returns a promise
+                    console.log('fetching next item')
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error)
+    }
+    return spotifyPlayLists
+
+}
+
+
+async function fetchCategoryDetails(categoryId) {
+    const url = `https://api.spotify.com/v1/browse/categories/${categoryId}`;
+    const accessToken = getSpotifyToken()
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching category details:', error);
+    }
 }
 
 async function _fetchPlaylistsForCategory(categoryId, accessToken) {
+    const url = `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`;
+    const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const data = await response.json();
+
+    // Assuming the playlists are located in data.playlists.items
+    const uniquePlaylists = data.playlists.items.reduce((acc, current) => {
+        const x = acc.find(item => item.id === current.id);
+        if (!x) {
+            return acc.concat([current]);
+        } else {
+            return acc;
+        }
+    }, []);
+
+    // Replace the original playlist array with the unique ones
+    data.playlists.items = uniquePlaylists;
+
+    return data;
+}
+
+
+
+
+async function __fetchPlaylistsForCategory(categoryId, accessToken) {
     const url = `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`
     const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
@@ -240,53 +323,101 @@ async function _fetchTracksForPlaylist(playlistId, accessToken) {
 }
 
 
-async function fetchSpotifyCategoriesPlaylistsAndTracks() {
-    const accessToken = getSpotifyToken()
 
-    try {
-        const categoriesData = await _fetchSpotifyCategories(accessToken);
-        for (const category of categoriesData.categories.items) {
-            console.log('Category:', category.name);
-
-            const playlistsData = await _fetchPlaylistsForCategory(category.id, accessToken);
-            for (const playlist of playlistsData.playlists.items) {
-                console.log('Playlist:', playlist.name);
-
-                const tracksData = await _fetchTracksForPlaylist(playlist.id, accessToken);
-                console.log('Tracks in this playlist:');
-                tracksData.items.forEach(item => {
-                    if (item.track) {
-                        console.log(' - ', item.track.name);
-                    }
-                });
-                console.log('----------------------');
-
-                await delay(15000); // Wait for 15 seconds
-            }
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
+async function _fetchSpotifyCategories(accessToken) {
+    const url = 'https://api.spotify.com/v1/browse/categories'
+    const response = await fetch(url, { headers: { 'Authorization': 'Bearer ' + accessToken } })
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+    return response.json()
 }
 
 
-async function fetchCategoryDetails(categoryId) {
-    const url = `https://api.spotify.com/v1/browse/categories/${categoryId}`;
-    const accessToken = getSpotifyToken()
-    try {
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+function _createStationFromSpotifyPlayList(playlist) {
+    console.log('saving playlist:', playlist.name)
+    console.log(playlist)
+    var station = stationService.getEmptyStation()
+    if (!_validateStation(playlist))
+        return null
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    station._id = playlist.id
+    station.name = playlist.name
+    station.createdBy._id = playlist.owner.id
+    station.createdBy.fullname = playlist.owner.display_name
+    station.createdBy.imgUrl = playlist.images[0].url
+    station.description = playlist.description
+    playlist.tracks.items.slice(0, 40).forEach(song => {
+        if (!_validateSong(song)) {
+            return
         }
+        const songToAdd = {
+            id: song.track.id,
+            title: `${song.track.name} - ${song.track.artists[0].name}`,
+            url: song.track.href,
+            imgUrl: song.track.album.images[0].url,
+            addedBy: 'spotify',
+            addedAt: Date.parse(song.added_at),
+            duration: utilService.formatDuration(song.track.duration_ms),
+            album: song.track.album.name
+        }
+        station.songs.push(songToAdd)
+    })
+    return station
+}
 
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching category details:', error);
+
+
+function _validateSong(song) {
+    if (!song || !song.track) return false
+
+    if (!song.track.id || !song.track.name || !song.track.href || !song.track.duration_ms || !song.added_at) {
+        console.log('missing parameters for song')
+        return false;
     }
+
+    if (!Array.isArray(song.track.artists) || song.track.artists.length === 0) {
+        console.log('missing parameters for artist')
+        return false;
+    }
+
+    // Ensure album and album.images exist and images is an array with at least one item
+    if (!song.track.album || !Array.isArray(song.track.album.images) || song.track.album.images.length === 0) {
+        console.log('missing parameters for album')
+        return false;
+    }
+
+    // Check for the existence of album.name
+    if (!song.track.album.name) {
+        console.log('missing parameters for album name')
+        return false;
+    }
+
+    // If all checks pass, the song is valid
+    return true;
+}
+
+
+function _validateStation(playlist) {
+    // Check if the playlist object is not null or undefined
+    if (!playlist) return false;
+
+    // Check for the existence and non-emptiness of direct fields
+    if (!playlist.id || !playlist.name || !playlist.description) {
+        console.log('missing parameters of station')
+        return false;
+    }
+
+    // Check for the existence of owner fields
+    if (!playlist.owner || !playlist.owner.id || !playlist.owner.display_name) {
+        console.log('missing owner of station:', playlist.name)
+        return false;
+    }
+
+    // Ensure images array exists and has at least one item with a url
+    if (!Array.isArray(playlist.images) || playlist.images.length === 0 || !playlist.images[0].url) {
+        console.log('missing img data of station:', playlist.name)
+        return false;
+    }
+
+    // If all checks pass, the playlist is valid for station creation
+    return true;
 }

@@ -9,7 +9,7 @@ import { IoClose } from "react-icons/io5"
 import { useNavigate } from "react-router"
 
 
-export function BeatHeader({ isSearch, search, bgColor = null }) {
+export function BeatHeader({ isSearch, search, bgColor = null, title, displayTitle = false }) {
     const [query, setQuery] = useState('')
 
     let navigate = useNavigate()
@@ -32,11 +32,12 @@ export function BeatHeader({ isSearch, search, bgColor = null }) {
 
 
     return (
-        <div className='beat-header dynamic-display' style={{ backgroundColor: bgColor }}>
+        <div className='beat-header not-for-mobile' style={{ backgroundColor: bgColor }}>
             <div className="page-control" >
                 <MdNavigateBefore className='page-control-img' onClick={() => navigate(-1)} />
-                <MdNavigateNext className='page-control-img' onClick={() => navigate(1)}/>
+                <MdNavigateNext className='page-control-img' onClick={() => navigate(1)} />
             </div>
+            {displayTitle && <div className ='fs25 fw700 ls-1'>{title}</div>}
             {isSearch &&
                 <div className="search-area">
                     <div>
@@ -50,7 +51,7 @@ export function BeatHeader({ isSearch, search, bgColor = null }) {
                         onKeyDown={handleKeyDown}
                     />
                     <div>
-                       {query && <IoClose className="close" onClick={resetSearch} />}
+                        {query && <IoClose className="close" onClick={resetSearch} />}
                     </div>
                 </div>}
 
@@ -67,7 +68,7 @@ export function BeatHeader({ isSearch, search, bgColor = null }) {
 
         </div>
 
-        //   </div>
+
     )
 }
 

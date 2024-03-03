@@ -6,12 +6,15 @@
 .fs18 { font-size: rem(18px); }
 .fs20 { font-size: rem(20px); }
 .fs24 { font-size: rem(24px); }
+.fs25 { font-size: rem(25px); }
 .fs28 { font-size: rem(28px); }
 .fs30 { font-size: rem(30px); }
 .fs50 {font-size: rem(30px); }
 .fs4rem {font-size: 4rem; letter-spacing: -2px;}
 .fs6rem {font-size: 6rem; letter-spacing: -4px; }
-
+.fw700 {font-weight: 700;}
+.ls-2 {letter-spacing: -2px;}
+.ls-1 {letter-spacing: -1px;}
 // flex helpers
 
 .flex {
@@ -47,7 +50,7 @@
 
 
 /*don't display on mobile view*/
-.dynamic-display{
+.not-for-mobile{
     display: none;
     @include for-narrow-layout {
         display: block;

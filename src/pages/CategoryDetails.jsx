@@ -6,14 +6,17 @@ import { categoryService } from "../services/category.services"
 import { StationPreview } from "../cmps/StationPreview"
 import { utilService } from "../services/util.service"
 
+
 const BEAT_BG = "#121212"
 
 export function CategoryDetails() {
 
     const [stations, setStations] = useState(null)
     const [category, setCategory] = useState(null)
+    const [displayTitle, setDisplayTitle] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
+
     useEffect(() => {
 
         const savedCategory = categoryService.getCategory(params.categoryId)
@@ -32,20 +35,27 @@ export function CategoryDetails() {
         }
     }
 
+
+    function handleScroll(event) {
+        const { scrollTop, scrollHeight, clientHeight } = event.target
+        scrollTop > 200 ? setDisplayTitle(true) : setDisplayTitle(false)
+    }
+
+
     if (!category) return <>Loading</>
 
     const darkenColor = utilService.darkenColor(category.headerColor)
     const darkestColor = utilService.darkenColor(darkenColor)
-    console.log(darkenColor)
+ 
     const gradientStyle = {
         background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG})`
     }
-    console.log(category.headerColor)
+
 
     return (
-        <div className='category-details main'>
-            <BeatHeader isSearch={false} bgColor={category.headerColor} className="dynamic-display" />
-            <div className="category-header" style={{ background: `linear-gradient(${category.headerColor} 0px, ${darkenColor} 150px,  ${darkenColor})` }}>
+        <div className='category-details main' onScroll={handleScroll}>
+            <BeatHeader isSearch={false} bgColor={category.headerColor} title={category.name} displayTitle={displayTitle} />
+            <div className="category-header" onScroll={handleScroll} style={{ background: `linear-gradient(${category.headerColor} 0px, ${darkenColor} 150px,  ${darkenColor})` }}>
                 <div className="category-name fs6rem">{category.name}</div>
             </div>
             <ul className="stations-area" style={{ background: `linear-gradient(${darkestColor} 0px, ${BEAT_BG} 180px,  ${BEAT_BG})` }}>

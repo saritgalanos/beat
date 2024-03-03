@@ -11,39 +11,40 @@ import { DynamicModal } from "../cmps/DynamicModal"
 
 
 
+
 export function BeatIndex() {
-  
+
 
 
 
 
     const [selectedPage, setSelectedPage] = useState('home')
     const [libWidth, setLibWidth] = useState('normal')  /*other options are 'wide-lib' and 'narrow-wide-lib'*/
-   
+
 
     useEffect(() => {
-
     }, [])
+
 
     function setPage(page) {
         setSelectedPage(page)
     }
 
     function onNavWidth(libWidthToSet) {
-       
+
         setLibWidth(libWidthToSet)
-        console.log("libWidth"+libWidthToSet)
+        console.log("libWidth" + libWidthToSet)
     }
-    
+
     return (
         <div className={`main-container  ${libWidth}`}>
             <BeatNav selectedPage={selectedPage} setPage={setPage} onNavWidth={onNavWidth} />
-            <BeatMobileNav selectedPage={selectedPage} setPage={setPage} />
-            <div>
-                <Outlet />
-            </div>
+
+
+            <Outlet />
+
             <BeatFooter />
-            <BeatMobileNav/>
+            <BeatMobileNav selectedPage={selectedPage} setPage={setPage} />
             <DynamicModal />
 
         </div>

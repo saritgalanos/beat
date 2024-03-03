@@ -12,7 +12,9 @@ export const utilService = {
     getDateToDisplay,
     getDominantColorFromImage,
     getRandomColor,
-    darkenColor
+    darkenColor,
+    formatTime,
+    formatDuration
 
 }
 
@@ -25,31 +27,65 @@ function getMonthName(date) {
 
 
 function getDateToDisplay(timestamp, isFullDate = false) {
-    const date = new Date(timestamp)
-    const minutes = date.getMinutes()
-    const hours = date.getHours()
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const dayOfMonth = date.getDate()
-
-    if (isFullDate) {
-        return `${getMonthName(date)} ${dayOfMonth}, ${year}`
-    }
-
+    const date = new Date(timestamp);
     const currentDate = new Date();
-    /*check if today*/
-    if ((dayOfMonth === currentDate.getDate() &&
-        month === currentDate.getMonth() &&
-        year === currentDate.getFullYear())) {
-        return `${hours}:${minutes.toString().padStart(2, '0')}`
+
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const dayOfMonth = date.getDate();
+
+    // Helper function to get month name
+    function getMonthName(date) {
+        return date.toLocaleString('default', { month: 'long' });
     }
-    /*this year*/
-    if (year == currentDate.getFullYear()) {
-        return `${getMonthName(date)} ${dayOfMonth} `
+
+    // Calculate difference in milliseconds
+    const diffMs = Math.abs(currentDate - date);
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+    // Check if today
+    if (diffDays === 0) {
+        if (diffHours === 0 && diffMinutes === 0) {
+            return "just now"; // For differences less than a minute
+        } else if (diffHours === 0) {
+            return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`; // For differences less than an hour
+        }
+        return "today"; // For differences within the same day but more than an hour
     }
-    /*not this year*/
-    return `${year}`
+
+    // Check for yesterday (1 day ago) explicitly
+    if (diffDays === 1) {
+        return '1 day ago';
+    }
+
+    // Handling other cases
+    if (diffDays < 7) {
+        return `${diffDays} days ago`; // For differences less than a week
+    } else if (diffDays === 7) {
+        return 'a week ago';
+    } else if (diffDays > 7 && diffDays <= 28) {
+        const weeksAgo = Math.floor(diffDays / 7);
+        return weeksAgo === 1 ? '1 week ago' : `${weeksAgo} weeks ago`; // For differences in weeks
+    }
+
+    // Full date format
+    if (isFullDate) {
+        return `${getMonthName(date)} ${dayOfMonth}, ${year}`;
+    }
+
+    // This year but not today
+    if (year === currentDate.getFullYear()) {
+        return `${getMonthName(date)} ${dayOfMonth}`;
+    }
+
+    // Not this year
+    return `${year}`;
 }
+
 
 function getImgUrl(name) {
     const path = `/src/assets/imgs/${name}`
@@ -218,3 +254,25 @@ function loadFromStorage(key) {
     return (data) ? JSON.parse(data) : undefined
 }
 
+//get time in ms and return mm:ss
+function formatTime(timeInSeconds) {
+    const pad = (num, size) => ('000' + num).slice(size * -1)
+    const time = parseFloat(timeInSeconds).toFixed(3)
+    const hours = Math.floor(time / 3600)
+    const minutes = Math.floor(time / 60) % 60
+    const seconds = Math.floor(time - minutes * 60)
+
+    return `${pad(minutes, 2)}:${pad(seconds, 2)}`
+}
+
+function formatDuration(ms) {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    // Convert minutes and seconds to strings without leading zeros
+    const formattedMinutes = minutes.toString();
+    const formattedSeconds = seconds < 10 ? '0' + seconds : seconds.toString();
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+}

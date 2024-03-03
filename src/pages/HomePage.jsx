@@ -6,6 +6,7 @@ import { useSelector } from "react-redux"
 import { loadStations } from "../store/actions/station.actions"
 import { categoryService } from "../services/category.services"
 import { ThreeDots } from "react-loader-spinner"
+import { stationService } from "../services/station.service"
 
 const POP = '0JQ5DAqbMKFEC4WFtoNRpw'
 
@@ -17,7 +18,9 @@ export function HomePage() {
 
 
     useEffect(() => {
-        loadStations()
+        const filterBy = stationService.getDefaultFilter()
+        filterBy.creator = 'Sarit Galanos'
+        loadStations(filterBy)
         const pop = categoryService.getCategory(POP)
         setCategory(pop)
         loadCategoryStations(pop.id)
@@ -50,11 +53,9 @@ export function HomePage() {
     }
 
     return (
-        // <div className='home-page main' style={gradientStyle}>
-        //     <BeatHeader isSearch={false} bgColor={baseColor} className="dynamic-display" />
-
+       
         <div className='home-page main'>
-            <BeatHeader isSearch={false} className="dynamic-display" />
+            <BeatHeader isSearch={false} />
             <div className="main-content">
                 Good Evening
             </div>

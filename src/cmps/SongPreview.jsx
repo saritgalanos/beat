@@ -40,7 +40,6 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
     }
 
     function onPause() {
-        console.log('clicked')
         dispatch(togglePlay())
     }
 
@@ -72,7 +71,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
             {isPlaylist &&
                 <>
-                    <div className="dynamic-display">
+                    <div className="not-for-mobile">
                         < div className="playlist-row" >
 
                             {
@@ -96,8 +95,9 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                                 <div className="artist">{artist}</div>
                                 <div className={`song-name  ${isActiveClass}`}>{songName}</div>
                             </div>
-
-                            <div>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
+                            <div className='album'>{songToPreview.album}</div>
+                            <div className='date-added'>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
+                            <div>{songToPreview.duration}</div>
                             {
                                 (isMouseOn) && <div><RiDeleteBin5Line className='more-actions' onClick={onMoreActions} /></div>
                             }
@@ -126,14 +126,14 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                     <div className='song-title'>
                         <div className="thumbnail-container">
                             {renderThumbnail}
-                            <div className="dynamic-display"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
-                            <div className="dynamic-display">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
+                            <div className="not-for-mobile"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
+                            <div className="not-for-mobile">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
                         </div>
                         <div className="artist">{artist}</div>
                         <div className={`song-name ${isActiveClass}`}>{songName}</div>
                     </div>
 
-                    <button className="add dynamic-display" onClick={onAdd}>Add</button>
+                    <button className="add not-for-mobile" onClick={onAdd}>Add</button>
                     <IoMdMore className=" img-more mobile-display" Click={onAdd} />
                 </div>
             }

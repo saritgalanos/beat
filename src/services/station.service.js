@@ -2,6 +2,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { demoDataService } from './demo-data.service.js'
+import { spotifyService } from './spotify.service.js'
 
 const STORAGE_KEY = 'stations'
 
@@ -11,6 +12,7 @@ export const stationService = {
     save,
     remove,
     getEmptyStation,
+    getDefaultFilter,
     createSongsListFromSearchResults,
     addSongToStation,
     deleteSongFromStation
@@ -76,17 +78,18 @@ function getLoggedinUser() {
 _createStations()
 
 async function query(filterBy) {
+   
+  
     let stations = await storageService.query(STORAGE_KEY)
-    // if (filterBy) {
-    //     let { minBatteryStatus, model = '', type = '' } = filterBy
-    //     minBatteryStatus = minBatteryStatus || 0
-    //     const regexModelTerm = new RegExp(model, 'i')
-    //     robots = robots.filter(robot =>
-    //         regexModelTerm.test(robot.model) &&
-    //         robot.batteryStatus > minBatteryStatus &&
-    //         (!type || type === robot.type)
-    //     )
-    // }
+   
+    if (filterBy?.creator) {
+        stations = stations.filter(station => {
+           
+           return filterBy.creator === station.createdBy.fullname 
+
+        })
+   
+    }
     return stations
 }
 
@@ -110,9 +113,8 @@ function save(stationToSave) {
 
 function getDefaultFilter() {
     return {
-        txt: '',
-        isRead: '',
-        sortBy: ''
+        creatorName: '',
+        stationId: ''
     }
 }
 
@@ -181,6 +183,7 @@ function _getNextStationNumber(stations) {
 }
 
 function createSongsListFromSearchResults(data) {
+
     const songs = data.items.map(item => ({
         id: item.id.videoId,
         title: item.snippet.title,
@@ -194,12 +197,20 @@ function createSongsListFromSearchResults(data) {
 
 
 
-function _createStations() {
+async function _createStations() {
     let stations = utilService.loadFromStorage(STORAGE_KEY)
     if (!stations || !stations.length) {
         stations = demoDataService.createDemoStations()
-        utilService.saveToStorage(STORAGE_KEY, stations)
+        const spotifyStations = await _getSpotifyStations() 
+        const allStations = [...stations, ...spotifyStations]
+        console.log('saving to db')
+        utilService.saveToStorage(STORAGE_KEY, allStations)
     }
 }
 
 
+async function _getSpotifyStations() {
+    console.log('_getSpotifyStations')
+    const spotifyStations = await spotifyService.fetchAllStations()
+    return spotifyStations;
+}

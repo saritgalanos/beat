@@ -14,7 +14,7 @@ export function App() {
 
 
     return (
-        <main>
+        <>
             <SpotifyAuthenticator />
             <Router>
                 <Routes>
@@ -26,7 +26,7 @@ export function App() {
                     </Route>
                 </Routes>
             </Router>
-        </main>
+        </>
 
     )
 }

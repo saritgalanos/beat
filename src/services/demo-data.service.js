@@ -23,15 +23,15 @@ const imgs = [
     utilService.getImgUrl("square3.jpg"),
     utilService.getImgUrl("square4.jpg"),
     utilService.getImgUrl("square5.jpg"),
-    ''
+    utilService.getImgUrl("square1.jpg"),
 ]
 
 const creators = [
     'Sarit Galanos',
     'Roni Galanos',
-    'Tsachi',
-    'Rob Roy Junior',
-    'Bob Marley',
+    'Sarit Galanos',
+    'Sarit Galanos',
+    'Sarit Galanos',
     'Sarit Galanos'
 ]
 

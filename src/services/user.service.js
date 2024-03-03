@@ -13,7 +13,7 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
+    changeScore,
 }
 
 window.userService = userService
@@ -94,6 +94,5 @@ function getLoggedinUser() {
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
 //     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
 // })()
-
 
 

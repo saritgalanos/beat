@@ -3,9 +3,9 @@ import { ADD_STATION, REMOVE_STATION, SET_FILTER_BY, SET_STATIONS, UNDO_CHANGES,
 import { store } from "../store";
 
 
-export async function loadStations() {
+export async function loadStations(filterBy) {
 
-    const filterBy = store.getState().stationModule.filterBy
+    //const filterBy = store.getState().stationModule.filterBy
     try {
         const stations = await stationService.query(filterBy)
         store.dispatch({ 

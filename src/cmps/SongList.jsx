@@ -8,13 +8,14 @@ export function SongList({ songs, station, includeTitles, isPlaylist, onAddSong,
 
   return (
     <div className="song-list fs15">
-      <div className="dynamic-display">
+      <div className="not-for-mobile">
         {includeTitles &&
           <div className="table-header">
             <div>#</div>
             <div>Title</div>
-            <div>Date added</div>
-            <div></div>
+            <div className='album'>Album</div>
+            <div className='date-added'>Date added</div>
+            <IoTimeOutline className='duration' />
 
           </div>}
       </div>

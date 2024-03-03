@@ -9,7 +9,9 @@ import { BiRepeat } from "react-icons/bi"
 import { FaCirclePause, FaCirclePlay } from "react-icons/fa6"
 import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5"
 import { PiShuffleBold } from "react-icons/pi"
-import { VolumeDown, VolumeUp } from "@mui/icons-material"
+import { VolumeDown, VolumeOff, VolumeUp } from "@mui/icons-material"
+import { utilService } from "../services/util.service"
+
 
 export function Player() {
     const activeSong = useSelector(state => state.playerModule.activeSong)
@@ -18,7 +20,7 @@ export function Player() {
     const [progress, setProgress] = useState(0)
     const [currentTime, setCurrentTime] = useState(0)
     const [duration, setDuration] = useState(0)
-    const [volume, setVolume] = useState(100)
+    const [volume, setVolume] = useState(50)
 
 
     const dispatch = useDispatch()
@@ -72,17 +74,6 @@ export function Player() {
     }
 
 
-    function formatTime(timeInSeconds) {
-        const pad = (num, size) => ('000' + num).slice(size * -1)
-        const time = parseFloat(timeInSeconds).toFixed(3)
-        const hours = Math.floor(time / 3600)
-        const minutes = Math.floor(time / 60) % 60
-        const seconds = Math.floor(time - minutes * 60)
-
-        return `${pad(minutes, 2)}:${pad(seconds, 2)}`
-    }
-
-
     function toggleAudio() {
         dispatch(togglePlay())
     }
@@ -93,12 +84,13 @@ export function Player() {
         setProgress(newValue)// Update progress to reflect the slider's new value
     }
 
-
-    function handleVolumeChange(event, newValue) {
-        //const newTime = (newValue / 100) * duration; // Convert percentage to time
-        // playerRef.current.internalPlayer.seekTo(newTime);
-        setVolume(newValue); // Update progress to reflect the slider's new value
+    const handleVolumeChange = (event, newValue = 1) => {
+        setVolume(newValue);
+        if (playerRef?.current?.internalPlayer) {
+            playerRef.current.internalPlayer.setVolume(newValue);
+        }
     }
+
 
     const opts = {
         height: '0',
@@ -108,6 +100,25 @@ export function Player() {
             controls: 0,
             loop: 1,
             modestbranding: 1,
+        },
+    }
+
+    const sliderSx = {
+        color: 'white',
+        '& .MuiSlider-thumb': {
+            width: 12,
+            height: 12,
+            visibility: 'hidden',
+        },
+        '&:hover': {
+            '& .MuiSlider-track': {
+                color: '#1ed760',
+            },
+            '& .MuiSlider-thumb': {
+                color: 'white',
+                visibility: 'visible',
+                boxShadow: 'none',
+            }
         },
     }
 
@@ -126,70 +137,35 @@ export function Player() {
                 </div>
 
                 <div className='details'>
-                    <div className='time-display'>{formatTime(currentTime)}</div>
+                    <div className='time-display'>{utilService.formatTime(currentTime)}</div>
                     <Slider
                         className='progress-bar'
                         value={progress}
                         onChange={handleSliderChange}
                         aria-labelledby="continuous-slider"
-                        sx={{
-                            color: 'white', // Change this to customize the slider color
-
-                            '& .MuiSlider-thumb': {
-                                width: 12, // Smaller thumb width
-                                height: 12, // Smaller thumb height
-                                visibility: 'hidden', // Hide the thumb by default
-                            },
-                            '&:hover': {
-                                // Target the hover state
-                                '& .MuiSlider-track': {
-                                    color: '#1ed760', // Change the track color on hover
-                                },
-                                '& .MuiSlider-thumb': {
-                                    color: 'white', // Ensure the thumb remains white on hover
-                                    visibility: 'visible',
-                                    boxShadow: 'none',
-                                }
-                            },
-                        }}
+                        sx={sliderSx}
                     />
-                    <div className='time-display'>{formatTime(duration)}</div>
+                    <div className='time-display'>{utilService.formatTime(duration)}</div>
                 </div>
             </div>
 
             <div className='volume_control'>
-                <VolumeDown />
-                <VolumeUp />
+
+                {volume === 1 && <VolumeOff onClick={handleVolumeChange} className='volume-icon' />}
+                {volume > 1 && volume < 50 && <VolumeDown onClick={handleVolumeChange} className='volume-icon' />}
+                {volume >= 50 && <VolumeUp onClick={handleVolumeChange} className='volume-icon' />}
+
                 <Slider
                     className='progress_bar'
                     value={volume}
                     onChange={handleVolumeChange}
-                    aria-labelledby="continuous-slider"
-                    sx={{
-                        color: 'white', // Change this to customize the slider color
-
-                        '& .MuiSlider-thumb': {
-                            width: 12, // Smaller thumb width
-                            height: 12, // Smaller thumb height
-                            visibility: 'hidden', // Hide the thumb by default
-                        },
-                        '&:hover': {
-                            // Target the hover state
-                            '& .MuiSlider-track': {
-                                color: '#1ed760', // Change the track color on hover
-                            },
-                            '& .MuiSlider-thumb': {
-                                color: 'white', // Ensure the thumb remains white on hover
-                                visibility: 'visible',
-                                boxShadow: 'none',
-                            }
-                        },
-                    }}
+                    aria-labelledby="volume-slider"
+                    sx={sliderSx}
+                    min={1}
+                    max={100}
+                    valueLabelDisplay="off"
                 />
-
-
             </div>
-
 
             {activeSong && (
                 <div className="youtube">

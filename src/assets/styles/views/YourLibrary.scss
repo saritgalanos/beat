@@ -84,7 +84,7 @@
             @include add-scroll-bar(13px);
 
             .stations {
-                grid-template-columns: repeat(auto-fill, minmax(102px, auto));
+                grid-template-columns: repeat(auto-fill, minmax(120px, auto));
             }
         }
     }
@@ -108,7 +108,7 @@
             @include add-scroll-bar(13px);
 
             .stations {
-                grid-template-columns: repeat(auto-fill, minmax(102px, auto));
+                grid-template-columns: repeat(auto-fill, minmax(120px, auto));
             }
         }
     }

@@ -4,7 +4,7 @@
     height: 100vh;
     width: 100vw;
     background-color: black;
-    gap: 8px;
+   
     padding: 0px;
     @include for-narrow-layout {
         padding: 8px 3px 12px 3px;
@@ -22,17 +22,14 @@
     .main {
         
         position: relative;
-        height: calc(100vh);
-        //height: 100vh;
+        height: calc(100vh - 58px);
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
-        
         box-sizing: border-box;
-        overflow: hidden;
-        @include add-scroll-bar(13px);
-
-      
+        overflow: auto;
+        @include add-scroll-bar(0);
+ 
     }
 
     .nav,
@@ -55,6 +52,7 @@
 
     //--------------------------------------------------------------------
     @include for-narrow-layout {
+        gap: 8px;
         padding: 8px;
         grid-template-columns: 80px 1fr;
         &.narrow-wide-lib {

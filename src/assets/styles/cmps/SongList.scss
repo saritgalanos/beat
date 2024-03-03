@@ -1,13 +1,35 @@
     .song-list {
         color: $clr9;
+        overflow-x: hidden; // This will clip the overflowed content
+        white-space: nowrap; // Prevents wrapping at narrow widths
 
         .table-header {
             padding: 7px 6px;
             display: grid;
-            grid-template-columns: 30px 1fr 0.2fr 40px;
+
+            @include for-narrow-layout {
+                grid-template-columns: 30px minmax(250px, 1fr) minmax(200px, 0.6fr) 0.4fr 40px;
+                .date-added {
+                    display: none;
+                }
+            }
+            @include for-normal-layout {
+                grid-template-columns: 30px minmax(250px, 1fr)  minmax(200px, 0.6fr) 0.4fr minmax(120px, 120px) 40px;
+                .date-added {
+                    display: block;
+                    text-wrap: nowrap;
+                }
+            }
+
             align-items: center;
             gap: 12px;
             border-bottom: 1px solid rgba(211, 211, 211, 0.1);
+
+            .duration {
+                height: 20px;
+                width: 20px;
+            }
+
         }
 
     }

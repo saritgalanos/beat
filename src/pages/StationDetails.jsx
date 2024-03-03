@@ -35,6 +35,7 @@ export function StationDetails() {
   const [query, setQuery] = useState('')
   const [isOpenSearch, setOpenSearch] = useState(false)
   const [bgColor, setBgColor] = useState(BEAT_BG)
+  const [displayTitle, setDisplayTitle] = useState(false)
 
   const activeStationId = useSelector(state => state.playerModule.activeStationId)
   const isPlaying = useSelector(state => state.playerModule.isPlaying)
@@ -67,7 +68,8 @@ export function StationDetails() {
   async function loadStation() {
     try {
       //long ids are from spotify
-      const station = (params.stationId.length < 10) ? await stationService.getById(params.stationId) : await spotifyService.fetchPlaylist(params.stationId)
+      //const station = (params.stationId.length < 10) ? await stationService.getById(params.stationId) : await spotifyService.fetchPlaylist(params.stationId)
+      const station =  await stationService.getById(params.stationId)
       setStation(station)
     } catch (error) {
       console.log('error:', error)
@@ -87,6 +89,10 @@ export function StationDetails() {
     dispatch(togglePlay())
   }
 
+  function handleScroll(event) {
+    const { scrollTop, scrollHeight, clientHeight } = event.target
+    scrollTop > 200 ? setDisplayTitle(true) : setDisplayTitle(false)
+}
 
 
   async function fetchColor() {
@@ -195,9 +201,9 @@ export function StationDetails() {
   const supportClick = (bySpotify) ? null : editStation
 
   return (
-    <div className='main'>
+    <div className='main' onScroll={handleScroll}>
       <div className='station-details'>
-        <BeatHeader isSearch={false} bgColor={bgColor} />
+        <BeatHeader isSearch={false} bgColor={bgColor} title={station.name} displayTitle={displayTitle} />
 
         <div className="station-header" style={{ backgroundColor: bgColor }}>
           <div className={`station-pic ${editClass}`} onClick={supportClick}>
@@ -232,7 +238,7 @@ export function StationDetails() {
           </div>
         </div>
 
-        <div className="dynamic-display">
+        <div className="not-for-mobile">
           {!bySpotify &&
             <div className='songs-search'>
               {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :

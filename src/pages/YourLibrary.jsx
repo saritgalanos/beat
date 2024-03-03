@@ -19,8 +19,13 @@ export function YourLibrary({ onNavWidth }) {
 
     const navigate = useNavigate()
     useEffect(() => {
-        loadStations()
+        const filterBy = stationService.getDefaultFilter()
+        filterBy.creator = 'Sarit Galanos'
+        loadStations(filterBy)
     }, [])
+
+    
+
 
     async function onAddNewStation(ev) {
         const stationToAdd = stationService.getEmptyStation(stations)

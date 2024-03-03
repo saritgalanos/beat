@@ -75,7 +75,6 @@ async function fetchStationsForCategory(categoryId) {
 
         const categoryDetails = await spotifyService.fetchPlaylistsForCategory(categoryId);
         const stations = _getStationsForCategory(categoryDetails)
-        console.log(categoryDetails)
         return stations;
     }
     catch (err) {
