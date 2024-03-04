@@ -15,7 +15,7 @@ export function App() {
 
     return (
         <>
-            <SpotifyAuthenticator />
+            {/* <SpotifyAuthenticator /> */}
             <Router>
                 <Routes>
                     <Route path="/" element={<BeatIndex />} >
@@ -31,6 +31,8 @@ export function App() {
     )
 }
 
+
+/*this function will move to the server side*/
 function SpotifyAuthenticator() {
     const [token, setToken] = useState("")
 

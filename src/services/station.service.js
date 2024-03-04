@@ -90,6 +90,12 @@ async function query(filterBy) {
         })
    
     }
+
+    if(filterBy?.categoryId) {
+        stations = stations.filter(station => {
+            return filterBy.categoryId === station?.categoryId 
+        })
+    }
     return stations
 }
 

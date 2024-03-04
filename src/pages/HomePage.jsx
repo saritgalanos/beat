@@ -12,32 +12,32 @@ const POP = '0JQ5DAqbMKFEC4WFtoNRpw'
 
 export function HomePage() {
 
-    const stations = useSelector(storeState => storeState.stationModule.stations)
+    const userStations = useSelector(storeState => storeState.stationModule.stations)
+    
     const [suggestedStations, setSuggestedStations] = useState(null)
     const [category, setCategory] = useState(null)
-
+    
 
     useEffect(() => {
         const filterBy = stationService.getDefaultFilter()
-        filterBy.creator = 'Sarit Galanos'
-        loadStations(filterBy)
         const pop = categoryService.getCategory(POP)
         setCategory(pop)
-        loadCategoryStations(pop.id)
+        filterBy.categoryId = pop.id
+        loadCategoryStations(filterBy)
 
     }, [])
 
-    async function loadCategoryStations(categoryId) {
+    async function loadCategoryStations(filterBy) {
         try {
-            const suggestedStations = await categoryService.fetchStationsForCategory(categoryId)
-            setSuggestedStations(suggestedStations)
+            const categoryStations = await stationService.query(filterBy)
+            setSuggestedStations(categoryStations)
 
         } catch (error) {
             console.log('loadCategoryStations failed:', error)
         }
     }
 
-    if (!stations || !suggestedStations) return (
+    if (!userStations || !suggestedStations) return (
         <div className="page-center">
             <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" />
         </div> )
@@ -45,7 +45,7 @@ export function HomePage() {
   
 
 
-        const stationsToDisplay = stations.slice(0, 6);
+        const stationsToDisplay = userStations.slice(0, 6);
     const BEAT_BG = "#121212"
     const baseColor = "#232324"
     const gradientStyle = {

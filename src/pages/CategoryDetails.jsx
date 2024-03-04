@@ -5,12 +5,13 @@ import { useNavigate, useParams } from "react-router"
 import { categoryService } from "../services/category.services"
 import { StationPreview } from "../cmps/StationPreview"
 import { utilService } from "../services/util.service"
+import { loadStations } from "../store/actions/station.actions"
+import { stationService } from "../services/station.service"
 
 
 const BEAT_BG = "#121212"
 
 export function CategoryDetails() {
-
     const [stations, setStations] = useState(null)
     const [category, setCategory] = useState(null)
     const [displayTitle, setDisplayTitle] = useState(false)
@@ -18,16 +19,16 @@ export function CategoryDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-
         const savedCategory = categoryService.getCategory(params.categoryId)
         setCategory(savedCategory)
-        loadCategoryStations(savedCategory.id)
-
+        const filterBy = stationService.getDefaultFilter()
+        filterBy.categoryId = savedCategory.id
+        loadCategoryStations(filterBy)
     }, [])
 
-    async function loadCategoryStations(categoryId) {
+    async function loadCategoryStations(filterBy) {
         try {
-            const categoryStations = await categoryService.fetchStationsForCategory(categoryId)
+            const categoryStations = await stationService.query(filterBy)
             setStations(categoryStations)
 
         } catch (error) {

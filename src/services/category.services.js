@@ -1,10 +1,6 @@
-import { spotifyService } from "./spotify.service"
-import { stationService } from "./station.service"
-
 export const categoryService = {
     getCategories,
-    getCategory,
-    fetchStationsForCategory
+    getCategory
 }
 
 const categories = [
@@ -67,36 +63,4 @@ function getCategories() {
 
 function getCategory(categoryId) {
     return categories.find(category => category.id === categoryId)
-}
-
-async function fetchStationsForCategory(categoryId) {
-
-    try {
-
-        const categoryDetails = await spotifyService.fetchPlaylistsForCategory(categoryId);
-        const stations = _getStationsForCategory(categoryDetails)
-        return stations;
-    }
-    catch (err) {
-        console.log('fetchStationsForCategory failed:' + err)
-        return null
-    }
-}
-
-
-function _getStationsForCategory(categoryDetails) {
-    //console.log(categoryDetails)
-    var stations = []
-    categoryDetails.playlists.items.forEach((playlist) => {
-        var station = stationService.getEmptyStation()
-        station._id = playlist.id
-        station.name = playlist.name
-        station.createdBy._id = playlist.owner.id
-        station.createdBy.fullname = playlist.owner.display_name
-        station.createdBy.imgUrl = playlist.images[0].url
-        station.description = playlist.description
-        stations.push(station)
-        
-    })
-    return stations
 }

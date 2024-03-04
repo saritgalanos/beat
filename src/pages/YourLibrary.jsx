@@ -1,15 +1,12 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import { IoAdd, IoLibraryOutline, IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5"
 import { stationService } from "../services/station.service"
 import { StationPreview } from "../cmps/StationPreview"
-import { utilService } from "../services/util.service"
 import { useSelector } from "react-redux"
-import { loadStations, saveStation } from "../store/actions/station.actions"
+import { saveStation } from "../store/actions/station.actions"
 import { useNavigate } from "react-router"
 import { ThreeDots } from "react-loader-spinner"
 import { useResizeObserver } from "../customHooks/useResizeObserver"
-
-
 
 
 export function YourLibrary({ onNavWidth }) {
@@ -18,14 +15,6 @@ export function YourLibrary({ onNavWidth }) {
     const [ref, size] = useResizeObserver()
 
     const navigate = useNavigate()
-    useEffect(() => {
-        const filterBy = stationService.getDefaultFilter()
-        filterBy.creator = 'Sarit Galanos'
-        loadStations(filterBy)
-    }, [])
-
-    
-
 
     async function onAddNewStation(ev) {
         const stationToAdd = stationService.getEmptyStation(stations)

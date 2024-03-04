@@ -50,11 +50,11 @@ export function StationPreview({ station, displayOn = "library", libOpen=false})
       {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
 
       <div className="station-info">
-        {!station.createdBy.imgUrl &&
+        {!station.createdBy?.imgUrl &&
           <div className='station-card'><RiMusic2Line className='no-img' /></div>}
-        {station.createdBy.imgUrl &&
+        {station.createdBy?.imgUrl &&
           < div className='station-card'>
-            <img src={station.createdBy.imgUrl} className='station-img' />
+            <img src={station.createdBy?.imgUrl} className='station-img' />
 
           </div>}
 
