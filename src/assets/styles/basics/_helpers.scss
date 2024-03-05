@@ -3,18 +3,25 @@
 .fs12 { font-size: rem(12px); }
 .fs14 { font-size: rem(14px); }
 .fs15 { font-size: rem(15px); }
+.fs16 { font-size: rem(16px); }
 .fs18 { font-size: rem(18px); }
 .fs20 { font-size: rem(20px); }
 .fs24 { font-size: rem(24px); }
 .fs25 { font-size: rem(25px); }
 .fs28 { font-size: rem(28px); }
 .fs30 { font-size: rem(30px); }
-.fs50 {font-size: rem(30px); }
+.fs32 { font-size: rem(32px); }
+.fs40 { font-size: rem(40px); }
+.fs48 { font-size: rem(48px); }
+.fs50 {font-size: rem(50px); }
 .fs4rem {font-size: 4rem; letter-spacing: -2px;}
 .fs6rem {font-size: 6rem; letter-spacing: -4px; }
 .fw700 {font-weight: 700;}
+.fw400 {font-weight: 400;}
 .ls-2 {letter-spacing: -2px;}
 .ls-1 {letter-spacing: -1px;}
+.ls1 {letter-spacing: 0.5px;}
+.fclr9 {color: $clr9;}
 // flex helpers
 
 .flex {

@@ -6,25 +6,33 @@ import { HomePage } from './pages/HomePage'
 import { StationDetails } from './pages/StationDetails'
 import { spotifyService } from './services/spotify.service';
 import { CategoryDetails } from './pages/CategoryDetails';
+import { UserContext } from './contexts/UserContext';
+import { LogIn } from './pages/LogIn';
+import { SignUp } from './pages/SignUp';
 
 
 
 export function App() {
 
-
+    const [loggedinUser, setLoggedinUser] = useState(userService.getLoggedinUser())
 
     return (
         <>
             {/* <SpotifyAuthenticator /> */}
             <Router>
-                <Routes>
-                    <Route path="/" element={<BeatIndex />} >
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/search" element={<SearchPage />} />
-                        <Route path="/genre/:categoryId" element={<CategoryDetails />} />
-                        <Route path="/:stationId" element={<StationDetails />} />
-                    </Route>
-                </Routes>
+                <UserContext.Provider value={{ loggedinUser, setLoggedinUser }}>
+                    <Routes>
+                        <Route path="/login" element={<LogIn />} />
+                        <Route path="/signup" element={<SignUp />} />
+                        <Route path="/" element={<BeatIndex />} >
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/search" element={<SearchPage />} />
+                            <Route path="/genre/:categoryId" element={<CategoryDetails />} />
+                            <Route path="/:stationId" element={<StationDetails />} />
+                        </Route>
+
+                    </Routes>
+                </UserContext.Provider>
             </Router>
         </>
 
@@ -37,8 +45,8 @@ function SpotifyAuthenticator() {
     const [token, setToken] = useState("")
 
     useEffect(() => {
-        
-        if(spotifyService.getSpotifyToken()) {
+
+        if (spotifyService.getSpotifyToken()) {
             return
         }
         let newToken = null
@@ -50,18 +58,18 @@ function SpotifyAuthenticator() {
                 newToken = tokenParam.split("=")[1];
                 window.location.hash = ""
             }
-        } 
+        }
 
         if (newToken) {
             setToken(newToken)
             spotifyService.setSpotifyToken(newToken)
-           
+
         } else {
             spotifyService.login()
         }
     }, [])
 
-   
+
     return (
         <></>
     )

@@ -1,0 +1,85 @@
+.signup-page {
+    background-color: black;
+    height: 100vh;
+    color: $clr1;
+
+    .signup-header {
+        display: flex;
+        align-items: center;
+        padding: 30px;
+
+        img {
+            height: 37px;
+            width: 37px;
+            border-radius: 50px;
+        }
+    }
+
+    .signup-container {
+        padding: 32px;
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        background-color: $clr5;
+        padding: 32px;
+
+        .signup {
+            box-sizing: border-box;
+            width: 910px;
+            display: flex;
+            align-items: center;
+
+            flex-direction: column;
+            background-color: #000;
+            border-radius: 8px;
+            padding: 32px 0px;
+
+            .signup-header {
+                margin: 48px 0px;
+
+            }
+
+            .signup-form {
+                label {
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    padding-bottom: 12px;
+                }
+
+
+
+                input {
+                    border: 0.1px solid $clr2;
+                    border-radius: 4px;
+                    background: #000;
+                    color: $clr2;
+                    margin-top: 5px;
+                    padding: 8px 14px;
+                    line-height: 28px;
+                    width: 324px;
+
+                    &:hover {
+                        border: 2px solid $clr1;
+                    }
+                    &:focus {
+                        border: none;
+                    }
+                }
+
+                .btn-login {
+                    color: black;
+                    background-color: $clr8;
+                    border-radius: 50px;
+                    padding: 8px 32px;
+                    height: 48px;
+                    width: 324px;
+                    margin:15px 0;
+                    transition: transform 0.3s ease;
+                    &:hover {
+                        transform: scale(1.1); /* Increase the button size by 10% on hover */
+                    }
+                }
+            }
+        }
+    }
+}
