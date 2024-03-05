@@ -15,7 +15,7 @@
         justify-content: center;
 
         .nav-control-item {
-           
+
             .library-icon {
                 height: 28px;
                 width: 28px;
@@ -29,6 +29,38 @@
         .controls {
             display: none;
         }
+    }
+
+    .no-user-message {
+        display: none;
+
+        @include for-normal-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            color: $clr1;
+            background-color: $clr5 ;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            min-width: 60px;
+
+            .login {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: black;
+                background-color: $clr1;
+                padding: 8px 32px;
+                border-radius: 50px;
+                height: 32px;
+                width: 128px;
+                margin-top:10px;
+                @include pointer-on-hover;
+            }
+
+        }
+
     }
 
     .stations-area {
@@ -51,7 +83,7 @@
 
     @include for-normal-layout {
         // height: calc(100vh - 208px);
-       
+
         .lib-header {
             justify-content: space-between;
             padding: 8px 30px 0 0;
@@ -93,7 +125,7 @@
     &.nav-open {
         height: calc(100vh - 216px);
         //height: calc(100vh - 226px);
-       
+
 
         .lib-header {
             padding: 8px 20px 0px 12px;

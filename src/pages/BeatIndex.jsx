@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import { BeatNav } from "../cmps/BeatNav"
 import { BeatFooter } from "../cmps/BeatFooter"
@@ -10,22 +10,20 @@ import { CleanHands } from "@mui/icons-material"
 import { DynamicModal } from "../cmps/DynamicModal"
 import { stationService } from "../services/station.service"
 import { loadStations } from "../store/actions/station.actions"
+import { UserContext } from "../contexts/UserContext"
 
 
 
 
 export function BeatIndex() {
 
-
-
-
-
     const [selectedPage, setSelectedPage] = useState('home')
     const [libWidth, setLibWidth] = useState('normal')  /*other options are 'wide-lib' and 'narrow-wide-lib'*/
+    const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
     useEffect(() => {
         const filterBy = stationService.getDefaultFilter()
-        filterBy.creator = 'Sarit Galanos'
+        filterBy.creatorName = loggedinUser?.fullname
         loadStations(filterBy)
     }, [])
 

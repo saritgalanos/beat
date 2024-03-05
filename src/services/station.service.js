@@ -66,10 +66,10 @@ const station = {
 }
 //////////////////////////////////////////////////////////////////////
 
-const loggedinUser = {
-    email: 'saritgalanos@mistermail.com',
-    fullname: 'Sarit Galanos'
-}
+// const loggedinUser = {
+//     email: 'saritgalanos@mistermail.com',
+//     fullname: 'Sarit Galanos'
+// }
 
 function getLoggedinUser() {
     return loggedinUser
@@ -82,10 +82,10 @@ async function query(filterBy) {
   
     let stations = await storageService.query(STORAGE_KEY)
    
-    if (filterBy?.creator) {
+    if (filterBy?.creatorName) {
         stations = stations.filter(station => {
            
-           return filterBy.creator === station.createdBy.fullname 
+           return filterBy.creatorName === station.createdBy.fullname 
 
         })
    
@@ -158,7 +158,7 @@ function getEmptyStation(stations) {
         description:'',
         createdBy: {
             _id: utilService.makeId(),
-            fullname: loggedinUser.fullname,
+            fullname: '',
             imgUrl: ''
         },
         songs: []

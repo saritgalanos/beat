@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { BeatHeader } from "../cmps/BeatHeader"
 import { spotifyService } from "../services/spotify.service"
 import { StationPreview } from "../cmps/StationPreview"
@@ -7,16 +7,18 @@ import { loadStations } from "../store/actions/station.actions"
 import { categoryService } from "../services/category.services"
 import { ThreeDots } from "react-loader-spinner"
 import { stationService } from "../services/station.service"
+import { UserContext } from "../contexts/UserContext"
 
 const POP = '0JQ5DAqbMKFEC4WFtoNRpw'
 
 export function HomePage() {
 
     const userStations = useSelector(storeState => storeState.stationModule.stations)
-    
+
     const [suggestedStations, setSuggestedStations] = useState(null)
     const [category, setCategory] = useState(null)
-    
+    const { loggedinUser, setLoggedinUser } = useContext(UserContext)
+
 
     useEffect(() => {
         const filterBy = stationService.getDefaultFilter()
@@ -40,12 +42,12 @@ export function HomePage() {
     if (!userStations || !suggestedStations) return (
         <div className="page-center">
             <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" />
-        </div> )
-        
-  
+        </div>)
 
 
-        const stationsToDisplay = userStations.slice(0, 6);
+
+
+    const stationsToDisplay = userStations.slice(0, 6);
     const BEAT_BG = "#121212"
     const baseColor = "#232324"
     const gradientStyle = {
@@ -53,14 +55,14 @@ export function HomePage() {
     }
 
     return (
-       
+
         <div className='home-page main'>
             <BeatHeader isSearch={false} />
             <div className="main-content">
                 Good Evening
             </div>
 
-            <ul className="stations-area">
+            {loggedinUser && <ul className="stations-area">
                 <div className="stations">
                     {stationsToDisplay.map(station =>
                         <li key={station._id}>
@@ -68,7 +70,7 @@ export function HomePage() {
                         </li>
                     )}
                 </div>
-            </ul>
+            </ul>}
 
             <ul className="suggested-area">
                 <div className="stations">

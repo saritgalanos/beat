@@ -1,6 +1,7 @@
 // Font Sizes
 .fs11 { font-size: rem(11px); }
 .fs12 { font-size: rem(12px); }
+.fs13 { font-size: rem(13px); }
 .fs14 { font-size: rem(14px); }
 .fs15 { font-size: rem(15px); }
 .fs16 { font-size: rem(16px); }
@@ -22,6 +23,7 @@
 .ls-1 {letter-spacing: -1px;}
 .ls1 {letter-spacing: 0.5px;}
 .fclr9 {color: $clr9;}
+.simple-hover {@include pointer-on-hover;}
 // flex helpers
 
 .flex {

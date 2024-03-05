@@ -1,6 +1,6 @@
 
 import YouTube from "react-youtube"
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { utilService } from "../services/util.service"
 import { IoEllipsisHorizontalSharp, IoPlay } from "react-icons/io5"
 import { GiPauseButton } from "react-icons/gi"
@@ -10,12 +10,14 @@ import { RiDeleteBin5Line } from "react-icons/ri"
 import { IoMdMore } from "react-icons/io"
 import { Audio } from 'react-loader-spinner'
 import { DoubleArrow } from "@mui/icons-material"
+import { UserContext } from "../contexts/UserContext"
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
 
     const [songToPreview, setSongToPreview] = useState(song)
     const [songFromStation, setSongFromStation] = useState(station)
+    const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
     const [isMouseOn, setMouseOn] = useState(false)
     const playerRef = useRef(null)
@@ -133,7 +135,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                         <div className={`song-name ${isActiveClass}`}>{songName}</div>
                     </div>
 
-                    <button className="add not-for-mobile" onClick={onAdd}>Add</button>
+                    {loggedinUser && <button className="add not-for-mobile" onClick={onAdd}>Add</button>}
                     <IoMdMore className=" img-more mobile-display" Click={onAdd} />
                 </div>
             }

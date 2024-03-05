@@ -38,6 +38,7 @@ export function BeatHeader({ isSearch, search, bgColor = null, title, displayTit
     function onAvatar() {
         userService.logout()
         setLoggedinUser(null)
+        navigate('./')
     }
 
 

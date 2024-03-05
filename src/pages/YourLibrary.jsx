@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { IoAdd, IoLibraryOutline, IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5"
 import { stationService } from "../services/station.service"
 import { StationPreview } from "../cmps/StationPreview"
@@ -7,6 +7,7 @@ import { saveStation } from "../store/actions/station.actions"
 import { useNavigate } from "react-router"
 import { ThreeDots } from "react-loader-spinner"
 import { useResizeObserver } from "../customHooks/useResizeObserver"
+import { UserContext } from "../contexts/UserContext"
 
 
 export function YourLibrary({ onNavWidth }) {
@@ -14,10 +15,13 @@ export function YourLibrary({ onNavWidth }) {
     const [isLibMaxSize, setLibMaxSize] = useState(false)
     const [ref, size] = useResizeObserver()
 
+    const { loggedinUser, setLoggedinUser } = useContext(UserContext)
+
     const navigate = useNavigate()
 
     async function onAddNewStation(ev) {
         const stationToAdd = stationService.getEmptyStation(stations)
+        stationToAdd.createdBy.fullname = loggedinUser?.fullname
         try {
             const stationAdded = await saveStation(stationToAdd)
             setTimeout(() => {
@@ -59,13 +63,20 @@ export function YourLibrary({ onNavWidth }) {
                     <IoLibraryOutline className='library-icon nav-control-icon ' onClick={onLibrary} />
                     <div className={`txt ${navClass}`}>Your Library</div>
                 </div>
-                <div className={`controls ${navClass}`}>
+                {loggedinUser && <div className={`controls ${navClass}`}>
                     <IoAdd className='add-icon' onClick={onAddNewStation} />
                     {(!isLibMaxSize) ? <IoArrowForwardOutline className='add-icon' onClick={onLeftArrow} /> :
                         <IoArrowBackOutline className='add-icon' onClick={onRightArrow} />}
-                </div>
+                </div>}
             </div>
 
+            {!loggedinUser && <div className='no-user-message '>
+                <div className='fs16 fw700'>Create you first playlist</div>
+                <div className='fs14 fw400'>Log in to create and share playlists</div>
+                <div className='login fs16 fw700' onClick={() => navigate('/login')}>Log in</div>
+            </div>}
+
+            {loggedinUser &&
             <ul className="stations-area">
                 <div className="stations">
                     {stations.map(station =>
@@ -76,7 +87,7 @@ export function YourLibrary({ onNavWidth }) {
                         </li>
                     )}
                 </div>
-            </ul>
+            </ul> }
         </div>
     )
 }
