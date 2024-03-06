@@ -15,7 +15,10 @@ export const stationService = {
     getDefaultFilter,
     createSongsListFromSearchResults,
     addSongToStation,
-    deleteSongFromStation
+    deleteSongFromStation,
+    isLikedStation,
+    unlikeStation,
+    likeStation
 }
 
 ///////////////////////////////////////////////////////////////
@@ -72,28 +75,28 @@ const station = {
 // }
 
 function getLoggedinUser() {
-    return loggedinUser
+    return userService.getLoggedinUser()
 }
 
 _createStations()
 
 async function query(filterBy) {
-   
-  
+
+
     let stations = await storageService.query(STORAGE_KEY)
-   
+
     if (filterBy?.creatorName) {
         stations = stations.filter(station => {
-           
-           return filterBy.creatorName === station.createdBy.fullname 
+
+            return filterBy.creatorName === station.createdBy.fullname
 
         })
-   
+
     }
 
-    if(filterBy?.categoryId) {
+    if (filterBy?.categoryId) {
         stations = stations.filter(station => {
-            return filterBy.categoryId === station?.categoryId 
+            return filterBy.categoryId === station?.categoryId
         })
     }
     return stations
@@ -117,6 +120,8 @@ function save(stationToSave) {
 }
 
 
+
+
 function getDefaultFilter() {
     return {
         creatorName: '',
@@ -131,8 +136,8 @@ function addSongToStation(station, newSong) {
 
     // If the song doesn't exist, add it to the array
     if (exists) {
-      console.log('song already in list')
-      return station
+        console.log('song already in list')
+        return station
     }
 
     const updatedSongs = [...station.songs, newSong]
@@ -142,26 +147,60 @@ function addSongToStation(station, newSong) {
 }
 
 function deleteSongFromStation(station, songToDelete) {
-    
+
     const updatedSongs = station.songs.filter((song) => song.id !== songToDelete.id);
     const updatedStation = { ...station, songs: updatedSongs };
     return updatedStation;
 }
 
+function likeStation(station) {
+    if(!station) return
+    if(!station.likedByUsers) {
+        station.likedByUsers = []
+    }
+    const user = getLoggedinUser()
+    if (!user) return
+    station.likedByUsers.push(user)
+    save(station)
 
-function getEmptyStation(stations) {
-    const stationName = (stations)? `My Playlist #${_getNextStationNumber(stations)}`: ''
- 
+}
+
+function unlikeStation(station) {
+    if(!station) return
+    const user = getLoggedinUser()
+    if (!user) return
+       
+    if (station.likedByUsers) {
+        station.likedByUsers = station.likedByUsers.filter(userInArray => userInArray._id !== user._id);
+    }
+
+    save(station)
+}
+
+function isLikedStation(station) {
+    if(!station) return
+    const user = getLoggedinUser()
+    if (!user) false
+    if (station.likedByUsers) {
+        return station.likedByUsers.some(userInArray => userInArray._id === user._id);
+    }
+    return false;
+}
+
+function getEmptyStation(stations, loggedinUser=null) {
+    const stationName = (stations) ? `My Playlist #${_getNextStationNumber(stations)}` : ''
+
     return {
         _id: '',
         name: stationName,
-        description:'',
+        description: '',
         createdBy: {
-            _id: utilService.makeId(),
-            fullname: '',
-            imgUrl: ''
+            _id: (loggedinUser?._id) ? loggedinUser._id : '',
+            fullname: (loggedinUser?.fullname) ? loggedinUser.fullname : '',
+            imgUrl: '',
         },
-        songs: []
+        songs: [],
+        likedByUsers: []
     }
 }
 
@@ -207,7 +246,7 @@ async function _createStations() {
     let stations = utilService.loadFromStorage(STORAGE_KEY)
     if (!stations || !stations.length) {
         stations = demoDataService.createDemoStations()
-        const spotifyStations = await _getSpotifyStations() 
+        const spotifyStations = await _getSpotifyStations()
         const allStations = [...stations, ...spotifyStations]
         console.log('saving to db')
         utilService.saveToStorage(STORAGE_KEY, allStations)

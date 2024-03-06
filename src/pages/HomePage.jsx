@@ -45,7 +45,18 @@ export function HomePage() {
         </div>)
 
 
+    function getTimeOfDayGreeting() {
+        const now = new Date();
+        const hour = now.getHours();
 
+        if (hour < 12) {
+            return 'Good morning';
+        } else if (hour >= 12 && hour < 18) {
+            return 'Good afternoon';
+        } else {
+            return 'Good evening';
+        }
+    }
 
     const stationsToDisplay = userStations.slice(0, 6);
     const BEAT_BG = "#121212"
@@ -59,7 +70,7 @@ export function HomePage() {
         <div className='home-page main'>
             <BeatHeader isSearch={false} />
             <div className="main-content">
-                Good Evening
+                {getTimeOfDayGreeting() }
             </div>
 
             {loggedinUser && <ul className="stations-area">

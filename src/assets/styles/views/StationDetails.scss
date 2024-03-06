@@ -119,9 +119,9 @@
         .play {
             background-color: $clr8;
             border-radius: 200px;
-            height: 60px;
-            width: 60px;
-            padding: 17px 17px 17px 20px;
+            height: 56px;
+            width: 56px;
+            padding: 15px 15px 15px 18px;
             color: black;
             cursor: pointer;
         }
@@ -140,7 +140,21 @@
             height: 40px;
             width: 40px;
             color: $clr2;
+            transition: transform 0.3s ease;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.05); 
+                color:$clr1;
+            }
         }
+        .unlike {
+            color:$clr8;
+            &:hover {
+                transform: scale(1.1); 
+                color:$clr8;
+            }
+        }
+
 
         .more {
             height: 20px;

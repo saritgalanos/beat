@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 
 
 import { RiDeleteBin5Line, RiMusic2Line } from "react-icons/ri"
 import { RxDotFilled } from "react-icons/rx"
-import { IoMdHeartEmpty } from "react-icons/io"
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io"
 import { IoEllipsisHorizontalSharp, IoPlaySharp, IoClose, IoPauseSharp } from "react-icons/io5"
 import { BiSearchAlt2 } from "react-icons/bi"
 
@@ -23,6 +23,7 @@ import { onToggleModal } from "../store/actions/app.actions"
 import { SongList } from "../cmps/SongList"
 import { StationEditModal } from "../cmps/StationEditModal"
 import { ThreeDots } from "react-loader-spinner"
+import { UserContext } from "../contexts/UserContext"
 
 
 const BEAT_BG = "#121212"
@@ -36,6 +37,7 @@ export function StationDetails() {
   const [isOpenSearch, setOpenSearch] = useState(false)
   const [bgColor, setBgColor] = useState(BEAT_BG)
   const [displayTitle, setDisplayTitle] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)
 
   const activeStationId = useSelector(state => state.playerModule.activeStationId)
   const isPlaying = useSelector(state => state.playerModule.isPlaying)
@@ -43,11 +45,12 @@ export function StationDetails() {
   const dispatch = useDispatch()
   const params = useParams()
   const navigate = useNavigate()
+  const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
   useEffect(() => {
     if (params.stationId) {
       loadStation()
-      setQuery('');
+      setQuery('')
       setSongsFromSearch([]);
       setOpenSearch(false)
       setBgColor(BEAT_BG)
@@ -69,8 +72,10 @@ export function StationDetails() {
     try {
       //long ids are from spotify
       //const station = (params.stationId.length < 10) ? await stationService.getById(params.stationId) : await spotifyService.fetchPlaylist(params.stationId)
-      const station =  await stationService.getById(params.stationId)
+      const station = await stationService.getById(params.stationId)
+      const isLikedStation = stationService.isLikedStation(station)
       setStation(station)
+      setIsLiked(isLikedStation)
     } catch (error) {
       console.log('error:', error)
     }
@@ -92,7 +97,7 @@ export function StationDetails() {
   function handleScroll(event) {
     const { scrollTop, scrollHeight, clientHeight } = event.target
     scrollTop > 200 ? setDisplayTitle(true) : setDisplayTitle(false)
-}
+  }
 
 
   async function fetchColor() {
@@ -181,6 +186,12 @@ export function StationDetails() {
     setSongsFromSearch(returnedSongs)
   }
 
+  async function toggleLike() {
+    const newLikeStatus = !isLiked
+    newLikeStatus ? stationService.likeStation(station) : stationService.unlikeStation(station)
+    setIsLiked(newLikeStatus)
+  }
+
   const darkenColor = (bgColor != BEAT_BG) ? utilService.darkenColor(bgColor) : BEAT_BG
   const gradientStyle = {
     background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG})`
@@ -199,7 +210,8 @@ export function StationDetails() {
   const bySpotify = (station.createdBy._id === "spotify") ? true : false
   const editClass = (bySpotify) ? '' : "can-edit"
   const supportClick = (bySpotify) ? null : editStation
-
+  const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
+  
   return (
     <div className='main' onScroll={handleScroll}>
       <div className='station-details'>
@@ -226,7 +238,9 @@ export function StationDetails() {
           <div className="station-control" >
             {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
             {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
-            <IoMdHeartEmpty className="like" />
+            {!isUserStation && (
+              isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : 
+              <IoMdHeartEmpty className="like" onClick={toggleLike} />)}
             <RiDeleteBin5Line className="more" onClick={onMoreActions} />
             {/* <IoEllipsisHorizontalSharp className="more" /> */}
           </div>

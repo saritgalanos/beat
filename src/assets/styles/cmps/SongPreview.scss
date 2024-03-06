@@ -9,13 +9,13 @@
         grid-template-columns: 1fr 40px;
 
         @include for-narrow-layout {
-            grid-template-columns: 30px minmax(250px, 1fr) minmax(200px, 0.6fr) 0.4fr 40px;
+            grid-template-columns: 30px minmax(240px, 1fr) minmax(140px, 0.6fr)  30px  0.4fr 30px;
             .date-added {
                 display: none;
             }
         }
         @include for-normal-layout {
-            grid-template-columns: 30px minmax(250px, 1fr)  minmax(200px, 0.6fr) 0.4fr minmax(120px, 120px) 40px;
+            grid-template-columns: 30px minmax(250px, 1fr)  minmax(200px, 0.6fr)  0.4fr 60px minmax(120px, 120px) 40px;
             .date-added {
                 display: block;
                 text-wrap: nowrap;
@@ -24,6 +24,36 @@
 
         .album {
             @include limit-text-to-width;
+        }
+
+        .liked-area {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            font-size: 0.9rem;
+            min-width: 50px;
+
+            .like {
+                height: 20px;
+                width: 20px;
+                color: $clr2;
+                margin-top: 4px;
+                transition: transform 0.3s ease;
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.05); 
+                    color:$clr1;
+                }
+            }
+            .unlike {
+                color:$clr8;
+                &:hover {
+                    transform: scale(1.1); 
+                    color:$clr8;
+                }
+            }
         }
 
 

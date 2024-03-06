@@ -7,9 +7,8 @@ import { GiPauseButton } from "react-icons/gi"
 import { useDispatch, useSelector } from 'react-redux'
 import { setActiveSong, togglePlay } from '../store/actions/player.actions'
 import { RiDeleteBin5Line } from "react-icons/ri"
-import { IoMdMore } from "react-icons/io"
+import { IoMdHeart, IoMdHeartEmpty, IoMdMore } from "react-icons/io"
 import { Audio } from 'react-loader-spinner'
-import { DoubleArrow } from "@mui/icons-material"
 import { UserContext } from "../contexts/UserContext"
 
 
@@ -17,6 +16,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
     const [songToPreview, setSongToPreview] = useState(song)
     const [songFromStation, setSongFromStation] = useState(station)
+    const [isLiked, setIsLiked] = useState(false)
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
     const [isMouseOn, setMouseOn] = useState(false)
@@ -54,7 +54,9 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         onDeleteSong(songToPreview)
     }
 
-
+    function toggleLike() {
+        setIsLiked(!isLiked)
+    }
 
     const songDetails = songToPreview.title.split('-');
     const artist = songDetails[0];
@@ -65,6 +67,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
     const isActiveClass = (isActive) ? 'active-song' : ''
+    const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
 
     return (
         <div className='song-preview'
@@ -99,7 +102,16 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                             </div>
                             <div className='album'>{songToPreview.album}</div>
                             <div className='date-added'>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
-                            <div>{songToPreview.duration}</div>
+                            <div className='liked-area'>
+
+                                <div>  {(!isUserStation) && (
+                                    isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : (
+                                    isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
+                                </div>
+                            </div>
+                            <div> {songToPreview.duration} </div>
+
+
                             {
                                 (isMouseOn) && <div><RiDeleteBin5Line className='more-actions' onClick={onMoreActions} /></div>
                             }

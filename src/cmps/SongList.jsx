@@ -15,6 +15,7 @@ export function SongList({ songs, station, includeTitles, isPlaylist, onAddSong,
             <div>Title</div>
             <div className='album'>Album</div>
             <div className='date-added'>Date added</div>
+            <div> </div>
             <IoTimeOutline className='duration' />
 
           </div>}

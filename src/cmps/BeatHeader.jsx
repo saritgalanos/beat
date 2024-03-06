@@ -35,10 +35,10 @@ export function BeatHeader({ isSearch, search, bgColor = null, title, displayTit
 
 
 
-    function onAvatar() {
-        userService.logout()
+    async function onAvatar() {
+        await userService.logout()
         setLoggedinUser(null)
-        navigate('./')
+        navigate('/')
     }
 
 

@@ -20,8 +20,8 @@ export function YourLibrary({ onNavWidth }) {
     const navigate = useNavigate()
 
     async function onAddNewStation(ev) {
-        const stationToAdd = stationService.getEmptyStation(stations)
-        stationToAdd.createdBy.fullname = loggedinUser?.fullname
+        const stationToAdd = stationService.getEmptyStation(stations, loggedinUser)
+        
         try {
             const stationAdded = await saveStation(stationToAdd)
             setTimeout(() => {
