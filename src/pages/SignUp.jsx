@@ -3,12 +3,14 @@ import { userService } from '../services/user.service.js'
 
 import { useNavigate, useParams } from 'react-router'
 import { UserContext } from '../contexts/UserContext.js'
+import { stationService } from '../services/station.service.js'
+import { loadStations, saveStation } from '../store/actions/station.actions.js'
 
 export function SignUp() {
     const [credentials, setCredentials] = useState(userService.getEmptyUser())
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
     const navigate = useNavigate()
-   
+
     useEffect(() => {
 
     }, [])
@@ -30,6 +32,11 @@ export function SignUp() {
         try {
             const user = await userService.signup(credentials)
             setLoggedinUser(user)
+            /*create empty station for like songs for the user*/
+            const likedSongsStation = await stationService.createLikedSongsStation(user)
+            await saveStation(likedSongsStation)
+            await loadStations() 
+
         } catch (err) {
             console.log('Cannot signup :', err)
             showErrorMsg(`Cannot signup`)

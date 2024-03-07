@@ -3,20 +3,28 @@ import { ADD_STATION, REMOVE_STATION, SET_FILTER_BY, SET_STATIONS, UNDO_CHANGES,
 import { store } from "../store";
 
 
+
 export async function loadStations(filterBy) {
 
     //const filterBy = store.getState().stationModule.filterBy
     try {
         const stations = await stationService.query(filterBy)
+        const likedSongsStation = stations.find(station => station.name === 'Liked Songs');
         store.dispatch({ 
             type: SET_STATIONS, 
-            stations })
+            stations, 
+            likedSongsStation 
+        });
     } catch (err) {
         console.log('loadStations failed:', err);
         throw err
     }
 
 }
+
+
+
+
 
 export async function saveStation(stationToSave) {
     const type = stationToSave._id ? UPDATE_STATION : ADD_STATION

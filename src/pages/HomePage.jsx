@@ -58,8 +58,10 @@ export function HomePage() {
         }
     }
 
-    const stationsToDisplay = userStations.slice(0, 6);
-    const BEAT_BG = "#121212"
+    const stationsToDisplay = userStations
+        .filter(station => station.createdBy._id === loggedinUser?._id).slice(0, 6);
+
+       const BEAT_BG = "#121212"
     const baseColor = "#232324"
     const gradientStyle = {
         background: `linear-gradient(${baseColor} 50px, ${BEAT_BG} 400px,  ${BEAT_BG})`
@@ -70,7 +72,7 @@ export function HomePage() {
         <div className='home-page main'>
             <BeatHeader isSearch={false} />
             <div className="main-content">
-                {getTimeOfDayGreeting() }
+                {getTimeOfDayGreeting()}
             </div>
 
             {loggedinUser && <ul className="stations-area">

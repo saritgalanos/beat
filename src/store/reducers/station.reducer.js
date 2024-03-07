@@ -8,22 +8,21 @@ export const UNDO_CHANGES = 'UNDO_CHANGES'
 
 const initialState = {
     stations: null,
-    filterBy: undefined,
-    //lastStations:
-
+    //filterBy: undefined,
+    likedSongsStation: undefined,
 }
 export function stationReducer(state = initialState, action = {}) {
     switch (action.type) {
         case SET_STATIONS:
             return {
                 ...state,
-                stations: action.stations
+                stations: action.stations,
+                likedSongsStation: action.likedSongsStation
             }
         case ADD_STATION:
             return {
                 ...state,
-                stations: [...state.stations, action.station],
-                lastStations: [...state.stations]
+                stations: [...(state.stations || []), action.station],
             }
         case UPDATE_STATION:
         return {
@@ -35,7 +34,7 @@ export function stationReducer(state = initialState, action = {}) {
         return {
                 ...state,
                 stations: state.stations.filter(station => station._id !== action.stationId)
-                //lastStations: [...state.stations]
+              
             }
         case SET_FILTER_BY:
             return {

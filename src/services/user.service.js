@@ -92,6 +92,6 @@ function getEmptyUser() {
         username: '',
         fullname: '',
         password: '',
-        imgUrl: '',
+        imgUrl: ''
     }
 }

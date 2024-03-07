@@ -1,6 +1,6 @@
 
 import YouTube from "react-youtube"
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import { utilService } from "../services/util.service"
 import { IoEllipsisHorizontalSharp, IoPlay } from "react-icons/io5"
 import { GiPauseButton } from "react-icons/gi"
@@ -10,6 +10,8 @@ import { RiDeleteBin5Line } from "react-icons/ri"
 import { IoMdHeart, IoMdHeartEmpty, IoMdMore } from "react-icons/io"
 import { Audio } from 'react-loader-spinner'
 import { UserContext } from "../contexts/UserContext"
+import { stationService } from "../services/station.service"
+import { loadStations, saveStation } from "../store/actions/station.actions"
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
@@ -24,10 +26,16 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
     const dispatch = useDispatch()
 
     const { activeSong, isPlaying } = useSelector(state => state.playerModule);
+    const likedSongsStation = useSelector(state => state.stationModule.likedSongsStation);
 
     const isActive = activeSong && (songToPreview.id === activeSong.id)
     const isThisSongPlaying = isActive && isPlaying
 
+    useEffect(() => {
+        /*check if this song liked by the user */
+        const liked = likedSongsStation?.songs?.find(likedSong => song.id === likedSong.id);
+        setIsLiked(liked)
+    }, [])
 
     //temp function
     function onPic() {
@@ -54,9 +62,26 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         onDeleteSong(songToPreview)
     }
 
-    function toggleLike() {
-        setIsLiked(!isLiked)
+    async function toggleLike() {
+        const updatedStation = (isLiked) ?
+            stationService.deleteSongFromStation(likedSongsStation, song) :
+            stationService.addSongToStation(likedSongsStation, song)
+         console.log('station to update:', updatedStation)   
+        try {
+
+            await saveStation(updatedStation)
+            setIsLiked(!isLiked)
+            const filterBy = stationService.getDefaultFilter()
+            filterBy.creatorId = loggedinUser?._id
+            filterBy.loadAlsoLiked = true //load also all the stations the user liked
+            await loadStations(filterBy)
+            
+        } catch (err) {
+            console.log('Song Preview:toggleLike ' + err)
+        }
+     
     }
+
 
     const songDetails = songToPreview.title.split('-');
     const artist = songDetails[0];
@@ -67,7 +92,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
 
     const isActiveClass = (isActive) ? 'active-song' : ''
-    const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
+    const isUserStation = (station?.createdBy._id == loggedinUser?._id) ? true : false
 
     return (
         <div className='song-preview'
@@ -106,7 +131,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
                                 <div>  {(!isUserStation) && (
                                     isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : (
-                                    isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
+                                        isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
                                 </div>
                             </div>
                             <div> {songToPreview.duration} </div>

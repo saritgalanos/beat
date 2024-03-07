@@ -12,6 +12,7 @@ export const stationService = {
     save,
     remove,
     getEmptyStation,
+    createLikedSongsStation,
     getDefaultFilter,
     createSongsListFromSearchResults,
     addSongToStation,
@@ -84,14 +85,15 @@ async function query(filterBy) {
 
 
     let stations = await storageService.query(STORAGE_KEY)
-
-    if (filterBy?.creatorName) {
+    if (filterBy?.creatorId) {
+        // Filter stations based on creatorId and optionally if the user liked the station
         stations = stations.filter(station => {
+            const isCreatedByUser = filterBy.creatorId === station.createdBy._id;
+            const isLikedByUser = filterBy.loadAlsoLiked && station.likedByUsers?.some(user => user._id === filterBy.creatorId);
 
-            return filterBy.creatorName === station.createdBy.fullname
-
+            // Return true if the station was created by the user or, if required, also liked by the user
+            return isCreatedByUser || isLikedByUser;
         })
-
     }
 
     if (filterBy?.categoryId) {
@@ -124,12 +126,15 @@ function save(stationToSave) {
 
 function getDefaultFilter() {
     return {
-        creatorName: '',
-        stationId: ''
+        creatorId: '',
+        stationId: '',
+        loadAlsoLiked: false,
+        categoryId: ''
     }
 }
 
 function addSongToStation(station, newSong) {
+    console.log('addSongToStation:',station)
     newSong.addedAt = Date.now()
     //add song only if no such id in the list
     const exists = station.songs.find(song => song.id === newSong.id);
@@ -142,7 +147,7 @@ function addSongToStation(station, newSong) {
 
     const updatedSongs = [...station.songs, newSong]
     const updatedStation = { ...station, songs: updatedSongs };
-
+    console.log('addSongToStation: after',updatedStation)
     return updatedStation;
 }
 
@@ -153,32 +158,32 @@ function deleteSongFromStation(station, songToDelete) {
     return updatedStation;
 }
 
-function likeStation(station) {
-    if(!station) return
-    if(!station.likedByUsers) {
+async function likeStation(station) {
+    if (!station) return
+    if (!station.likedByUsers) {
         station.likedByUsers = []
     }
     const user = getLoggedinUser()
     if (!user) return
     station.likedByUsers.push(user)
-    save(station)
+    await save(station)
 
 }
 
-function unlikeStation(station) {
-    if(!station) return
+async function unlikeStation(station) {
+    if (!station) return
     const user = getLoggedinUser()
     if (!user) return
-       
+
     if (station.likedByUsers) {
         station.likedByUsers = station.likedByUsers.filter(userInArray => userInArray._id !== user._id);
     }
 
-    save(station)
+    await save(station)
 }
 
 function isLikedStation(station) {
-    if(!station) return
+    if (!station) return
     const user = getLoggedinUser()
     if (!user) false
     if (station.likedByUsers) {
@@ -187,9 +192,11 @@ function isLikedStation(station) {
     return false;
 }
 
-function getEmptyStation(stations, loggedinUser=null) {
-    const stationName = (stations) ? `My Playlist #${_getNextStationNumber(stations)}` : ''
-
+function getEmptyStation(stations, loggedinUser = null) {
+    var stationName = ''
+    if (stations) {
+        stationName = (stations) ? `My Playlist #${_getNextStationNumber(stations)}` : ''
+    }
     return {
         _id: '',
         name: stationName,
@@ -203,6 +210,16 @@ function getEmptyStation(stations, loggedinUser=null) {
         likedByUsers: []
     }
 }
+
+async function createLikedSongsStation(loggedinUser) {
+    var station = getEmptyStation(null, loggedinUser)
+    station.createdBy.imgUrl = 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
+    station.name = 'Liked Songs'
+    return station
+}
+
+ 
+
 
 
 

@@ -23,7 +23,8 @@ export function BeatIndex() {
 
     useEffect(() => {
         const filterBy = stationService.getDefaultFilter()
-        filterBy.creatorName = loggedinUser?.fullname
+        filterBy.creatorId = loggedinUser?._id
+        filterBy.loadAlsoLiked = true //load also all the stations the user liked
         loadStations(filterBy)
     }, [])
 

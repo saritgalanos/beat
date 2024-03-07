@@ -12,7 +12,7 @@ import { BeatHeader } from "../cmps/BeatHeader"
 import { stationService } from "../services/station.service"
 
 
-import { deleteStation, saveStation } from "../store/actions/station.actions"
+import { deleteStation, loadStations, saveStation } from "../store/actions/station.actions"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
@@ -103,8 +103,13 @@ export function StationDetails() {
   async function fetchColor() {
 
     try {
-      const rgbColor = await utilService.getDominantColorFromImage(station.createdBy.imgUrl)
-      setBgColor(rgbColor)
+      if (station.name === 'Liked Songs') {
+        setBgColor('rgb(70,52,122)')
+      }
+      else {
+        const rgbColor = await utilService.getDominantColorFromImage(station.createdBy.imgUrl)
+        setBgColor(rgbColor)
+      }
     } catch (error) {
       console.error(error);
     }
@@ -188,7 +193,12 @@ export function StationDetails() {
 
   async function toggleLike() {
     const newLikeStatus = !isLiked
-    newLikeStatus ? stationService.likeStation(station) : stationService.unlikeStation(station)
+    newLikeStatus ? await stationService.likeStation(station) : await stationService.unlikeStation(station)
+
+    const filterBy = stationService.getDefaultFilter()
+    filterBy.creatorId = loggedinUser?._id
+    filterBy.loadAlsoLiked = true
+    loadStations(filterBy)
     setIsLiked(newLikeStatus)
   }
 
@@ -204,6 +214,8 @@ export function StationDetails() {
     </div>)
 
 
+
+
   const isActiveStation = (station._id === activeStationId)
   const stationPlaying = (isPlaying && isActiveStation)
   const fsName = (station.name.length < 15) ? "fs6rem" : "fs4rem"
@@ -211,7 +223,7 @@ export function StationDetails() {
   const editClass = (bySpotify) ? '' : "can-edit"
   const supportClick = (bySpotify) ? null : editStation
   const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
-  
+
   return (
     <div className='main' onScroll={handleScroll}>
       <div className='station-details'>
@@ -239,8 +251,8 @@ export function StationDetails() {
             {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
             {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
             {!isUserStation && (
-              isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : 
-              <IoMdHeartEmpty className="like" onClick={toggleLike} />)}
+              isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> :
+                <IoMdHeartEmpty className="like" onClick={toggleLike} />)}
             <RiDeleteBin5Line className="more" onClick={onMoreActions} />
             {/* <IoEllipsisHorizontalSharp className="more" /> */}
           </div>

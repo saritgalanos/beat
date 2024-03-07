@@ -116,7 +116,8 @@
             @include add-scroll-bar(13px);
 
             .stations {
-                grid-template-columns: repeat(auto-fill, minmax(120px, auto));
+                //grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
         }
     }
@@ -140,7 +141,8 @@
             @include add-scroll-bar(13px);
 
             .stations {
-                grid-template-columns: repeat(auto-fill, minmax(120px, auto));
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                //grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
             }
         }
     }
