@@ -4,7 +4,7 @@ import { userService } from '../services/user.service.js'
 import { useNavigate, useParams } from 'react-router'
 import { UserContext } from '../contexts/UserContext.js'
 import { stationService } from '../services/station.service.js'
-import { loadStations, saveStation } from '../store/actions/station.actions.js'
+import { loadUserStations, saveStation } from '../store/actions/station.actions.js'
 
 export function SignUp() {
     const [credentials, setCredentials] = useState(userService.getEmptyUser())
@@ -35,7 +35,7 @@ export function SignUp() {
             /*create empty station for like songs for the user*/
             const likedSongsStation = await stationService.createLikedSongsStation(user)
             await saveStation(likedSongsStation)
-            await loadStations() 
+            await loadUserStations(user) 
 
         } catch (err) {
             console.log('Cannot signup :', err)

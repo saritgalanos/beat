@@ -3,7 +3,7 @@ import { BeatHeader } from "../cmps/BeatHeader"
 import { spotifyService } from "../services/spotify.service"
 import { StationPreview } from "../cmps/StationPreview"
 import { useSelector } from "react-redux"
-import { loadStations } from "../store/actions/station.actions"
+import { loadUserStations } from "../store/actions/station.actions"
 import { categoryService } from "../services/category.services"
 import { ThreeDots } from "react-loader-spinner"
 import { stationService } from "../services/station.service"
@@ -13,7 +13,7 @@ const POP = '0JQ5DAqbMKFEC4WFtoNRpw'
 
 export function HomePage() {
 
-    const userStations = useSelector(storeState => storeState.stationModule.stations)
+    const userStations = useSelector(storeState => storeState.stationModule.userStations)
 
     const [suggestedStations, setSuggestedStations] = useState(null)
     const [category, setCategory] = useState(null)

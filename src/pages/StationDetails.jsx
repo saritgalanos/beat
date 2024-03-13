@@ -12,7 +12,7 @@ import { BeatHeader } from "../cmps/BeatHeader"
 import { stationService } from "../services/station.service"
 
 
-import { deleteStation, loadStations, saveStation } from "../store/actions/station.actions"
+import { deleteStation, loadLikedStations, saveStation } from "../store/actions/station.actions"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
@@ -70,8 +70,6 @@ export function StationDetails() {
 
   async function loadStation() {
     try {
-      //long ids are from spotify
-      //const station = (params.stationId.length < 10) ? await stationService.getById(params.stationId) : await spotifyService.fetchPlaylist(params.stationId)
       const station = await stationService.getById(params.stationId)
       const isLikedStation = stationService.isLikedStation(station)
       setStation(station)
@@ -194,11 +192,8 @@ export function StationDetails() {
   async function toggleLike() {
     const newLikeStatus = !isLiked
     newLikeStatus ? await stationService.likeStation(station) : await stationService.unlikeStation(station)
-
-    const filterBy = stationService.getDefaultFilter()
-    filterBy.creatorId = loggedinUser?._id
-    filterBy.loadAlsoLiked = true
-    loadStations(filterBy)
+    
+    loadLikedStations(loggedinUser)
     setIsLiked(newLikeStatus)
   }
 

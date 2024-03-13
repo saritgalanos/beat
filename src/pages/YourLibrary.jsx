@@ -11,7 +11,9 @@ import { UserContext } from "../contexts/UserContext"
 
 
 export function YourLibrary({ onNavWidth }) {
-    const stations = useSelector(storeState => storeState.stationModule.stations)
+    const stations = useSelector(storeState => storeState.stationModule.userStations)
+    const likedSongsStation = useSelector(storeState => storeState.stationModule.likedSongsStation)
+    const likedStations = useSelector(storeState => storeState.stationModule.userLikedStations)
     const [isLibMaxSize, setLibMaxSize] = useState(false)
     const [ref, size] = useResizeObserver()
 
@@ -21,7 +23,7 @@ export function YourLibrary({ onNavWidth }) {
 
     async function onAddNewStation(ev) {
         const stationToAdd = stationService.getEmptyStation(stations, loggedinUser)
-        
+
         try {
             const stationAdded = await saveStation(stationToAdd)
             setTimeout(() => {
@@ -52,10 +54,12 @@ export function YourLibrary({ onNavWidth }) {
     }
 
 
-    if (!stations) return
-    <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" />
-    const navClass = size.width > 100 ? "nav-open" : 'nav-closed'
+    if (!stations && !likedStations && likedSongsStation?.songs?.length === 0) return (
+    <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" /> )
 
+    const navClass = size.width > 100 ? "nav-open" : 'nav-closed'
+    console.log(likedSongsStation)
+    console.log(likedSongsStation?.songs?.lenght > 0)
     return (
         <div className={`your-library ${navClass}`} ref={ref}>
             <div className="lib-header">
@@ -77,19 +81,27 @@ export function YourLibrary({ onNavWidth }) {
             </div>}
 
             {loggedinUser &&
-            <ul className="stations-area">
-                <div className="stations">
-                    {stations.map(station =>
-                        <li key={station._id}>
+                <ul className="stations-area">
+                    <div className="stations">
+                        {likedSongsStation?.songs?.length > 0 &&
+                            <li key={likedSongsStation._id}>
+                                <StationPreview station={likedSongsStation} displayOn={"library"} libOpen={size.width > 100} />
+                            </li>}
 
-                            <StationPreview station={station} displayOn={"library"} libOpen={size.width > 100} />
-
-                        </li>
-                    )}
-                </div>
-            </ul> }
+                        {stations && stations.map(station =>
+                            <li key={station._id}>
+                                <StationPreview station={station} displayOn={"library"} libOpen={size.width > 100} />
+                            </li>
+                        )}
+                         {likedStations && likedStations.map(station =>
+                            <li key={station._id}>
+                                <StationPreview station={station} displayOn={"library"} libOpen={size.width > 100} />
+                            </li>
+                        )}
+                    </div>
+                </ul>}
         </div>
     )
 }
-
+ 
 

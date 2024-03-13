@@ -5,10 +5,10 @@ import { useNavigate, useParams } from "react-router"
 import { categoryService } from "../services/category.services"
 import { StationPreview } from "../cmps/StationPreview"
 import { utilService } from "../services/util.service"
-import { loadStations } from "../store/actions/station.actions"
+import { loadUserStations } from "../store/actions/station.actions"
 import { stationService } from "../services/station.service"
 
-
+ 
 const BEAT_BG = "#121212"
 
 export function CategoryDetails() {

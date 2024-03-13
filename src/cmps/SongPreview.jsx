@@ -11,7 +11,7 @@ import { IoMdHeart, IoMdHeartEmpty, IoMdMore } from "react-icons/io"
 import { Audio } from 'react-loader-spinner'
 import { UserContext } from "../contexts/UserContext"
 import { stationService } from "../services/station.service"
-import { loadStations, saveStation } from "../store/actions/station.actions"
+import { loadLikedStations, loadUserStations, saveStation } from "../store/actions/station.actions"
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
@@ -71,10 +71,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
             await saveStation(updatedStation)
             setIsLiked(!isLiked)
-            const filterBy = stationService.getDefaultFilter()
-            filterBy.creatorId = loggedinUser?._id
-            filterBy.loadAlsoLiked = true //load also all the stations the user liked
-            await loadStations(filterBy)
+            await loadLikedStations(loggedinUser)
             
         } catch (err) {
             console.log('Song Preview:toggleLike ' + err)

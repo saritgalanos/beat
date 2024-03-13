@@ -13,7 +13,6 @@ import { UserContext } from "../contexts/UserContext.js"
 export function BeatHeader({ isSearch, search, bgColor = null, title, displayTitle = false }) {
     const [query, setQuery] = useState('')
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
-    console.log('loggedinUser:', loggedinUser)
 
     let navigate = useNavigate()
 

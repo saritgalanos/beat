@@ -85,22 +85,25 @@ async function query(filterBy) {
 
 
     let stations = await storageService.query(STORAGE_KEY)
-    if (filterBy?.creatorId) {
-        // Filter stations based on creatorId and optionally if the user liked the station
-        stations = stations.filter(station => {
-            const isCreatedByUser = filterBy.creatorId === station.createdBy._id;
-            const isLikedByUser = filterBy.loadAlsoLiked && station.likedByUsers?.some(user => user._id === filterBy.creatorId);
+    
+    if (filterBy.creatorId) {
+        stations = stations.filter(station => filterBy.creatorId === station.createdBy._id && station.name !== 'liked songs');
+        /*remove the liked songs station*/
 
-            // Return true if the station was created by the user or, if required, also liked by the user
-            return isCreatedByUser || isLikedByUser;
-        })
     }
 
-    if (filterBy?.categoryId) {
+    if (filterBy.categoryId) {
         stations = stations.filter(station => {
             return filterBy.categoryId === station?.categoryId
         })
     }
+
+    if(filterBy.likedByUserId) {
+         stations = stations.filter(station =>  {
+            return station.likedByUsers?.some(user => user._id === filterBy.likedByUserId) 
+         });
+    }
+          
     return stations
 }
 
@@ -127,8 +130,7 @@ function save(stationToSave) {
 function getDefaultFilter() {
     return {
         creatorId: '',
-        stationId: '',
-        loadAlsoLiked: false,
+        likedByUserId: '',
         categoryId: ''
     }
 }

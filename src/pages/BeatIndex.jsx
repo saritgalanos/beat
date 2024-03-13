@@ -9,7 +9,7 @@ import { LuGhost } from "react-icons/lu"
 import { CleanHands } from "@mui/icons-material"
 import { DynamicModal } from "../cmps/DynamicModal"
 import { stationService } from "../services/station.service"
-import { loadStations } from "../store/actions/station.actions"
+import { loadLikedStations, loadUserStations } from "../store/actions/station.actions"
 import { UserContext } from "../contexts/UserContext"
 
 
@@ -22,10 +22,8 @@ export function BeatIndex() {
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
     useEffect(() => {
-        const filterBy = stationService.getDefaultFilter()
-        filterBy.creatorId = loggedinUser?._id
-        filterBy.loadAlsoLiked = true //load also all the stations the user liked
-        loadStations(filterBy)
+        loadUserStations(loggedinUser)
+        loadLikedStations(loggedinUser)
     }, [])
 
     function setPage(page) {

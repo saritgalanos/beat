@@ -1,27 +1,49 @@
 import { stationService } from "../../services/station.service";
-import { ADD_STATION, REMOVE_STATION, SET_FILTER_BY, SET_STATIONS, UNDO_CHANGES, UPDATE_STATION } from "../reducers/station.reducer";
+import { ADD_STATION, REMOVE_STATION, SET_FILTER_BY, SET_USER_LIKED_STATIONS, SET_USER_STATIONS, UNDO_CHANGES, UPDATE_STATION } from "../reducers/station.reducer";
 import { store } from "../store";
 
 
 
-export async function loadStations(filterBy) {
+export async function loadUserStations(loggedinUser) {
 
-    //const filterBy = store.getState().stationModule.filterBy
-    try {
+    if(!loggedinUser) return
+    const filterBy = stationService.getDefaultFilter()
+    filterBy.creatorId = loggedinUser._id
+    try {     
         const stations = await stationService.query(filterBy)
         const likedSongsStation = stations.find(station => station.name === 'Liked Songs');
+        const updatedStations = stations.filter(station => station.name !== 'Liked Songs');
+
         store.dispatch({ 
-            type: SET_STATIONS, 
-            stations, 
-            likedSongsStation 
+            type: SET_USER_STATIONS, 
+            stations: updatedStations, 
+            likedSongsStation:  likedSongsStation
         });
     } catch (err) {
-        console.log('loadStations failed:', err);
+        console.log('loadUserStations failed:', err);
         throw err
     }
 
 }
 
+export async function loadLikedStations(loggedinUser) {
+
+    if(!loggedinUser) return
+    const filterBy = stationService.getDefaultFilter()
+    filterBy.likedByUserId = loggedinUser._id
+    try {     
+        const likedStations = await stationService.query(filterBy)
+
+        store.dispatch({ 
+            type: SET_USER_LIKED_STATIONS, 
+            likedStations: likedStations, 
+        });
+    } catch (err) {
+        console.log('loadUserStations failed:', err);
+        throw err
+    }
+
+}
 
 
 
