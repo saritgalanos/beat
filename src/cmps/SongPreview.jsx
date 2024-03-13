@@ -11,7 +11,7 @@ import { IoMdHeart, IoMdHeartEmpty, IoMdMore } from "react-icons/io"
 import { Audio } from 'react-loader-spinner'
 import { UserContext } from "../contexts/UserContext"
 import { stationService } from "../services/station.service"
-import { loadLikedStations, loadUserStations, saveStation } from "../store/actions/station.actions"
+import { loadLikedStations, loadUserStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
@@ -69,9 +69,8 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
          console.log('station to update:', updatedStation)   
         try {
 
-            await saveStation(updatedStation)
+            await saveLikedSongsStation(updatedStation)
             setIsLiked(!isLiked)
-            await loadLikedStations(loggedinUser)
             
         } catch (err) {
             console.log('Song Preview:toggleLike ' + err)

@@ -42,6 +42,7 @@ export function StationPreview({ station, displayOn = "library", libOpen=false})
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
   const openLib = (libOpen) ? 'open-lib' : ''
+  const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs.length > 0) ? station.songs[0].imgUrl: station.imgUrl
 
   return (
     <div className={`station-preview ${displayOn} ${openLib}`} onClick={() => navigate(`/${station._id}`)}>
@@ -50,11 +51,11 @@ export function StationPreview({ station, displayOn = "library", libOpen=false})
       {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
 
       <div className="station-info">
-        {!station.createdBy?.imgUrl &&
+        {!stationPicture &&
           <div className='station-card'><RiMusic2Line className='no-img' /></div>}
-        {station.createdBy?.imgUrl &&
+        {stationPicture &&
           < div className='station-card'>
-            <img src={station.createdBy?.imgUrl} className='station-img' />
+            <img src={stationPicture} className='station-img' />
 
           </div>}
 

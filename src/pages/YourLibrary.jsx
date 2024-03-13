@@ -58,8 +58,7 @@ export function YourLibrary({ onNavWidth }) {
     <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" /> )
 
     const navClass = size.width > 100 ? "nav-open" : 'nav-closed'
-    console.log(likedSongsStation)
-    console.log(likedSongsStation?.songs?.lenght > 0)
+    
     return (
         <div className={`your-library ${navClass}`} ref={ref}>
             <div className="lib-header">

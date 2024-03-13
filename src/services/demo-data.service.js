@@ -101,10 +101,12 @@ function createDemoStations() {
     const demoStations = stationNames.map((station, index) => {
         return {
             _id: utilService.makeId(),
+            categoryId: '0JQ5DAqbMKFEC4WFtoNRpw',
             name: station,
+            imgUrl: imgs[index],
             createdBy: {
                 _id: utilService.makeId(),
-                fullname: creators[index],
+                fullname: 'spotify', //creators[index],
                 imgUrl: imgs[index]
             },
             songs: [..._generateRandomSongsList()],

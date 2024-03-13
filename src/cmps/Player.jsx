@@ -127,13 +127,13 @@ export function Player() {
         <div className='player'>
             <div className='song-control'>
                 <div className='controls'>
-                    <PiShuffleBold className="player-icon" />
+                    {/* <PiShuffleBold className="player-icon" /> */}
                     <IoPlaySkipBack className="player-icon" />
                     <div onClick={toggleAudio}>
                         {isPlaying ? <FaCirclePause className="play-icon" /> : <FaCirclePlay className="play-icon" />}
                     </div>
                     <IoPlaySkipForward className="player-icon" />
-                    <BiRepeat className="player-icon" />
+                    {/* <BiRepeat className="player-icon" /> */}
                 </div>
 
                 <div className='details'>

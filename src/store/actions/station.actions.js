@@ -1,5 +1,5 @@
 import { stationService } from "../../services/station.service";
-import { ADD_STATION, REMOVE_STATION, SET_FILTER_BY, SET_USER_LIKED_STATIONS, SET_USER_STATIONS, UNDO_CHANGES, UPDATE_STATION } from "../reducers/station.reducer";
+import { ADD_LIKED_SONGS_STATION, ADD_STATION, REMOVE_STATION, SET_FILTER_BY, SET_LIKED_SONGS_STATION, SET_USER_LIKED_STATIONS, SET_USER_STATIONS, UNDO_CHANGES, UPDATE_LIKED_SONGS_STATION, UPDATE_STATION } from "../reducers/station.reducer";
 import { store } from "../store";
 
 
@@ -45,7 +45,25 @@ export async function loadLikedStations(loggedinUser) {
 
 }
 
+export async function loadLikedSongsStation(loggedinUser) {
 
+    if(!loggedinUser) return
+    const filterBy = stationService.getDefaultFilter()
+    filterBy.creatorId = loggedinUser._id
+    try {     
+        const stations = await stationService.query(filterBy)
+        const likedSongsStation = stations.find(station => station.name === 'Liked Songs');
+
+       store.dispatch({ 
+            type: SET_LIKED_SONGS_STATION, 
+            likedSongsStation:  likedSongsStation
+        });
+    } catch (err) {
+        console.log('loadUserStations failed:', err);
+        throw err
+    }
+
+}
 
 
 export async function saveStation(stationToSave) {
@@ -64,6 +82,27 @@ export async function saveStation(stationToSave) {
        // store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     }
 }
+
+
+export async function saveLikedSongsStation(stationToSave) {
+    const type = stationToSave._id ? UPDATE_LIKED_SONGS_STATION : ADD_LIKED_SONGS_STATION
+    try {
+        console.log(`${type} - station ${stationToSave.name}`)
+        const savedStation = await stationService.save(stationToSave)
+        store.dispatch({
+             type, 
+             station: savedStation
+         })
+         return savedStation
+    } catch (err) {
+        console.log('saveStation failed:', err);
+        throw err
+    } finally {
+       // store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+    }
+}
+
+
 
 export async function deleteStation(stationToDelete) {
     try {

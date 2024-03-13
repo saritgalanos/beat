@@ -9,7 +9,7 @@ import { LuGhost } from "react-icons/lu"
 import { CleanHands } from "@mui/icons-material"
 import { DynamicModal } from "../cmps/DynamicModal"
 import { stationService } from "../services/station.service"
-import { loadLikedStations, loadUserStations } from "../store/actions/station.actions"
+import { loadLikedSongsStation, loadLikedStations, loadUserStations } from "../store/actions/station.actions"
 import { UserContext } from "../contexts/UserContext"
 
 
@@ -24,6 +24,7 @@ export function BeatIndex() {
     useEffect(() => {
         loadUserStations(loggedinUser)
         loadLikedStations(loggedinUser)
+        loadLikedSongsStation(loggedinUser)
     }, [])
 
     function setPage(page) {

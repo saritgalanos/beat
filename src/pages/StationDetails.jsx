@@ -12,7 +12,7 @@ import { BeatHeader } from "../cmps/BeatHeader"
 import { stationService } from "../services/station.service"
 
 
-import { deleteStation, loadLikedStations, saveStation } from "../store/actions/station.actions"
+import { deleteStation, loadLikedStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
@@ -58,7 +58,7 @@ export function StationDetails() {
   }, [params.stationId])
 
   useEffect(() => {
-    if (station && station.createdBy.imgUrl) {
+    if (station && station.imgUrl) {
       fetchColor()
     }
 
@@ -105,7 +105,7 @@ export function StationDetails() {
         setBgColor('rgb(70,52,122)')
       }
       else {
-        const rgbColor = await utilService.getDominantColorFromImage(station.createdBy.imgUrl)
+        const rgbColor = await utilService.getDominantColorFromImage(station.imgUrl)
         setBgColor(rgbColor)
       }
     } catch (error) {
@@ -129,7 +129,9 @@ export function StationDetails() {
     const updatedStation = stationService.deleteSongFromStation(station, songToDelete)
     setStation(updatedStation)
     try {
-      saveStation(updatedStation)
+
+      (station.name === 'Liked Songs') ? saveLikedSongsStation(updatedStation) : saveStation(updatedStation)
+    
     } catch (err) {
       Console.log('StationDetails:onDeleteSong ' + err)
     }
@@ -215,9 +217,12 @@ export function StationDetails() {
   const stationPlaying = (isPlaying && isActiveStation)
   const fsName = (station.name.length < 15) ? "fs6rem" : "fs4rem"
   const bySpotify = (station.createdBy._id === "spotify") ? true : false
-  const editClass = (bySpotify) ? '' : "can-edit"
-  const supportClick = (bySpotify) ? null : editStation
+  const editClass = (bySpotify || station.name === 'Liked Songs') ? '' : "can-edit"
+  const supportClick = (bySpotify || station.name === 'Liked Songs') ? null : editStation
+  
   const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
+
+  const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs.length > 0) ? station.songs[0].imgUrl: station.imgUrl
 
   return (
     <div className='main' onScroll={handleScroll}>
@@ -226,8 +231,8 @@ export function StationDetails() {
 
         <div className="station-header" style={{ backgroundColor: bgColor }}>
           <div className={`station-pic ${editClass}`} onClick={supportClick}>
-            {station.createdBy.imgUrl
-              ? <img src={station.createdBy.imgUrl} className='station-img' />
+            {stationPicture
+              ? <img src={stationPicture} className='station-img' />
               : <RiMusic2Line className='station-no-img' />
             }
           </div>
@@ -245,10 +250,12 @@ export function StationDetails() {
           <div className="station-control" >
             {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
             {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
-            {!isUserStation && (
+            {(!isUserStation && station.name !== 'Liked Songs') && (
               isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> :
                 <IoMdHeartEmpty className="like" onClick={toggleLike} />)}
-            <RiDeleteBin5Line className="more" onClick={onMoreActions} />
+            
+            {(!isUserStation && station.name !== 'Liked Songs') && (
+            <RiDeleteBin5Line className="more" onClick={onMoreActions} />)}
             {/* <IoEllipsisHorizontalSharp className="more" /> */}
           </div>
 
@@ -260,7 +267,7 @@ export function StationDetails() {
         </div>
 
         <div className="not-for-mobile">
-          {!bySpotify &&
+          {!bySpotify && station.name !== 'Liked Songs' &&
             <div className='songs-search'>
               {!isOpenSearch ? (<div className="find-more" onClick={onFindMore}>Find more</div>) :
                 <header>

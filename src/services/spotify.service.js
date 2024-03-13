@@ -163,7 +163,8 @@ function _createStationFromSpotifyPlayList(playlist) {
     station.name = playlist.name
     station.createdBy._id = playlist.owner.id
     station.createdBy.fullname = playlist.owner.display_name
-    station.createdBy.imgUrl = playlist.images[0].url
+    station.createdBy.imgUrl = '' /*todo*/
+    station.imgUrl = playlist.images[0].url
     station.description = playlist.description
     if(playlist.categoryId) {
         station.categoryId = playlist.categoryId

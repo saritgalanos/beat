@@ -30,9 +30,9 @@ export function StationEditModal({ station, onUpdateStation }) {
         })
 
         setImgData(prevData => ({
-            ...prevData, imgUrl: station.createdBy.imgUrl
+            ...prevData, imgUrl: station.imgUrl
         }))
-        //       setImageUrl(station?.createdBy.imgUrl)
+        //       setImageUrl(station?.imgUrl)
     }, [station]); // Dependency array includes `station` to listen for changes
 
 
@@ -58,7 +58,7 @@ export function StationEditModal({ station, onUpdateStation }) {
         console.log("saving")
         if (modalFields.title) station.name = modalFields.title
         if (modalFields.description) station.description = modalFields.description
-        if (imgData.imgUrl) station.createdBy.imgUrl = imgData.imgUrl
+        if (imgData.imgUrl) station.imgUrl = imgData.imgUrl
         onUpdateStation(station)
         onToggleModal(null)
     }
@@ -86,7 +86,7 @@ export function StationEditModal({ station, onUpdateStation }) {
                         <ThreeDots  visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" />
                         </div>) :
                         (
-                            <div>
+                            <div className='img-container'>
                                 < input type="file" onChange={uploadImg} accept="img/*" id="imgUpload" />
                                 {imgData.imgUrl
                                     ? <img src={imgData.imgUrl} className='station-img' />

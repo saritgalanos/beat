@@ -86,12 +86,20 @@ export function BeatHeader({ isSearch, search, bgColor = null, title, displayTit
 
                 {loggedinUser &&
                     <div className="avatar">
-                        <Tooltip title={
-                            <div>
-                                {loggedinUser.fullname}
-                            </div>
-                        }>
-                            <Avatar className="avatar-circle" onClick={onAvatar} sx={{ bgcolor: deepPurple[500] }}>{getInitials(loggedinUser.fullname)}</Avatar>
+                        <Tooltip title={<span style={{ fontSize: '14px', fontWeight: 400 }}>{loggedinUser.fullname}</span>}>
+                            <Avatar
+                                className="avatar-circle"
+                                onClick={onAvatar}
+                                sx={{
+                                    bgcolor: loggedinUser.imgUrl ? 'transparent' : deepPurple[500],
+                                    width: 35, // Adjust width as needed
+                                    height: 35, // Adjust height as needed
+                                }}
+                                src={loggedinUser.imgUrl}
+                                alt={loggedinUser.fullname}
+                            >
+                                {!loggedinUser.imgUrl && getInitials(loggedinUser.fullname)}
+                            </Avatar>
                         </Tooltip>
 
                     </div>}

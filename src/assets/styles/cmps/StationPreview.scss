@@ -18,7 +18,7 @@
         aspect-ratio: 114/166;
     }
 
-  
+
 
     .station-info {
         display: flex;
@@ -33,12 +33,15 @@
             @include centered-flex;
             border-radius: 8px;
             background-color: $clr5;
+            aspect-ratio: 1/1;
+            overflow: hidden; // Ensures nothing spills outside the border-radius
+
 
             .station-img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
                 border-radius: 8px;
+                object-fit: cover;
             }
 
             .no-img {
@@ -86,6 +89,7 @@
 
     &.open-lib {
         aspect-ratio: 114/166;
+
         .station-info {
             .station-txt {
 
@@ -256,13 +260,21 @@
                 @include limit-text-to-width;
 
                 .station-card {
+                    aspect-ratio: 1/1;
+
                     @include for-narrow-layout {
                         width: auto;
+
+                        height: 100%; // Ensures it fills the .station-image
                         border-radius: 4px 0 0 4px;
                         background-color: $clr5;
+                        overflow: hidden; // Ensures nothing spills outside the border-radius
 
                         .station-img {
                             border-radius: 4px 0 0 4px;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
                         }
                     }
 

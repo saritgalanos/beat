@@ -36,6 +36,7 @@ const miniUser = 'name'
 const station = {
     _id: "5cksxjas89xjsa8xjsa8jxs09",
     name: "Funky Monks",
+    imgUrl: "http://some-photo",
     tags: ["Funk", "Happy"],
     createdBy: {
         _id: "u101",
@@ -203,6 +204,7 @@ function getEmptyStation(stations, loggedinUser = null) {
         _id: '',
         name: stationName,
         description: '',
+        imgUrl: '',
         createdBy: {
             _id: (loggedinUser?._id) ? loggedinUser._id : '',
             fullname: (loggedinUser?.fullname) ? loggedinUser.fullname : '',
@@ -215,7 +217,7 @@ function getEmptyStation(stations, loggedinUser = null) {
 
 async function createLikedSongsStation(loggedinUser) {
     var station = getEmptyStation(null, loggedinUser)
-    station.createdBy.imgUrl = 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
+    station.imgUrl = 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
     station.name = 'Liked Songs'
     return station
 }
