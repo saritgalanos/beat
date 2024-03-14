@@ -85,7 +85,7 @@ async function _fetchSpotifyCategoriesPlaylistsAndTracks() {
             const playlistsData = await _fetchPlaylistsForCategory(category.id, accessToken)
 
             /*fetch songs only for the first 2 categories*/
-            if (category.name === 'Pop' || category.name === 'New Releases') {
+            if (category.name === 'Pop' || category.name === 'New Releases')  {
                 for (const playlist of playlistsData.playlists.items) {
                     const tracksData = await _fetchTracksForPlaylist(playlist.id, accessToken)
                     playlist.categoryId = category.id  //add category to the PL

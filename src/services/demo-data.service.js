@@ -101,7 +101,7 @@ function createDemoStations() {
     const demoStations = stationNames.map((station, index) => {
         return {
             _id: utilService.makeId(),
-            categoryId: '0JQ5DAqbMKFEC4WFtoNRpw',
+            categoryId: '',
             name: station,
             imgUrl: imgs[index],
             createdBy: {

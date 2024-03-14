@@ -18,7 +18,7 @@ export function App() {
 
     return (
         <>
-            {/* <SpotifyAuthenticator /> */}
+            <SpotifyAuthenticator />
             <Router>
                 <UserContext.Provider value={{ loggedinUser, setLoggedinUser }}>
                     <Routes>

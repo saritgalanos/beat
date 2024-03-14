@@ -3,6 +3,14 @@ export const categoryService = {
     getCategory
 }
 
+
+export const NEW_RELEASES_CATEGORY_ID ='0JQ5DAqbMKFz6FAsUtgAab'
+export const POP_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
+export const HIP_HOP_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
+export const PARTY_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
+export const NETFLIX_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
+export const DISNEY_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
+
 const categories = [
     { id: '0JQ5DAqbMKFz6FAsUtgAab', color: '#db0944', headerColor: '#41634d', name: 'New Releases', imgUrl: 'https://i.scdn.co/image/ab67706f000000027ea4d505212b9de1f72c5112' },
     { id: '0JQ5DAqbMKFEC4WFtoNRpw', color: '#039e20', headerColor: '#bd2fb8', name: 'Pop', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafa862ab80dd85682b37c4e768' },

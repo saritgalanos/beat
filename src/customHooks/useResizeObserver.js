@@ -20,8 +20,9 @@ export function useResizeObserver() {
     }
 
     return () => {
-      // resizeObserver.unobserve(observeTarget);
-    }
+      console.log('Cleaning up observer for:', observeTarget);
+      resizeObserver.disconnect();
+  }
   }, [ref.current]) // Empty array ensures the effect is only run on mount and unmount
 
   return [ref, size]

@@ -267,6 +267,7 @@ async function _createStations() {
     let stations = utilService.loadFromStorage(STORAGE_KEY)
     if (!stations || !stations.length) {
         stations = demoDataService.createDemoStations()
+        debugger
         const spotifyStations = await _getSpotifyStations()
         const allStations = [...stations, ...spotifyStations]
         console.log('saving to db')
