@@ -27,8 +27,12 @@
 
 
             .player-icon {
+             
                 height: 20px;
                 width: 20px;
+                &:hover {
+                    color:$clr1;
+                }
 
             }
 

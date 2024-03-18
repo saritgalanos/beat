@@ -63,7 +63,7 @@ export function StationDetails() {
     }
 
 
-    if (station && station.songs.length === 0) {
+    if (station && station.songs && station.songs?.length === 0) {
       setOpenSearch(true);
     }
   }, [station])
@@ -131,7 +131,7 @@ export function StationDetails() {
     try {
 
       (station.name === 'Liked Songs') ? saveLikedSongsStation(updatedStation) : saveStation(updatedStation)
-    
+
     } catch (err) {
       Console.log('StationDetails:onDeleteSong ' + err)
     }
@@ -194,7 +194,7 @@ export function StationDetails() {
   async function toggleLike() {
     const newLikeStatus = !isLiked
     newLikeStatus ? await stationService.likeStation(station) : await stationService.unlikeStation(station)
-    
+
     loadLikedStations(loggedinUser)
     setIsLiked(newLikeStatus)
   }
@@ -219,11 +219,11 @@ export function StationDetails() {
   const bySpotify = (station.createdBy._id === "spotify") ? true : false
   const editClass = (bySpotify || station.name === 'Liked Songs') ? '' : "can-edit"
   const supportClick = (bySpotify || station.name === 'Liked Songs') ? null : editStation
-  
+
   const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
 
-  const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs.length > 0) ? station.songs[0].imgUrl: station.imgUrl
-
+  const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs?.length > 0) ? station.songs[0].imgUrl : station.imgUrl
+  const isLikedSongsEmpty = station.songs?.length === 0 && station.name === 'Liked Songs'
   return (
     <div className='main' onScroll={handleScroll}>
       <div className='station-details'>
@@ -240,22 +240,29 @@ export function StationDetails() {
           <div className="header-details">
             <div>Playlist</div>
             <div className={`name ${fsName} ${editClass}`} onClick={supportClick}>{station.name} </div>
-            <div className='details'>{station.createdBy.fullname}<RxDotFilled />
-              {station.likes}<RxDotFilled /> {station.songs.length} songs,
+            <div className={`description fs14 ${editClass}`} onClick={supportClick}>{station.description} </div>
+            <div className='details fs15'>
+              {station.createdBy.fullname}
+              {station.likes > 0 && <><RxDotFilled /> <span>{station.likes} likes</span> </>}
+              {station.songs?.length > 0 && <><RxDotFilled /> <span>{station.songs.length} songs</span> </>}
             </div>
           </div>
         </div>
 
         <div className="gradient-bg" style={gradientStyle}>
           <div className="station-control" >
-            {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}
-            {stationPlaying && <IoPauseSharp className="pause" onClick={onPause} />}
+
+            {!isLikedSongsEmpty && (
+              stationPlaying ?
+                <IoPauseSharp className="control-icon pause" onClick={onPause} /> :
+                <IoPlaySharp className="control-icon play" onClick={onPlay} />
+            )}
             {(!isUserStation && station.name !== 'Liked Songs') && (
               isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> :
                 <IoMdHeartEmpty className="like" onClick={toggleLike} />)}
-            
+
             {(!isUserStation && station.name !== 'Liked Songs') && (
-            <RiDeleteBin5Line className="more" onClick={onMoreActions} />)}
+              <RiDeleteBin5Line className="more" onClick={onMoreActions} />)}
             {/* <IoEllipsisHorizontalSharp className="more" /> */}
           </div>
 
@@ -264,6 +271,14 @@ export function StationDetails() {
             <SongList songs={station.songs} station={station} includeTitles={true} isPlaylist={true}
               onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
           </div>
+
+          {isLikedSongsEmpty &&
+            <div className='empty-liked'>
+              <div className='fw700 fs32'> Songs you like will appear here </div>
+              <div> Save songs by tapping the heart icon. </div>
+              <button onClick={() => navigate('/search')}> Find Songs </button>
+            </div>
+          }
         </div>
 
         <div className="not-for-mobile">

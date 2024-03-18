@@ -1,10 +1,23 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
-import { userService } from './user.service.js'
+import { WORK_REMOTELY, userService } from './user.service.js'
 import { demoDataService } from './demo-data.service.js'
 import { spotifyService } from './spotify.service.js'
 
 const STORAGE_KEY = 'stations'
+
+
+
+import Axios from 'axios'
+
+var axios = Axios.create({
+    withCredentials: true,
+})
+
+const BASE_URL = (process.env.NODE_ENV !== 'development') ?
+    '/api/station/' :
+    '//localhost:3030/api/station/'
+
 
 export const stationService = {
     query,
@@ -82,11 +95,15 @@ function getLoggedinUser() {
 
 _createStations()
 
-async function query(filterBy) {
+async function query(filterBy = {}) {
 
+    if (WORK_REMOTELY) {
+        var { data: mongoStations } = await axios.get(BASE_URL, { params: filterBy })
+        return mongoStations
+    }
 
     let stations = await storageService.query(STORAGE_KEY)
-    
+
     if (filterBy.creatorId) {
         stations = stations.filter(station => filterBy.creatorId === station.createdBy._id && station.name !== 'liked songs');
         /*remove the liked songs station*/
@@ -99,25 +116,41 @@ async function query(filterBy) {
         })
     }
 
-    if(filterBy.likedByUserId) {
-         stations = stations.filter(station =>  {
-            return station.likedByUsers?.some(user => user._id === filterBy.likedByUserId) 
-         });
+    if (filterBy.likedByUserId) {
+        stations = stations.filter(station => {
+            return station.likedByUsers?.some(user => user._id === filterBy.likedByUserId)
+        });
     }
-          
+
     return stations
 }
 
-function getById(id) {
+async function getById(id) {
+    if (WORK_REMOTELY) {
+        const url = BASE_URL + id
+        var { data: station } = await axios.get(url)
+        return station
+    }
     return storageService.get(STORAGE_KEY, id)
 }
 
 
-function remove(id) {
+async function remove(id) {
+    if (WORK_REMOTELY) {
+        const url = BASE_URL + id
+        var { data: res } = await axios.delete(url)
+        return res
+    }
     return storageService.remove(STORAGE_KEY, id)
 }
 
-function save(stationToSave) {
+async function save(stationToSave) {
+    if (WORK_REMOTELY) {
+        const method = stationToSave._id ? 'put' : 'post'
+        const { data: saveStation } = await axios[method](BASE_URL, stationToSave)
+        return saveStation
+    }
+
     if (stationToSave._id) {
         return storageService.put(STORAGE_KEY, stationToSave)
     } else {
@@ -137,7 +170,7 @@ function getDefaultFilter() {
 }
 
 function addSongToStation(station, newSong) {
-    console.log('addSongToStation:',station)
+    console.log('addSongToStation:', station)
     newSong.addedAt = Date.now()
     //add song only if no such id in the list
     const exists = station.songs.find(song => song.id === newSong.id);
@@ -150,7 +183,7 @@ function addSongToStation(station, newSong) {
 
     const updatedSongs = [...station.songs, newSong]
     const updatedStation = { ...station, songs: updatedSongs };
-    console.log('addSongToStation: after',updatedStation)
+    console.log('addSongToStation: after', updatedStation)
     return updatedStation;
 }
 
@@ -218,11 +251,11 @@ function getEmptyStation(stations, loggedinUser = null) {
 async function createLikedSongsStation(loggedinUser) {
     var station = getEmptyStation(null, loggedinUser)
     station.imgUrl = 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
-    station.name = 'Liked Songs'
+        station.name = 'Liked Songs'
     return station
 }
 
- 
+
 
 
 

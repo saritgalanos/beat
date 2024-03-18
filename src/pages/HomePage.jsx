@@ -88,7 +88,10 @@ export function HomePage() {
                 setMainSize({ width: rect.width, height: rect.height });
             }
             else {
-                const width = (window.innerWidth < 760) ? window.innerWidth - 100 : window.innerWidth - 320
+                const width = (window.innerWidth < 760) ?
+                 ((window.innerWidth < 500) ? window.innerWidth : window.innerWidth - 100) 
+                 : window.innerWidth - 320
+
                 setMainSize({ width: width, height: window.innerHeight });
             }
         }
@@ -141,8 +144,6 @@ export function HomePage() {
 
     const stationsToDisplay = userStations
         .filter(station => station.createdBy._id === loggedinUser?._id).slice(0, 6);
-
-    console.log('after:',stationsToDisplay)
 
     // Calculate the number of stations to display based on the container width
     // This assumes each station preview has a fixed width of 170px and a gap of 24px

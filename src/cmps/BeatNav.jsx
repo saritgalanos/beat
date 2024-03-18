@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import { GoHomeFill, GoHome } from "react-icons/go"
 import { BiSolidSearchAlt2, BiSearchAlt2 } from "react-icons/bi"
 import { YourLibrary } from "../pages/YourLibrary"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { useResizeObserver } from "../customHooks/useResizeObserver"
 
 export function BeatNav({ selectedPage, setPage, onNavWidth }) {
@@ -10,9 +10,21 @@ export function BeatNav({ selectedPage, setPage, onNavWidth }) {
 
     const [ref, size] = useResizeObserver()
     const navigate = useNavigate()
+    const location = useLocation()
+    
     useEffect(() => {
+        // Check the current pathname to update selectedPage accordingly
+        const path = location.pathname; // Get the current path
+        if (path === '/') {
+            setPage('home');
+        } else if (path === '/search') {
+            setPage('search');
+        } else {
+            // Handle other paths: If the user navigates to a different page, you might want to 'deselect' the navigation items
+            setPage(''); // Or any other logic to 'turn off' the navigation items
+        }
+    }, [location, setPage]); // React to changes in location
 
-    }, [])
 
     function onClickHome() {
         setPage('home')

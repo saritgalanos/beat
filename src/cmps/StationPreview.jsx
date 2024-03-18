@@ -42,7 +42,7 @@ export function StationPreview({ station, displayOn = "library", libOpen=false})
   const activeStationClass = (isActiveStation) ? "active-station" : ""
   const stationPlaying = (isPlaying && isActiveStation)
   const openLib = (libOpen) ? 'open-lib' : ''
-  const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs.length > 0) ? station.songs[0].imgUrl: station.imgUrl
+  const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs?.length > 0) ? station.songs[0].imgUrl: station.imgUrl
 
   return (
     <div className={`station-preview ${displayOn} ${openLib}`} onClick={() => navigate(`/${station._id}`)}>
