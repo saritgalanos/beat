@@ -4,12 +4,13 @@ import { spotifyService } from "../services/spotify.service"
 import { StationPreview } from "../cmps/StationPreview"
 import { useSelector } from "react-redux"
 import { loadUserStations } from "../store/actions/station.actions"
-import { DISNEY_CATEGORY_ID, HIP_HOP_CATEGORY_ID, NETFLIX_CATEGORY_ID, NEW_RELEASES_CATEGORY_ID, PARTY_CATEGORY_ID, POP_CATEGORY_ID, categoryService } from "../services/category.services"
+import { DISNEY_CATEGORY_ID, HIP_HOP_CATEGORY_ID, LOVE_CATEGORY_ID, NETFLIX_CATEGORY_ID, PARTY_CATEGORY_ID, POP_CATEGORY_ID, categoryService } from "../services/category.services"
 import { ThreeDots } from "react-loader-spinner"
 import { stationService } from "../services/station.service"
 import { UserContext } from "../contexts/UserContext"
 import { useResizeObserver } from "../customHooks/useResizeObserver"
 import { useNavigate } from "react-router"
+import { BiLogoGit } from "react-icons/bi"
 
 
 
@@ -17,16 +18,12 @@ export function HomePage() {
 
     const userStations = useSelector(storeState => storeState.stationModule.userStations)
 
-    // const [suggestedStations, setSuggestedStations] = useState(null)
-
-
-    const [newReleasesStations, setNewReleasesStations] = useState(null)
+    const [loveStations, setLoveStations] = useState(null)
     const [popStations, setPopStations] = useState(null)
     const [hipHopStations, setHipHopStations] = useState(null)
     const [partyStations, setPartyStations] = useState(null)
     const [netflixStations, setNetflixStations] = useState(null)
     const [disneyStations, setDisneyStations] = useState(null)
-
 
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
@@ -37,20 +34,18 @@ export function HomePage() {
 
 
     useEffect(() => {
-
-        loadAllStations()
-
+        loadHomePageCategories()
     }, [])
 
-    async function loadAllStations() {
+    async function loadHomePageCategories() {
         
         try {
             var stations = null
             var filterBy = stationService.getDefaultFilter()
 
-            filterBy.categoryId = NEW_RELEASES_CATEGORY_ID
+            filterBy.categoryId = LOVE_CATEGORY_ID
             stations = await stationService.query(filterBy)
-            setNewReleasesStations(stations)
+            setLoveStations(stations)
 
             filterBy.categoryId = POP_CATEGORY_ID
             stations = await stationService.query(filterBy)
@@ -128,12 +123,12 @@ export function HomePage() {
 
     console.log(userStations)
 
-    if (!userStations || 
-        !newReleasesStations ||
-        !popStations || 
-        !hipHopStations ||
-        !partyStations ||
-        !netflixStations ||
+    if (!userStations && 
+        !loveStations &&
+        !popStations && 
+        !hipHopStations &&
+        !partyStations &&
+        !netflixStations &&
         !disneyStations
        
         ) return (
@@ -142,8 +137,7 @@ export function HomePage() {
         </div>)
 
 
-    const stationsToDisplay = userStations
-        .filter(station => station.createdBy._id === loggedinUser?._id).slice(0, 6);
+    const stationsToDisplay = (userStations != null ) ? userStations.slice(0, 6) : null
 
     // Calculate the number of stations to display based on the container width
     // This assumes each station preview has a fixed width of 170px and a gap of 24px
@@ -172,11 +166,11 @@ export function HomePage() {
 
             <ul className="suggested-area">
                 <div className='section-header'>
-                    <a className='fs20 fw700' onClick={()=> onShowAll(NEW_RELEASES_CATEGORY_ID)}>New Releases</a>
+                    <a className='fs20 fw700' onClick={()=> onShowAll(NEW_RELEASES_CATEGORY_ID)}>Love</a>
                     <a className='fs15 fw700' onClick={()=> onShowAll(NEW_RELEASES_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
-                    {newReleasesStations.slice(0, visibleStationCount).map(station => (
+                    {loveStations && loveStations.slice(0, visibleStationCount).map(station => (
                         <li key={station._id}>
                             <StationPreview station={station} displayOn={"category"} />
                         </li>
@@ -190,7 +184,7 @@ export function HomePage() {
                     <a className='fs15 fw700' onClick={()=> onShowAll(POP_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
-                    {popStations.slice(0, visibleStationCount).map(station => (
+                    {popStations && popStations.slice(0, visibleStationCount).map(station => (
                         <li key={station._id}>
                             <StationPreview station={station} displayOn={"category"} />
                         </li>
@@ -204,7 +198,7 @@ export function HomePage() {
                     <a className='fs15 fw700' onClick={()=> onShowAll(HIP_HOP_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
-                    {hipHopStations.slice(0, visibleStationCount).map(station => (
+                    {hipHopStations && hipHopStations.slice(0, visibleStationCount).map(station => (
                         <li key={station._id}>
                             <StationPreview station={station} displayOn={"category"} />
                         </li>
@@ -218,7 +212,7 @@ export function HomePage() {
                     <a className='fs15 fw700' onClick={()=> onShowAll(PARTY_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
-                    {partyStations.slice(0, visibleStationCount).map(station => (
+                    {partyStations && partyStations.slice(0, visibleStationCount).map(station => (
                         <li key={station._id}>
                             <StationPreview station={station} displayOn={"category"} />
                         </li>
@@ -232,7 +226,7 @@ export function HomePage() {
                     <a className='fs15 fw700' onClick={()=> onShowAll(NETFLIX_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
-                    {netflixStations.slice(0, visibleStationCount).map(station => (
+                    {netflixStations && netflixStations.slice(0, visibleStationCount).map(station => (
                         <li key={station._id}>
                             <StationPreview station={station} displayOn={"category"} />
                         </li>
@@ -246,7 +240,7 @@ export function HomePage() {
                     <a className='fs15 fw700' onClick={()=> onShowAll(DISNEY_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
-                    {disneyStations.slice(0, visibleStationCount).map(station => (
+                    {disneyStations && disneyStations.slice(0, visibleStationCount).map(station => (
                         <li key={station._id}>
                             <StationPreview station={station} displayOn={"category"} />
                         </li>

@@ -170,21 +170,30 @@ function getDefaultFilter() {
 }
 
 function addSongToStation(station, newSong) {
-    console.log('addSongToStation:', station)
-    newSong.addedAt = Date.now()
     //add song only if no such id in the list
-    const exists = station.songs.find(song => song.id === newSong.id);
+    const exists = station.songs?.find(song => song.id === newSong.id);
 
     // If the song doesn't exist, add it to the array
     if (exists) {
         console.log('song already in list')
         return station
     }
+  
+    console.log('addSongToStation:', station)
+    const songToAdd = { ...newSong }
+    songToAdd.addedAt = Date.now()
+    
 
-    const updatedSongs = [...station.songs, newSong]
-    const updatedStation = { ...station, songs: updatedSongs };
-    console.log('addSongToStation: after', updatedStation)
-    return updatedStation;
+    if (!station.songs) {
+        station.songs = []; // Initialize `songs` as an empty array if it doesn't exist
+    }
+    station.songs.push(songToAdd); 
+
+
+   // const updatedSongs = (station.songs) ? [...station.songs, songToAdd] : [songToAdd]
+   // const updatedStation = { ...station, songs: updatedSongs };
+    //return updatedStation;
+    return station
 }
 
 function deleteSongFromStation(station, songToDelete) {
@@ -221,7 +230,7 @@ async function unlikeStation(station) {
 function isLikedStation(station) {
     if (!station) return
     const user = getLoggedinUser()
-    if (!user) false
+    if (!user) return false
     if (station.likedByUsers) {
         return station.likedByUsers.some(userInArray => userInArray._id === user._id);
     }
@@ -246,12 +255,12 @@ function getEmptyStation(stations, loggedinUser = null) {
         songs: [],
         likedByUsers: []
     }
-}
+} 
 
 async function createLikedSongsStation(loggedinUser) {
     var station = getEmptyStation(null, loggedinUser)
-    station.imgUrl = 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
-        station.name = 'Liked Songs'
+    station.imgUrl = 'https://misc.scdn.co/liked-songs/liked-songs-300.png'
+    station.name = 'Liked Songs'
     return station
 }
 

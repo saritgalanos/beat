@@ -11,13 +11,13 @@ import { IoMdHeart, IoMdHeartEmpty, IoMdMore } from "react-icons/io"
 import { Audio } from 'react-loader-spinner'
 import { UserContext } from "../contexts/UserContext"
 import { stationService } from "../services/station.service"
-import { loadLikedStations, loadUserStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
+import { loadLikedSongsStation, loadLikedStations, loadUserStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
+import { Draggable } from 'react-beautiful-dnd'
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
 
-    const [songToPreview, setSongToPreview] = useState(song)
-    const [songFromStation, setSongFromStation] = useState(station)
+   // const [songFromStation, setSongFromStation] = useState(station)
     const [isLiked, setIsLiked] = useState(false)
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
@@ -28,7 +28,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
     const { activeSong, isPlaying } = useSelector(state => state.playerModule);
     const likedSongsStation = useSelector(state => state.stationModule.likedSongsStation);
 
-    const isActive = activeSong && (songToPreview.id === activeSong.id)
+    const isActive = activeSong && (song.id === activeSong.id)
     const isThisSongPlaying = isActive && isPlaying
 
     useEffect(() => {
@@ -44,9 +44,9 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
     }
 
     function onPlay() {
-        const stationId = (songFromStation) ? songFromStation._id : null
+        const stationId = (station) ? station._id : null
         console.log("onPlay-stationId:" + stationId)
-        dispatch(setActiveSong(songToPreview, stationId))
+        dispatch(setActiveSong(song, stationId))
     }
 
     function onPause() {
@@ -55,21 +55,22 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
 
     function onAdd() {
-        onAddSong(songToPreview)
+        onAddSong(song)
     }
 
     function onMoreActions() {
-        onDeleteSong(songToPreview)
+        onDeleteSong(song)
     }
 
     async function toggleLike() {
         const updatedStation = (isLiked) ?
             stationService.deleteSongFromStation(likedSongsStation, song) :
             stationService.addSongToStation(likedSongsStation, song)
-         console.log('station to update:', updatedStation)   
+         console.log('station to update:', updatedStation.songs)   
         try {
 
             await saveLikedSongsStation(updatedStation)
+            await loadLikedSongsStation(loggedinUser)
             setIsLiked(!isLiked)
             
         } catch (err) {
@@ -79,13 +80,13 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
     }
 
 
-    const songDetails = songToPreview.title.split('-');
+    const songDetails = song.title.split('-');
     const artist = songDetails[0];
     const songName = songDetails[1];
 
-    const renderThumbnail = songToPreview.imgUrl
-        ? <div className="thumbnail" onClick={onPic} style={{ backgroundImage: `url(${songToPreview.imgUrl})` }}></div>
-        : <div className="pic" onClick={onPic} style={{ backgroundColor: songToPreview.randomColor }}></div>;
+    const renderThumbnail = song.imgUrl
+        ? <div className="thumbnail" onClick={onPic} style={{ backgroundImage: `url(${song.imgUrl})` }}></div>
+        : <div className="pic" onClick={onPic} style={{ backgroundColor: song.randomColor }}></div>;
 
     const isActiveClass = (isActive) ? 'active-song' : ''
     const isUserStation = (station?.createdBy._id == loggedinUser?._id) ? true : false
@@ -121,20 +122,20 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                                 <div className="artist">{artist}</div>
                                 <div className={`song-name  ${isActiveClass}`}>{songName}</div>
                             </div>
-                            <div className='album'>{songToPreview.album}</div>
-                            <div className='date-added'>{utilService.getDateToDisplay(songToPreview.addedAt, true)}</div>
+                            <div className='album'>{song.album}</div>
+                            <div className='date-added'>{utilService.getDateToDisplay(song.addedAt, true)}</div>
                             <div className='liked-area'>
 
-                                <div>  {(!isUserStation) && (
+                                <div>  {(!isUserStation && loggedinUser) && (
                                     isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : (
                                         isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
                                 </div>
                             </div>
-                            <div> {songToPreview.duration} </div>
+                            <div> {song.duration} </div>
 
 
                             {
-                                (isMouseOn) && <div><RiDeleteBin5Line className='more-actions' onClick={onMoreActions} /></div>
+                                (isMouseOn && loggedinUser) && <div><RiDeleteBin5Line className='more-actions' onClick={onMoreActions} /></div>
                             }
 
                         </div>

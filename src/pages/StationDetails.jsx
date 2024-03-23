@@ -12,7 +12,7 @@ import { BeatHeader } from "../cmps/BeatHeader"
 import { stationService } from "../services/station.service"
 
 
-import { deleteStation, loadLikedStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
+import { deleteStation, loadLikedSongsStation, loadLikedStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
 import { css } from "@emotion/react"
@@ -42,6 +42,7 @@ export function StationDetails() {
   const activeStationId = useSelector(state => state.playerModule.activeStationId)
   const isPlaying = useSelector(state => state.playerModule.isPlaying)
   const activeSong = useSelector(state => state.playerModule.activeSong)
+ // const likedSongsStation = useSelector(state => state.stationModule.likedSongsStation)
   const dispatch = useDispatch()
   const params = useParams()
   const navigate = useNavigate()
@@ -219,7 +220,6 @@ export function StationDetails() {
   const bySpotify = (station.createdBy._id === "spotify") ? true : false
   const editClass = (bySpotify || station.name === 'Liked Songs') ? '' : "can-edit"
   const supportClick = (bySpotify || station.name === 'Liked Songs') ? null : editStation
-
   const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
 
   const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs?.length > 0) ? station.songs[0].imgUrl : station.imgUrl
@@ -257,11 +257,11 @@ export function StationDetails() {
                 <IoPauseSharp className="control-icon pause" onClick={onPause} /> :
                 <IoPlaySharp className="control-icon play" onClick={onPlay} />
             )}
-            {(!isUserStation && station.name !== 'Liked Songs') && (
+            {(!isUserStation && loggedinUser && station.name !== 'Liked Songs') && (
               isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> :
                 <IoMdHeartEmpty className="like" onClick={toggleLike} />)}
 
-            {(!isUserStation && station.name !== 'Liked Songs') && (
+            {(isUserStation && loggedinUser && station.name !== 'Liked Songs') && (
               <RiDeleteBin5Line className="more" onClick={onMoreActions} />)}
             {/* <IoEllipsisHorizontalSharp className="more" /> */}
           </div>

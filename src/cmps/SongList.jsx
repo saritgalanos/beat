@@ -4,7 +4,7 @@ import { SongPreview } from "./SongPreview";
 export function SongList({ songs, station, includeTitles, isPlaylist, onAddSong, onDeleteSong }) {
   if (!songs || songs.length == 0) return <></>
 
-
+console.log(songs)
 
   return (
     <div className="song-list fs15">

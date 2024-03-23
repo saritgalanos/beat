@@ -4,12 +4,12 @@ export const categoryService = {
 }
 
 
-export const NEW_RELEASES_CATEGORY_ID ='0JQ5DAqbMKFz6FAsUtgAab'
+export const LOVE_CATEGORY_ID ='0JQ5DAqbMKFAUsdyVjCQuL'
 export const POP_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
-export const HIP_HOP_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
-export const PARTY_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
-export const NETFLIX_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
-export const DISNEY_CATEGORY_ID ='0JQ5DAqbMKFEC4WFtoNRpw'
+export const HIP_HOP_CATEGORY_ID ='0JQ5DAqbMKFQ00XGBls6ym'
+export const PARTY_CATEGORY_ID ='0JQ5DAqbMKFA6SOHvT3gck'
+export const NETFLIX_CATEGORY_ID ='0JQ5DAqbMKFEOEBCABAxo9'
+export const DISNEY_CATEGORY_ID ='0JQ5DAqbMKFIxnofjQmnmn'
 
 const categories = [
     { id: '0JQ5DAqbMKFz6FAsUtgAab', color: '#db0944', headerColor: '#41634d', name: 'New Releases', imgUrl: 'https://i.scdn.co/image/ab67706f000000027ea4d505212b9de1f72c5112' },
@@ -30,7 +30,6 @@ const categories = [
     { id: '0JQ5DAqbMKFGnsSfvg90Wo', color: '#3478ed', headerColor: '#4045a8', name: 'GLOW', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf50cfe3fbd3a9fb8810da45ea' },
     { id: '0JQ5DAqbMKFDXXwE9BDJAr', color: '#ff0000', headerColor: '#991595', name: 'Rock', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafae7e69beb88f16969641b53e' },
     { id: '0JQ5DAqbMKFEZPnFQSFB1T', color: '#f08011', headerColor: '#527812', name: 'R&B', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caff4e38be86ca48a3b10884ae3' },
-    { id: '0JQ5DAqbMKFN2GMExExvrS', color: '#9374b3', headerColor: '#527812', name: 'Throwback', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafded6f7cbf0d9edcd92776473' },
     { id: '0JQ5DAqbMKFIxnofjQmnmn', color: '#3478ed', headerColor: '#57729c', name: 'Disney', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf78c17dc5631c053fd95f31bb' },
     { id: '0JQ5DAqbMKFOOxftoKZxod', color: '#ad6f58', headerColor: '#2f5c4b', name: 'RADAR', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafe760702de052fbefea27064a' },
     { id: '0JQ5DAqbMKFLb2EqgLtpjC', color: '#ad6f58', headerColor: '#6cadac', name: 'Wellness', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf8dec632effd9735fa8aba06e' },
@@ -41,8 +40,6 @@ const categories = [
     { id: '0JQ5DAqbMKFx0uLQR2okcc', color: '#5c7991', headerColor: '#697885', name: 'At Home', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafe914a07d20cec7a65e2e5dad' },
     { id: '0JQ5DAqbMKFIVNxQgRNSg0', color: '#d96d16', headerColor: '#ad1b13', name: 'Decades', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caff005a355830c374754d32868' },
     { id: '0JQ5DAqbMKFAUsdyVjCQuL', color: '#ff0000', headerColor: '#b8287a', name: 'Love', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafb03c6f8e7efca2ae36f41b31' },
-    { id: '0JQ5DAqbMKFJw7QLnM27p6', color: '#c43ba9', headerColor: '#86bab7', name: 'Student', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafdad1281e13697e8d8cf8f347' },
-    { id: '0JQ5DAqbMKFQVdc2eQoH2s', color: '#f54414', headerColor: '#9cba93', name: 'Desi', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafae8338a83b96acd1ab54416d' },
     { id: '0JQ5DAqbMKFAJ5xb0fwo9m', color: '#96918f', headerColor: '#33211d', name: 'Jazz', imgUrl: 'https://i.scdn.co/image/ab67fb8200005cafe289743024639ea8f202364d' },
     { id: '0JQ5DAqbMKFQIL0AXnG5AK', color: '#c43ba9', headerColor: '#80553e', name: 'Trending', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf1867113f5218598847550acd' },
     { id: '0JQ5DAqbMKFPrEiAOxgac3', color: '#804629', headerColor: '#a4a4ab', name: 'Classical', imgUrl: 'https://i.scdn.co/image/ab67fb8200005caf12809992dfc5b318892ea07b' },
