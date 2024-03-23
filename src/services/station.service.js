@@ -170,31 +170,27 @@ function getDefaultFilter() {
 }
 
 function addSongToStation(station, newSong) {
-    //add song only if no such id in the list
-    const exists = station.songs?.find(song => song.id === newSong.id);
 
-    // If the song doesn't exist, add it to the array
-    if (exists) {
-        console.log('song already in list')
-        return station
+    // Ensure the station's songs array exists, initializing it if necessary
+    const songs = station.songs ?? [];
+
+    // Check if the song already exists in the list
+    const songExists = songs.some(song => song.id === newSong.id);
+    if (songExists) {
+        console.log('Song already in list');
+        return { ...station }; // Return a new station object to keep function purity
     }
-  
-    console.log('addSongToStation:', station)
-    const songToAdd = { ...newSong }
-    songToAdd.addedAt = Date.now()
-    
 
-    if (!station.songs) {
-        station.songs = []; // Initialize `songs` as an empty array if it doesn't exist
-    }
-    station.songs.push(songToAdd); 
+    // Prepare the new song with additional properties as needed
+    const songToAdd = { ...newSong, addedAt: Date.now() };
 
-
-   // const updatedSongs = (station.songs) ? [...station.songs, songToAdd] : [songToAdd]
-   // const updatedStation = { ...station, songs: updatedSongs };
-    //return updatedStation;
-    return station
+    // Create a new array with the added song and return an updated station object
+    const updatedSongs = [...songs, songToAdd];
+    return { ...station, songs: updatedSongs };
 }
+
+
+
 
 function deleteSongFromStation(station, songToDelete) {
 
@@ -255,7 +251,7 @@ function getEmptyStation(stations, loggedinUser = null) {
         songs: [],
         likedByUsers: []
     }
-} 
+}
 
 async function createLikedSongsStation(loggedinUser) {
     var station = getEmptyStation(null, loggedinUser)
@@ -309,7 +305,6 @@ async function _createStations() {
     let stations = utilService.loadFromStorage(STORAGE_KEY)
     if (!stations || !stations.length) {
         stations = demoDataService.createDemoStations()
-        debugger
         const spotifyStations = await _getSpotifyStations()
         const allStations = [...stations, ...spotifyStations]
         console.log('saving to db')

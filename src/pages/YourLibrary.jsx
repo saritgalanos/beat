@@ -36,7 +36,6 @@ export function YourLibrary({ onNavWidth }) {
     }
 
     function onLibrary() {
-        console.log("width:" + size.width)
         const navWidthToSet = size.width < 100 ? 'narrow-wide-lib' : 'normal'
         onNavWidth(navWidthToSet)
     }

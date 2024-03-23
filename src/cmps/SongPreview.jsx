@@ -12,12 +12,12 @@ import { Audio } from 'react-loader-spinner'
 import { UserContext } from "../contexts/UserContext"
 import { stationService } from "../services/station.service"
 import { loadLikedSongsStation, loadLikedStations, loadUserStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
-import { Draggable } from 'react-beautiful-dnd'
+
 
 
 export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
 
-   // const [songFromStation, setSongFromStation] = useState(station)
+    // const [songFromStation, setSongFromStation] = useState(station)
     const [isLiked, setIsLiked] = useState(false)
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
@@ -66,17 +66,17 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         const updatedStation = (isLiked) ?
             stationService.deleteSongFromStation(likedSongsStation, song) :
             stationService.addSongToStation(likedSongsStation, song)
-         console.log('station to update:', updatedStation.songs)   
+        console.log('station to update:', updatedStation.songs)
         try {
 
             await saveLikedSongsStation(updatedStation)
             await loadLikedSongsStation(loggedinUser)
             setIsLiked(!isLiked)
-            
+
         } catch (err) {
             console.log('Song Preview:toggleLike ' + err)
         }
-     
+
     }
 
 
@@ -90,6 +90,8 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
     const isActiveClass = (isActive) ? 'active-song' : ''
     const isUserStation = (station?.createdBy._id == loggedinUser?._id) ? true : false
+
+    console.log('before render of song')
 
     return (
         <div className='song-preview'

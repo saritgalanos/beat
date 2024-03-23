@@ -55,7 +55,6 @@ export function StationEditModal({ station, onUpdateStation }) {
 
 
     function onSave() {
-        console.log("saving")
         if (modalFields.title) station.name = modalFields.title
         if (modalFields.description) station.description = modalFields.description
         if (imgData.imgUrl) station.imgUrl = imgData.imgUrl

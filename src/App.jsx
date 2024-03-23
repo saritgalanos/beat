@@ -9,16 +9,20 @@ import { CategoryDetails } from './pages/CategoryDetails';
 import { UserContext } from './contexts/UserContext';
 import { LogIn } from './pages/LogIn';
 import { SignUp } from './pages/SignUp';
-
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 
 export function App() {
 
     const [loggedinUser, setLoggedinUser] = useState(userService.getLoggedinUser())
-
+    const onDragEnd = (result) => {
+        // Handle drag end
+        console.log(result);
+    }
     return (
-        <>
-            {/* <SpotifyAuthenticator /> */}
+
+
+        // < DragDropContext onDragEnd={onDragEnd} >
             <Router>
                 <UserContext.Provider value={{ loggedinUser, setLoggedinUser }}>
                     <Routes>
@@ -34,7 +38,8 @@ export function App() {
                     </Routes>
                 </UserContext.Provider>
             </Router>
-        </>
+        // </DragDropContext >
+
 
     )
 }

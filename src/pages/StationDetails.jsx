@@ -89,7 +89,6 @@ export function StationDetails() {
   }
 
   function onPause() {
-    console.log('clicked')
     dispatch(togglePlay())
   }
 
@@ -117,12 +116,28 @@ export function StationDetails() {
 
 
   function onAddSong(newSong) {
+  
     const updatedStation = stationService.addSongToStation(station, newSong)
     setStation(updatedStation)
     try {
       saveStation(updatedStation)
     } catch (err) {
       Console.log('StationDetails:onAddSong ' + err)
+    }
+  }
+
+  async function onReorderSongs (newSongsOrder) {
+    //a user can reorder only his stations
+    if(!loggedinUser || station.createdBy._id !== loggedinUser._id) {
+      console.log('trying to reorder a station that is not yours')
+      return
+    }
+    station.songs = newSongsOrder
+    try {
+      const updatedStation = await saveStation(station)
+      setStation(updatedStation)
+    } catch (err) {
+      Console.log('StationDetails:onReorderSongs ' + err)
     }
   }
 
@@ -269,7 +284,7 @@ export function StationDetails() {
 
           <div className="songs">
             <SongList songs={station.songs} station={station} includeTitles={true} isPlaylist={true}
-              onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+              onAddSong={onAddSong} onDeleteSong={onDeleteSong} onReorderSongs={onReorderSongs}/>
           </div>
 
           {isLikedSongsEmpty &&

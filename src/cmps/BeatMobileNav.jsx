@@ -12,20 +12,14 @@ export function BeatMobileNav({ selectedPage, setPage }) {
     }, [])
 
     function onClickHome() {
-        console.log('onClickHome')
-        //setPage('home')
         navigate('/')
     }
 
     function onClickSearch() {
-        console.log('onClickSearch')
-        //setPage('search')
         navigate('/search')
     }
 
     function onClickLib() {
-        console.log('onClickLib')
-       // setPage('lib')
         navigate('/lib')
     }
 
@@ -48,7 +42,7 @@ export function BeatMobileNav({ selectedPage, setPage }) {
                 <div className={searchClassName} onClick={onClickLib}>
                     <IoLibraryOutline className='nav-control-icon' />
                 </div>
-                <div  className={searchClassName} onClick={onClickSearch}>
+                <div className={searchClassName} onClick={onClickSearch}>
                     <GrAppleAppStore className='nav-control-icon' />
                 </div>
 

@@ -19,17 +19,6 @@ export function SearchPage() {
     }, [])
 
 
-    // async function fetchCategories() {
-    //     try {
-    //         const spotifyCategories = await spotifyService.fetchSpotifyCategories()
-    //         setCategories(spotifyCategories)
-    //         console.log('spotifyCategories' + spotifyCategories.length)
-    //     }
-    //     catch (error) {
-    //         Console.log("fetchCategories: " + error)
-    //     }
-    // }
-
     function handleKeyDown(ev) {
         if (ev.key === 'Enter') {
             search(query)
@@ -41,7 +30,7 @@ export function SearchPage() {
     }
 
     async function search(query) {
-        if(!query) {
+        if (!query) {
             setSongsFromSearch(null)
         }
         else {

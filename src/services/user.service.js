@@ -94,7 +94,6 @@ async function update({ _id, score }) {
 async function login(userCred) {
     if (WORK_REMOTELY) {
         const { data: user } = await axios.post(BASE_AUTH_URL + 'login', userCred)
-        console.log('user', user);
         if (user) {
             return saveLocalUser(user)
         }

@@ -1,16 +1,13 @@
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { BeatHeader } from "../cmps/BeatHeader"
-import { spotifyService } from "../services/spotify.service"
 import { StationPreview } from "../cmps/StationPreview"
 import { useSelector } from "react-redux"
-import { loadUserStations } from "../store/actions/station.actions"
 import { DISNEY_CATEGORY_ID, HIP_HOP_CATEGORY_ID, LOVE_CATEGORY_ID, NETFLIX_CATEGORY_ID, PARTY_CATEGORY_ID, POP_CATEGORY_ID, categoryService } from "../services/category.services"
 import { ThreeDots } from "react-loader-spinner"
 import { stationService } from "../services/station.service"
 import { UserContext } from "../contexts/UserContext"
-import { useResizeObserver } from "../customHooks/useResizeObserver"
 import { useNavigate } from "react-router"
-import { BiLogoGit } from "react-icons/bi"
+
 
 
 
@@ -120,8 +117,6 @@ export function HomePage() {
     function onShowAll(categoryId) {
         navigate(`/genre/${categoryId}`)
     }
-
-    console.log(userStations)
 
     if (!userStations && 
         !loveStations &&
