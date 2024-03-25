@@ -83,17 +83,38 @@
 
             .name {
                 font-weight: 900;
+                font-size: 2rem;
+
+                @media (min-width: 576px) {
+                    font-size: 3rem; // Slightly larger font size
+                }
+
+                @media (min-width: 768px) {
+                    font-size: 4rem;
+                }
+
+                @media (min-width: 992px) {
+                    font-size: 5rem;
+                }
+
+                @media (min-width: 1200px) {
+                    font-size: 6rem; // Maximum font size
+                }
+                @include limit-text-to-one-line;
             }
 
-            .name,
-            .description {
-                @include limit-text-to-two-lines;
-            }
 
+        
+
+        .name,
+        .description {
+            @include limit-text-to-two-lines;
         }
 
-
     }
+
+
+}
 
 }
 

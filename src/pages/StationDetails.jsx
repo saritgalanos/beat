@@ -12,10 +12,9 @@ import { BeatHeader } from "../cmps/BeatHeader"
 import { stationService } from "../services/station.service"
 
 
-import { deleteStation, loadLikedSongsStation, loadLikedStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
+import { deleteStation, loadLikedStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
 import { youtubeService } from "../services/youtube.service"
 import { utilService } from "../services/util.service"
-import { css } from "@emotion/react"
 import { useDispatch, useSelector } from "react-redux"
 import { setActiveSong, togglePlay } from "../store/actions/player.actions"
 import { spotifyService } from "../services/spotify.service"
@@ -34,7 +33,6 @@ export function StationDetails() {
   const [station, setStation] = useState(null)
   const [songsFromSearch, setSongsFromSearch] = useState(null)
   const [query, setQuery] = useState('')
-  const [isOpenSearch, setOpenSearch] = useState(false)
   const [bgColor, setBgColor] = useState(BEAT_BG)
   const [displayTitle, setDisplayTitle] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
@@ -42,7 +40,6 @@ export function StationDetails() {
   const activeStationId = useSelector(state => state.playerModule.activeStationId)
   const isPlaying = useSelector(state => state.playerModule.isPlaying)
   const activeSong = useSelector(state => state.playerModule.activeSong)
- // const likedSongsStation = useSelector(state => state.stationModule.likedSongsStation)
   const dispatch = useDispatch()
   const params = useParams()
   const navigate = useNavigate()
@@ -53,7 +50,6 @@ export function StationDetails() {
       loadStation()
       setQuery('')
       setSongsFromSearch([]);
-      setOpenSearch(false)
       setBgColor(BEAT_BG)
     }
   }, [params.stationId])
@@ -62,11 +58,7 @@ export function StationDetails() {
     if (station && station.imgUrl) {
       fetchColor()
     }
-
-
-    if (station && station.songs && station.songs?.length === 0) {
-      setOpenSearch(true);
-    }
+ 
   }, [station])
 
   async function loadStation() {
@@ -158,11 +150,11 @@ export function StationDetails() {
   function resetSearch() {
     setQuery('');
     setSongsFromSearch([]);
-    setOpenSearch(false);
+    //setOpenSearch(false);
   }
 
   function onFindMore() {
-    setOpenSearch(true)
+    //setOpenSearch(true)
   }
 
   function onMoreActions() {
@@ -172,7 +164,7 @@ export function StationDetails() {
     } catch (err) {
       console.log('StationDetails:onDeleteSong ' + err)
     }
-    navigate('/')
+    navigate(-1)
   }
 
   function handleKeyDown(ev) {
@@ -235,8 +227,10 @@ export function StationDetails() {
   const bySpotify = (station.createdBy._id === "spotify") ? true : false
   const editClass = (bySpotify || station.name === 'Liked Songs') ? '' : "can-edit"
   const supportClick = (bySpotify || station.name === 'Liked Songs') ? null : editStation
+  const isSongListFull = station?.songs?.length > 0
   const isUserStation = (station.createdBy._id == loggedinUser?._id) ? true : false
-
+  //const isOpenSearch = isUserStation && !isSongListFull
+  const isOpenSearch = true
   const stationPicture = (station.imgUrl) ? station.imgUrl : (station.songs?.length > 0) ? station.songs[0].imgUrl : station.imgUrl
   const isLikedSongsEmpty = station.songs?.length === 0 && station.name === 'Liked Songs'
   return (

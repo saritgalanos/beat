@@ -38,9 +38,9 @@ export function DynamicModal() {
 
     return (
         <div ref={modalRef} className="dynamic-modal">
-            <div className="content">
+            {/* <div className="content"> */}
                 {Cmp && <Cmp {...modalData.props} />}
-            </div>
+            {/* </div> */}
         </div>
     )
 }

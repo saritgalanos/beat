@@ -51,8 +51,9 @@ export function SongList({ songs: initialSongs, station, includeTitles, isPlayli
               {songs.map((song, index) => (
                 <Draggable key={song.id} draggableId={`song-${song.id}`} index={index}>
                   {(provided) => (
-                    <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                      <SongPreview song={song} station={station} index={index} isPlaylist={isPlaylist} onAddSong={onAddSong} onDeleteSong={onDeleteSong} />
+                    <li ref={provided.innerRef} {...provided.draggableProps} >
+                      <SongPreview song={song} station={station} index={index} isPlaylist={isPlaylist}
+                        onAddSong={onAddSong} onDeleteSong={onDeleteSong} dragHandleProps={provided.dragHandleProps} />
                     </li>
                   )}
                 </Draggable>

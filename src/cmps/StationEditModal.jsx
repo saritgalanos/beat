@@ -1,8 +1,7 @@
-import { IoClose, IoCloudUploadOutline } from "react-icons/io5"
+import { IoClose } from "react-icons/io5"
 import { onToggleModal } from "../store/actions/app.actions"
 import { useEffect, useState } from "react"
 import { RiMusic2Line } from "react-icons/ri"
-import { ImgUploader } from "./ImgUploader"
 import { uploadService } from "../services/upload.service"
 import { ThreeDots } from 'react-loader-spinner'
 

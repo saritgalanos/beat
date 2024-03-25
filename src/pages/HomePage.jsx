@@ -161,8 +161,8 @@ export function HomePage() {
 
             <ul className="suggested-area">
                 <div className='section-header'>
-                    <a className='fs20 fw700' onClick={()=> onShowAll(NEW_RELEASES_CATEGORY_ID)}>Love</a>
-                    <a className='fs15 fw700' onClick={()=> onShowAll(NEW_RELEASES_CATEGORY_ID)}>Show All</a>
+                    <a className='fs20 fw700' onClick={()=> onShowAll(LOVE_CATEGORY_ID)}>Love</a>
+                    <a className='fs15 fw700' onClick={()=> onShowAll(LOVE_CATEGORY_ID)}>Show All</a>
                 </div>
                 <div className="stations">
                     {loveStations && loveStations.slice(0, visibleStationCount).map(station => (

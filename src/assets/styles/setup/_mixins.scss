@@ -122,6 +122,11 @@
   text-overflow: ellipsis;
 }
 
+@mixin limit-text-to-one-line {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 
 @mixin limit-text-to-two-lines {
   overflow: hidden;

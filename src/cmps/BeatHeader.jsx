@@ -8,6 +8,8 @@ import { FiSearch } from "react-icons/fi"
 import { IoClose } from "react-icons/io5"
 import { useNavigate } from "react-router"
 import { UserContext } from "../contexts/UserContext.js"
+import { onToggleModal } from "../store/actions/app.actions.js"
+import { MenuModal } from "./MenuModal.jsx"
 
 
 export function BeatHeader({ isSearch, search, bgColor = null, title, displayTitle = false }) {
@@ -32,14 +34,55 @@ export function BeatHeader({ isSearch, search, bgColor = null, title, displayTit
         search()
     }
 
-
+    const menuItems = [
+        {
+            text: "Account",
+            action: () => { },
+            param: undefined,
+            bottomBorder: false
+        },
+        {
+            text: "Profile",
+            action: () => { },
+            param: undefined,
+            bottomBorder: false
+        },
+        {
+            text: "Setting",
+            action: () => { },
+            param: undefined,
+            bottomBorder: true
+        },
+        {
+            text: "Logout",
+            action: logOut,
+            param: undefined,
+            bottomBorder: false
+        }
+       
+    ]
 
     async function onAvatar() {
-        await userService.logout()
-        setLoggedinUser(null)
-        navigate('/')
+        onToggleModal(
+            {
+                cmp: MenuModal,
+                props: {
+                    menuItems: menuItems,
+                    position: { top: '60px', right: '40px' }
+                }
+            })
     }
 
+    async function logOut() {
+        try {
+            await userService.logout()
+            onToggleModal(null)
+            setLoggedinUser(null)
+            navigate('/')
+        } catch (err) {
+            console.log('logOut failed ', err)
+        }
+    }
 
 
 

@@ -80,7 +80,7 @@ export function LogIn() {
 
     return (
         <div className="login-signup">
-            <div className='login-signup-header fs28 fw700'>
+            <div className='login-signup-header fs28 fw700'  onClick={()=>{navigate('/')} }>
                 <img src="./beat-logo-small.png" className='beat-logo' alt="Beat Logo" />
                 beat
             </div>

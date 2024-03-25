@@ -2,16 +2,11 @@ import { useContext, useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import { BeatNav } from "../cmps/BeatNav"
 import { BeatFooter } from "../cmps/BeatFooter"
-import { BeatHeader } from "../cmps/BeatHeader"
-import { HomePage } from "./HomePage"
 import { BeatMobileNav } from "../cmps/BeatMobileNav"
-import { LuGhost } from "react-icons/lu"
-import { CleanHands } from "@mui/icons-material"
 import { DynamicModal } from "../cmps/DynamicModal"
-import { stationService } from "../services/station.service"
 import { loadLikedSongsStation, loadLikedStations, loadUserStations } from "../store/actions/station.actions"
 import { UserContext } from "../contexts/UserContext"
-// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 
 
 
@@ -35,27 +30,17 @@ export function BeatIndex() {
         setLibWidth(libWidthToSet)
     }
 
-    // function onDragEnd(result) {
-    //     // Placeholder for your onDragEnd logic
-    //     console.log(result);
-    //     // Here, you will handle the drag and drop logic, such as identifying
-    //     // the source and destination of the draggable, and updating your application's state accordingly.
-    // }
-
-
+    
     return (
-        // <DragDropContext onDragEnd={onDragEnd}>
+       
             <div className={`main-container  ${libWidth}`}>
                 <BeatNav selectedPage={selectedPage} setPage={setPage} onNavWidth={onNavWidth} />
-
-
                 <Outlet />
-
                 <BeatFooter />
                 <BeatMobileNav selectedPage={selectedPage} setPage={setPage} />
                 <DynamicModal />
 
             </div>
-        // </DragDropContext>
+      
     )
 }

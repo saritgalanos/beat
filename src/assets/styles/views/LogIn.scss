@@ -13,6 +13,9 @@
             width: 37px;
             border-radius: 50px;
         }
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .login-signup-container {

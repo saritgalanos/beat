@@ -73,8 +73,8 @@ export function SignUp() {
 
     return (
         <div className="signup-page">
-            <div className='signup-header fs28 fw700'>
-                <img src="./beat-logo-small.png" className='beat-logo' alt="Beat Logo" />
+            <div className='signup-header fs28 fw700' onClick={()=>{navigate('/')} }>
+                <img src="./beat-logo-small.png" className='beat-logo' alt="Beat Logo"  />
                 beat
             </div>
             <div className='signup-container'>

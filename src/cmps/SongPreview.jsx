@@ -12,10 +12,11 @@ import { Audio } from 'react-loader-spinner'
 import { UserContext } from "../contexts/UserContext"
 import { stationService } from "../services/station.service"
 import { loadLikedSongsStation, loadLikedStations, loadUserStations, saveLikedSongsStation, saveStation } from "../store/actions/station.actions"
+import { Draggable } from "react-beautiful-dnd"
 
 
 
-export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong }) {
+export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDeleteSong, dragHandleProps }) {
 
     // const [songFromStation, setSongFromStation] = useState(station)
     const [isLiked, setIsLiked] = useState(false)
@@ -119,11 +120,15 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                                     <div><IoPlay className='index' onClick={onPlay} /></div>
                                 ) : <div className='index'>{index + 1}</div>
                             }
-                            <div className='song-title'>
+
+                            <div className='song-title' {...(isUserStation ? dragHandleProps : {})}>
                                 {renderThumbnail}
                                 <div className="artist">{artist}</div>
-                                <div className={`song-name  ${isActiveClass}`}>{songName}</div>
+                                <div className={`song-name ${isActiveClass}`}>{songName}</div>
                             </div>
+
+
+
                             <div className='album'>{song.album}</div>
                             <div className='date-added'>{utilService.getDateToDisplay(song.addedAt, true)}</div>
                             <div className='liked-area'>
@@ -159,7 +164,8 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
 
 
-            {!isPlaylist &&
+            {
+                !isPlaylist &&
                 <div className="song-from-search">
                     <div className='song-title'>
                         <div className="thumbnail-container">
@@ -176,7 +182,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                 </div>
             }
 
-        </div>
+        </div >
 
     )
 }
