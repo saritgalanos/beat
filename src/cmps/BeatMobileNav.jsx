@@ -42,9 +42,9 @@ export function BeatMobileNav({ selectedPage, setPage }) {
                 <div className={searchClassName} onClick={onClickLib}>
                     <IoLibraryOutline className='nav-control-icon' />
                 </div>
-                <div className={searchClassName} onClick={onClickSearch}>
+                {/* <div className={searchClassName} onClick={onClickSearch}>
                     <GrAppleAppStore className='nav-control-icon' />
-                </div>
+                </div> */}
 
 
 

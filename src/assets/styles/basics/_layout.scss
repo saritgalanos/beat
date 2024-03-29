@@ -4,48 +4,39 @@
     height: 100vh;
     width: 100vw;
     background-color: black;
-   
-    padding: 0px;
-    @include for-narrow-layout {
-        padding: 8px 3px 12px 3px;
-    }
 
-    min-width: $mobile-breakpoint;
+    padding: 0px;
+    // min-width: $mobile-narrow-breakpoint;
 
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 50px;
+    //grid-template-rows: 1fr 50px;
     grid-template-areas:
-        "main"
-        "mobileNav";
+        "main";
+  //      "mobileNav";
 
 
     .main {
-        
-        position: relative;
+
+        //position: relative;
         height: calc(100vh - 58px);
+        //height: 100vh;
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
         box-sizing: border-box;
         overflow: auto;
         @include add-scroll-bar(0);
- 
-    }
 
-    .nav,
-    .footer {
-        display: none;
     }
-
 
     .mobile-nav {
         box-sizing: border-box;
         background-color: black;
-        grid-area: mobileNav;
+        //grid-area: mobileNav;
         position: fixed;
         left: 0;
         bottom: 0;
-        width: 100%;
+        width: 100vw;
         padding: 10px 0;
         display: block; // Show Mobile Nav on mobile
     }
@@ -53,15 +44,16 @@
     //--------------------------------------------------------------------
     @include for-narrow-layout {
         gap: 8px;
-        padding: 8px;
+        padding: 8px 3px 12px 3px;
         grid-template-columns: 80px 1fr;
+
         &.narrow-wide-lib {
-            grid-template-columns:  minmax(300px, 0.30fr) 1fr;
+            grid-template-columns: minmax(300px, 0.30fr) 1fr;
         }
+
         grid-template-rows: 1fr 80px;
-        grid-template-areas:
-            "nav main"
-            "footer footer";
+        grid-template-areas: "nav main"
+        "footer footer";
 
 
         .mobile-nav {
@@ -69,21 +61,21 @@
         }
 
         .nav {
-            height: calc(100vh - 96px);        
+            height: calc(100vh - 96px);
             box-sizing: border-box;
             display: block; // Show Regular Nav on larger screens
             grid-area: nav;
-            
+
         }
 
         .main {
             height: calc(100vh - 96px);
             border-radius: $border-radius;
             overflow: auto;
-            
+
             overflow: hidden;
             @include add-scroll-bar(13px);
-          
+
         }
 
         .footer {
@@ -100,26 +92,27 @@
     }
 
     //-------------------------------------------------------------------------
-    @include for-normal-layout  {
+    @include for-normal-layout {
         grid-template-columns: minmax(300px, 0.30fr) 1fr;
+
         &.wide-lib {
             grid-template-columns: minmax(300px, 0.50fr) 1fr;
         }
+
         grid-template-rows: 1fr 76px;
-        grid-template-areas:
-            "nav main"
-            "footer footer";
+        grid-template-areas: "nav main"
+        "footer footer";
 
 
         .nav {
             display: block; // Show Regular Nav on larger screens
-            grid-area: nav; 
-            height: calc(100vh - 96px);           
+            grid-area: nav;
+            height: calc(100vh - 96px);
         }
 
 
-        .footer {    
-            box-sizing: border-box;       
+        .footer {
+            box-sizing: border-box;
             display: flex; // Show Footer on larger screens
             grid-area: footer;
             position: fixed;

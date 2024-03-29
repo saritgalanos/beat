@@ -1,14 +1,17 @@
-export const SHOW_MSG = 'show-msg'
-
 function createEventEmitter() {
     const listenersMap = {}
+        // Trick for DEBUG
+    window.mapmap = listenersMap
     return {
-        on(evName, listener){
-            listenersMap[evName] = (listenersMap[evName])? [...listenersMap[evName], listener] : [listener]
-            return ()=>{
+        // Use this function to subscribe to an event
+        on(evName, listener) {
+            // debugger
+            listenersMap[evName] = (listenersMap[evName]) ? [...listenersMap[evName], listener] : [listener]
+            return () => {
                 listenersMap[evName] = listenersMap[evName].filter(func => func !== listener)
             }
         },
+        // Use this function to emit an event
         emit(evName, data) {
             if (!listenersMap[evName]) return
             listenersMap[evName].forEach(listener => listener(data))
@@ -16,18 +19,24 @@ function createEventEmitter() {
     }
 }
 
-export const eventBus = createEventEmitter()
+
+export const eventBusService = createEventEmitter()
 
 export function showUserMsg(msg) {
-    eventBus.emit(SHOW_MSG, msg)
+    eventBusService.emit('show-user-msg', msg)
 }
 
 export function showSuccessMsg(txt) {
-    showUserMsg({txt, type: 'success'})
-}
-export function showErrorMsg(txt) {
-    showUserMsg({txt, type: 'error'})
+    showUserMsg({ txt, type: 'success' })
 }
 
-window.showUserMsg = showUserMsg
+export function showErrorMsg(txt) {
+    showUserMsg({ txt, type: 'error' })
+}
+
+
+
+
+
+
 

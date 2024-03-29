@@ -1,7 +1,11 @@
 .beat-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: none;
+
+    @include for-narrow-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
 
 }
 
@@ -50,6 +54,7 @@
 
         .link-item {
             margin: 0px;
+
             .txt {
                 display: block;
             }

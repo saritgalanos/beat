@@ -8,6 +8,7 @@ import { useNavigate } from "react-router"
 import { ThreeDots } from "react-loader-spinner"
 import { useResizeObserver } from "../customHooks/useResizeObserver"
 import { UserContext } from "../contexts/UserContext"
+import { showSuccessMsg } from "../services/event-bus.service"
 
 
 export function YourLibrary({ onNavWidth }) {
@@ -28,6 +29,7 @@ export function YourLibrary({ onNavWidth }) {
             const stationAdded = await saveStation(stationToAdd)
             setTimeout(() => {
                 navigate(`/${stationAdded._id}`)
+                showSuccessMsg('Added to your library.')
             }, 10);
 
         } catch (err) {

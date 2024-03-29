@@ -1,66 +1,73 @@
-.beat-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 18px;
-    gap:20px;
-    width:100%;
+.footer {
+    display: none;
+
+    @include for-narrow-layout {
+        .beat-footer {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 18px;
+            gap: 20px;
+            width: 100%;
+        }
+
+
+        .currently-playing-preview {
+            display: flex;
+            justify-content: left;
+            width: 25vw;
+
+            .song-title {
+                display: grid;
+                grid-template-columns: 55px 1fr;
+                grid-template-rows: 27.5px 27.5px;
+                grid-template-areas:
+                    "pic artist"
+                    "pic song-name";
+            }
+
+            .thumbnail {
+                grid-area: pic;
+                width: 55px;
+                height: 55px;
+                overflow: hidden;
+                background-position: center;
+                background-size: cover;
+                border-radius: 5px;
+            }
+
+            .pic {
+                grid-area: pic;
+                background-color: aqua;
+                border-radius: 5px;
+                height: 55px;
+            }
+
+            .artist {
+                grid-area: artist;
+                display: flex;
+                align-items: center;
+                font-weight: 400;
+                color: $clr1;
+                letter-spacing: 0.5px;
+                margin: 0 12px;
+                @include limit-text-to-width;
+            }
+
+            .song-name {
+                grid-area: song-name;
+                color: $clr9;
+                font-weight: 300;
+                margin: 0 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+
+
+            }
+        }
+    }
 }
-
-.currently-playing-preview {
-    display: flex;
-    justify-content: left;
-    width: 25vw;
-  
-    .song-title {
-        display: grid;
-        grid-template-columns: 55px 1fr;
-        grid-template-rows: 27.5px 27.5px;
-        grid-template-areas:
-            "pic artist"
-            "pic song-name";
-    }
-
-    .thumbnail {
-        grid-area: pic;
-        width: 55px;
-        height: 55px;
-        overflow: hidden;
-        background-position: center;
-        background-size: cover;
-        border-radius: 5px;
-    }
-
-    .pic {
-        grid-area: pic;
-        background-color: aqua;
-        border-radius: 5px;
-        height: 55px;
-    }
-
-    .artist {
-        grid-area: artist;
-        display: flex;
-        align-items: center;
-        font-weight: 400;
-        color: $clr1;
-        letter-spacing: 0.5px;
-        margin: 0 12px;
-        @include limit-text-to-width;
-    }
-
-    .song-name {
-        grid-area: song-name;
-        color: $clr9;
-        font-weight: 300;
-        margin: 0 12px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-
-
-    }
-}
-

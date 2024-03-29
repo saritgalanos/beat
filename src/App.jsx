@@ -10,6 +10,7 @@ import { UserContext } from './contexts/UserContext';
 import { LogIn } from './pages/LogIn';
 import { SignUp } from './pages/SignUp';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { UserMsg } from './cmps/UserMsg';
 
 
 export function App() {
@@ -23,21 +24,22 @@ export function App() {
 
 
         // < DragDropContext onDragEnd={onDragEnd} >
-            <Router>
-                <UserContext.Provider value={{ loggedinUser, setLoggedinUser }}>
-                    <Routes>
-                        <Route path="/login" element={<LogIn />} />
-                        <Route path="/signup" element={<SignUp />} />
-                        <Route path="/" element={<BeatIndex />} >
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/search" element={<SearchPage />} />
-                            <Route path="/genre/:categoryId" element={<CategoryDetails />} />
-                            <Route path="/:stationId" element={<StationDetails />} />
-                        </Route>
+        <Router>
+            <UserContext.Provider value={{ loggedinUser, setLoggedinUser }}>
+                <Routes>
+                    <Route path="/login" element={<LogIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/" element={<BeatIndex />} >
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/search" element={<SearchPage />} />
+                        <Route path="/genre/:categoryId" element={<CategoryDetails />} />
+                        <Route path="/:stationId" element={<StationDetails />} />
+                    </Route>
 
-                    </Routes>
-                </UserContext.Provider>
-            </Router>
+                </Routes>
+                <UserMsg />
+            </UserContext.Provider>
+        </Router>
         // </DragDropContext >
 
 

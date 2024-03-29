@@ -1,22 +1,20 @@
 .user-msg {
     color:white;
-    padding: 10px;
-    font-size: 1.4em;
+    padding: 13px;
+    font-size: 0.9rem;
+    font-weight: 500;
     position: fixed;
-    top:0;
-    right:0;
+    bottom: 100px; /* Position at the bottom of the screen */
+    left: 50%; /* Start at the middle of the screen */
+    transform: translateX(-50%); /* Adjust position to truly center based on element's width */
     background-color: grey;
-}
-.user-msg button {
-    float:right;
-    border:0;
-    border-radius: 50%;
-    margin: 5px;
-    background-color: #222;
+    z-index: 200;
+    border-radius: 8px;
+    color: black;
 }
 
 .user-msg.success {
-    background-color: rgb(41, 189, 73);
+    background-color: $clr1
 }
 .user-msg.error {
     background-color: rgb(216, 59, 59);

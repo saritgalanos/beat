@@ -39,25 +39,25 @@ export function BeatHeader({ isSearch, search, bgColor = null, title, displayTit
             text: "Account",
             action: () => { },
             param: undefined,
-            bottomBorder: false
+            itemClass: ''
         },
         {
             text: "Profile",
             action: () => { },
             param: undefined,
-            bottomBorder: false
+            itemClass: ''
         },
         {
             text: "Setting",
             action: () => { },
             param: undefined,
-            bottomBorder: true
+            itemClass: 'bottom-border'
         },
         {
             text: "Logout",
             action: logOut,
             param: undefined,
-            bottomBorder: false
+            itemClass: ''
         }
        
     ]

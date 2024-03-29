@@ -195,8 +195,13 @@ export function StationDetails() {
   }
 
   async function search() {
+    try {
     const returnedSongs = await youtubeService.search(query)
+    debugger
     setSongsFromSearch(returnedSongs)
+    } catch(err) {
+      console.log('youtube search failed,', err)
+    }
   }
 
   async function toggleLike() {

@@ -1,11 +1,8 @@
 .station-details {
     background-color: $clr3;
     border-radius: 0 0 $border-radius $border-radius;
-    padding: em(5px);
-
-    @include for-narrow-layout {
-        padding: 0px;
-    }
+    padding: 0px;
+   
 
     .station-header {
         display: flex;

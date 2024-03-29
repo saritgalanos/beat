@@ -12,8 +12,11 @@
     box-shadow: 0 16px 24px rgba(0,0,0,.3), 0 6px 8px rgba(0,0,0,.2);
     z-index:999;
     .menu-item {
+        &.bottom-border {
+            border-bottom: 0.5px solid #5a5656e8;
+        }
         font-family: CircularSP, sans-serif;
-        font-size:13px;
+       // font-size:13px;
         letter-spacing: 0.5px;
         padding:10px;
         &:hover {
