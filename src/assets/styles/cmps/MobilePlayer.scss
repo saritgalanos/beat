@@ -4,19 +4,24 @@
     box-sizing: border-box;
 
     left: 0;
-    bottom: 57px;
+    bottom: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100vw;
 
     display: block; // Show Mobile Nav on mobile
-
+    .youtube {
+        display: none;
+    }
     .player-bar {
         background-color: rgb(41, 116, 179);
         margin: 0 8px;
-        padding: 8px;
+        padding: 8px 8px 0 8px;
         border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
 
         .currently-playing-preview {
@@ -24,6 +29,7 @@
             grid-template-columns: 1fr 50px 40px;
             align-items: center;
             color: $clr1;
+            margin-bottom: 4px;
 
 
 
@@ -76,13 +82,23 @@
                 @include limit-text-to-width;
                 padding: 0px 10px 2px 12px;
             }
+
             .heart,
             .control {
+                &.liked {
+                    color: $clr8;
+                }
+
                 width: 28px;
                 height: 28px;
-             
+
             }
 
+        }
+
+        .MuiSlider-root {
+            padding: 0px !important;
+            margin: 0px !important;
         }
     }
 

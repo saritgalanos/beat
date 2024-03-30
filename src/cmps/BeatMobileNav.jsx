@@ -23,24 +23,24 @@ export function BeatMobileNav({ selectedPage, setPage }) {
         navigate('/lib')
     }
 
-    const homeClassName = (selectedPage === 'home') ? "nav-control-item selected" : "nav-control-item"
-    const searchClassName = (selectedPage === 'search') ? "nav-control-item selected" : "nav-control-item"
+    const homeClassName = (selectedPage === 'home') ? " nav-control-item selected" : " nav-control-item"
+    const searchClassName = (selectedPage === 'search') ? " nav-control-item selected" : " nav-control-item"
     return (
         <div className="mobile-nav">
             <div className="beat-mobile-nav">
-                <div className={homeClassName} onClick={onClickHome}>
+                <div className={`menu-item {homeClassName}`} onClick={onClickHome}>
                     {(selectedPage === 'home') ?
                         <GoHomeFill className="nav-control-icon" /> :
-                        <GoHome className="nav-control-icon" />}
+                        <GoHome className="nav-control-icon" />} Home
                 </div>
-                <div className={searchClassName} onClick={onClickSearch}>
+                <div className={`menu-item {searchClassName}`} onClick={onClickSearch}>
                     {(selectedPage === 'search') ?
                         <BiSolidSearchAlt2 className="nav-control-icon" /> :
-                        <BiSearchAlt2 className="nav-control-icon" />}
+                        <BiSearchAlt2 className="nav-control-icon" />} Search
                 </div>
 
-                <div className={searchClassName} onClick={onClickLib}>
-                    <IoLibraryOutline className='nav-control-icon' />
+                <div className={`menu-item {searchClassName}`} onClick={onClickLib}>
+                    <IoLibraryOutline className='nav-control-icon' /> Your Library
                 </div>
                 {/* <div className={searchClassName} onClick={onClickSearch}>
                     <GrAppleAppStore className='nav-control-icon' />
