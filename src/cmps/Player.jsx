@@ -6,16 +6,18 @@ import YouTube from "react-youtube"
 import { Slider } from "@mui/material"
 import { BiRepeat } from "react-icons/bi"
 import { FaCirclePause, FaCirclePlay } from "react-icons/fa6"
-import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5"
+import { IoPauseSharp, IoPlaySharp, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5"
 import { PiShuffleBold } from "react-icons/pi"
 import { VolumeDown, VolumeOff, VolumeUp } from "@mui/icons-material"
 import { utilService } from "../services/util.service"
 import { youtubeService } from "../services/youtube.service"
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io"
 
 
 export function Player() {
     const activeSong = useSelector(state => state.playerModule.activeSong)
     const isPlaying = useSelector(state => state.playerModule.isPlaying)
+    const likedSongsStation = useSelector(state => state.stationModule.likedSongsStation)
 
     const [progress, setProgress] = useState(0)
     const [currentTime, setCurrentTime] = useState(0)
@@ -28,7 +30,7 @@ export function Player() {
     const intervalRef = useRef(null)
 
     useEffect(() => {
-      
+
         updateActiveSongUrl()
 
         if (playerRef.current && playerRef.current.internalPlayer) {
@@ -136,57 +138,127 @@ export function Player() {
         },
     }
 
+    function toggleLike() { }
+
+    var songDetails = ''
+    var artist = ''
+    var songName = ''
+    var renderThumbnail = ''
+    if (activeSong) {
+        songDetails = activeSong.title.split('-')
+        songName = songDetails[0]
+        artist = songDetails[1]
+        renderThumbnail = activeSong?.imgUrl
+            ? <div className="thumbnail" style={{ backgroundImage: `url(${activeSong.imgUrl})` }}></div>
+            : <div className="pic" style={{ backgroundColor: activeSong.randomColor }}></div>;
+    }
+
+    const isLiked = likedSongsStation?.songs?.find(likedSong => activeSong?.id === likedSong?.id);
+
+
+
     return (
+        <>
 
-        <div className='player'>
-            <div className='song-control'>
-                <div className='controls'>
-                    <PiShuffleBold className="player-icon" />
-                    <IoPlaySkipBack className="player-icon" />
-                    <div onClick={toggleAudio}>
-                        {isPlaying ? <FaCirclePause className="play-icon" /> : <FaCirclePlay className="play-icon" />}
+            <div className='player'>
+
+                <section className="currently-playing-preview">
+                    {(activeSong !== null) &&
+                        <div className='song-title'>
+                            {renderThumbnail}
+                            <div className="artist fs14">{artist}</div>
+                            <div className="song-name fs11">{songName}</div>
+                        </div>}
+                </section>
+
+
+
+
+                <div className='song-control'>
+                    <div className='controls'>
+                        <PiShuffleBold className="player-icon" />
+                        <IoPlaySkipBack className="player-icon" />
+                        <div onClick={toggleAudio}>
+                            {isPlaying ? <FaCirclePause className="play-icon" /> : <FaCirclePlay className="play-icon" />}
+                        </div>
+                        <IoPlaySkipForward className="player-icon" />
+                        <BiRepeat className="player-icon" />
                     </div>
-                    <IoPlaySkipForward className="player-icon" />
-                    <BiRepeat className="player-icon" />
+
+                    <div className='details'>
+                        <div className='time-display'>{utilService.formatTime(currentTime)}</div>
+                        <Slider
+                            className='progress-bar'
+                            value={progress}
+                            onChange={handleSliderChange}
+                            aria-labelledby="continuous-slider"
+                            sx={sliderSx}
+                        />
+                        <div className='time-display'>{utilService.formatTime(duration)}</div>
+                    </div>
                 </div>
 
-                <div className='details'>
-                    <div className='time-display'>{utilService.formatTime(currentTime)}</div>
+                <div className='volume_control'>
+
+                    {volume === 1 && <VolumeOff onClick={handleVolumeChange} className='volume-icon' />}
+                    {volume > 1 && volume < 50 && <VolumeDown onClick={handleVolumeChange} className='volume-icon' />}
+                    {volume >= 50 && <VolumeUp onClick={handleVolumeChange} className='volume-icon' />}
+
                     <Slider
-                        className='progress-bar'
-                        value={progress}
-                        onChange={handleSliderChange}
-                        aria-labelledby="continuous-slider"
+                        className='progress_bar'
+                        value={volume}
+                        onChange={handleVolumeChange}
+                        aria-labelledby="volume-slider"
                         sx={sliderSx}
+                        min={1}
+                        max={100}
+                        valueLabelDisplay="off"
                     />
-                    <div className='time-display'>{utilService.formatTime(duration)}</div>
                 </div>
+
+
             </div>
+            <div className="mobile-player">
+                {(activeSong !== null) &&
+                    < div className="player-bar">
+                        <section className="currently-playing-preview">
+                            <div className='song-title'>
+                                {renderThumbnail}
+                                <div className="song-name fs13">{songName}</div>
+                                <div className="artist fs13">{artist}</div>
+                            </div>
 
-            <div className='volume_control'>
+                            {isLiked ?
+                                <IoMdHeart className="heart liked" onClick={toggleLike} /> :
+                                <IoMdHeartEmpty className="heart " onClick={toggleLike} />
 
-                {volume === 1 && <VolumeOff onClick={handleVolumeChange} className='volume-icon' />}
-                {volume > 1 && volume < 50 && <VolumeDown onClick={handleVolumeChange} className='volume-icon' />}
-                {volume >= 50 && <VolumeUp onClick={handleVolumeChange} className='volume-icon' />}
+                            }
 
-                <Slider
-                    className='progress_bar'
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    aria-labelledby="volume-slider"
-                    sx={sliderSx}
-                    min={1}
-                    max={100}
-                    valueLabelDisplay="off"
-                />
-            </div>
+                            {isPlaying ?
+                                <IoPauseSharp className="control" onClick={toggleAudio} /> :
+                                <IoPlaySharp className="control" onClick={toggleAudio} />
+                            }
 
+                        </section>
+                        <Slider
+                            className='progress-bar'
+                            value={progress}
+                            onChange={handleSliderChange}
+                            aria-labelledby="continuous-slider"
+                            sx={sliderSx}
+                        />
+
+
+
+                    </div>}
+
+            </div >
             {activeSong && (
                 <div className="youtube">
                     <YouTube videoId={activeSong.url} opts={opts} ref={playerRef} />
                 </div>
             )}
-        </div>
+        </>
     )
 
 }

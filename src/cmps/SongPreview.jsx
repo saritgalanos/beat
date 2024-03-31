@@ -16,6 +16,8 @@ import { Draggable } from "react-beautiful-dnd"
 import { MenuModal } from "./MenuModal"
 import { onToggleModal } from "../store/actions/app.actions"
 import { showSuccessMsg } from "../services/event-bus.service"
+import { youtubeService } from "../services/youtube.service"
+
 
 
 
@@ -47,9 +49,15 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         (isActive && isPlaying) ? onPause() : onPlay()
     }
 
-    function onPlay() {
+    async function onPlay() {
         const stationId = (station) ? station._id : null
-        console.log("onPlay-stationId:" + stationId)
+        try {
+            song.url = await youtubeService.getSongUrlByTitle(song.title)
+          } catch (err) {
+            console.log('failed to get song URL')
+          }
+          console.log('before dispatch:', song.uri)
+
         dispatch(setActiveSong(song, stationId))
     }
 
@@ -81,221 +89,219 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
 
 
 
-function createBasicMenu() {
-    const menuItems = [
-        {
-            text: "Remove from this playlist",
-            action: onRemove,
-            param: song,
-            itemClass: ''
-        },
-        {
-            text: "Save to your liked songs",
-            action: () => { },
-            param: undefined,
-            itemClass: 'bottom-border'
-        },
-        {
-            text: "Add song to playlist...",
-            action: onOpenFullMenu,
-            param: undefined,
-            itemClass: 'fw500 fs15'
-        }
-    ]
-    return menuItems
-}
-
-function createFullMenu() {
-    const menuItems = createBasicMenu()
-    userStations.forEach((station) => {
-        menuItems.push({
-            text: station.name,
-            action: onAddSongToStation,
-            param: station,
-            itemClass: ''
-        })
-    })
-    return menuItems
-}
-
-function onOpenFullMenu() {
-    onToggleModal(null)
-    const menuItems = createFullMenu()
-    displayMenu(menuItems)
-}
-
-
-/*===============================================================*/
-
-function onMoreActions() {
-    const menuItems = createBasicMenu()
-    displayMenu(menuItems)
-}
-
-function createBasicMenu() {
-    const menuItems = [
-        {
-            text: "Remove from this playlist",
-            action: onRemove,
-            param: song,
-            itemClass: ''
-        },
-        {
-            text: "Save to your liked songs",
-            action: () => { },
-            param: undefined,
-            itemClass: 'bottom-border'
-        },
-        {
-            text: "Add song to playlist...",
-            action: onOpenFullMenu,
-            param: undefined,
-            itemClass: 'fw500 fs15'
-        }
-    ]
-    return menuItems
-}
-
-function displayMenu(menuItems) {
-    onToggleModal(
-        {
-            cmp: MenuModal,
-            props: {
-                menuItems: menuItems,
-                position: { top: '360px', right: '100px' }
+    function createBasicMenu() {
+        const menuItems = [
+            {
+                text: "Remove from this playlist",
+                action: onRemove,
+                param: song,
+                itemClass: ''
+            },
+            {
+                text: "Save to your liked songs",
+                action: () => { },
+                param: undefined,
+                itemClass: 'bottom-border'
+            },
+            {
+                text: "Add song to playlist...",
+                action: onOpenFullMenu,
+                param: undefined,
+                itemClass: 'fw500 fs15'
             }
-        })
-}
-
-
-/*============================================================================================*/
-
-
-
-
-
-async function toggleLike() {
-    const updatedStation = (isLiked) ?
-        stationService.deleteSongFromStation(likedSongsStation, song) :
-        stationService.addSongToStation(likedSongsStation, song)
-    console.log('station to update:', updatedStation.songs)
-    try {
-
-        await saveLikedSongsStation(updatedStation)
-        await loadLikedSongsStation(loggedinUser)
-        setIsLiked(!isLiked)
-
-    } catch (err) {
-        console.log('Song Preview:toggleLike ' + err)
+        ]
+        return menuItems
     }
 
-}
+    function createFullMenu() {
+        const menuItems = createBasicMenu()
+        userStations.forEach((station) => {
+            menuItems.push({
+                text: station.name,
+                action: onAddSongToStation,
+                param: station,
+                itemClass: ''
+            })
+        })
+        return menuItems
+    }
+
+    function onOpenFullMenu() {
+        onToggleModal(null)
+        const menuItems = createFullMenu()
+        displayMenu(menuItems)
+    }
 
 
-const songDetails = song.title.split('-');
-const artist = songDetails[0];
-const songName = songDetails[1];
+    /*===============================================================*/
 
-const renderThumbnail = song.imgUrl
-    ? <div className="thumbnail" onClick={onPic} style={{ backgroundImage: `url(${song.imgUrl})` }}></div>
-    : <div className="pic" onClick={onPic} style={{ backgroundColor: song.randomColor }}></div>;
+    function onMoreActions() {
+        const menuItems = createBasicMenu()
+        displayMenu(menuItems)
+    }
 
-const isActiveClass = (isActive) ? 'active-song' : ''
-const isUserStation = (station?.createdBy._id == loggedinUser?._id) ? true : false
+    function createBasicMenu() {
+        const menuItems = [
+            {
+                text: "Remove from this playlist",
+                action: onRemove,
+                param: song,
+                itemClass: ''
+            },
+            {
+                text: "Save to your liked songs",
+                action: () => { },
+                param: undefined,
+                itemClass: 'bottom-border'
+            },
+            {
+                text: "Add song to playlist...",
+                action: onOpenFullMenu,
+                param: undefined,
+                itemClass: 'fw500 fs15'
+            }
+        ]
+        return menuItems
+    }
 
-console.log('before render of song')
-
-return (
-    <div className='song-preview'
-        onMouseEnter={() => { setMouseOn(true) }}
-        onMouseLeave={() => { setMouseOn(false) }}>
-
-        {isPlaylist &&
-            <>
-                <div className="not-for-mobile">
-                    < div className="playlist-row" >
-
-                        {
-                            isThisSongPlaying ? (
-                                !isMouseOn ? <Audio
-                                    height="20"
-                                    width="20"
-                                    radius="3"
-                                    color="green"
-                                    ariaLabel="loading"
-                                    wrapperStyle
-                                    wrapperClass
-                                />
-                                    : <GiPauseButton className='index' onClick={onPause} />
-                            ) : isMouseOn ? (
-                                <div><IoPlay className='index' onClick={onPlay} /></div>
-                            ) : <div className='index'>{index + 1}</div>
-                        }
-
-                        <div className='song-title' {...(isUserStation ? dragHandleProps : {})}>
-                            {renderThumbnail}
-                            <div className="artist">{artist}</div>
-                            <div className={`song-name ${isActiveClass}`}>{songName}</div>
-                        </div>
+    function displayMenu(menuItems) {
+        onToggleModal(
+            {
+                cmp: MenuModal,
+                props: {
+                    menuItems: menuItems,
+                    position: { top: '360px', right: '100px' }
+                }
+            })
+    }
 
 
-
-                        <div className='album'>{song.album}</div>
-                        <div className='date-added'>{utilService.getDateToDisplay(song.addedAt, true)}</div>
-                        <div className='liked-area'>
-
-                            <div>  {(!isUserStation && loggedinUser) && (
-                                isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : (
-                                    isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
-                            </div>
-                        </div>
-                        <div> {song.duration} </div>
-
-
-                        {
-                            (isMouseOn && loggedinUser) && <div><IoEllipsisHorizontalSharp className='more-actions' onClick={onMoreActions} /></div>
-                        }
-
-                    </div>
-                </div>
-                <div className="mobile-display">
-                    < div className="playlist-row" >
-
-                        <div className='song-title'>
-                            {renderThumbnail}
-                            <div className="artist">{artist}</div>
-                            <div className={`song-name ${isActiveClass}`}>{songName}</div>
-                        </div>
-                        <IoMdMore className="img-more" />
-                    </div>
-                </div>
-
-
-            </>}
+    /*============================================================================================*/
 
 
 
-        {
-            !isPlaylist &&
-            <div className="song-from-search">
-                <div className='song-title'>
-                    <div className="thumbnail-container">
-                        {renderThumbnail}
-                        <div className="not-for-mobile"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
-                        <div className="not-for-mobile">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
-                    </div>
-                    <div className="artist">{artist}</div>
-                    <div className={`song-name ${isActiveClass}`}>{songName}</div>
-                </div>
 
-                {loggedinUser && <button className="add not-for-mobile" onClick={onAdd}>Add</button>}
-                <IoMdMore className=" img-more mobile-display" Click={onAdd} />
-            </div>
+
+    async function toggleLike() {
+        const updatedStation = (isLiked) ?
+            stationService.deleteSongFromStation(likedSongsStation, song) :
+            stationService.addSongToStation(likedSongsStation, song)
+        console.log('station to update:', updatedStation.songs)
+        try {
+
+            await saveLikedSongsStation(updatedStation)
+            await loadLikedSongsStation(loggedinUser)
+            setIsLiked(!isLiked)
+
+        } catch (err) {
+            console.log('Song Preview:toggleLike ' + err)
         }
 
-    </div >
+    }
 
-)
+
+    const songDetails = song.title.split('-');
+    const artist = songDetails[0];
+    const songName = songDetails[1];
+
+    const renderThumbnail = song.imgUrl
+        ? <div className="thumbnail" onClick={onPic} style={{ backgroundImage: `url(${song.imgUrl})` }}></div>
+        : <div className="pic" onClick={onPic} style={{ backgroundColor: song.randomColor }}></div>;
+
+    const isActiveClass = (isActive) ? 'active-song' : ''
+    const isUserStation = (station?.createdBy._id == loggedinUser?._id) ? true : false
+
+    return (
+        <div className='song-preview'
+            onMouseEnter={() => { setMouseOn(true) }}
+            onMouseLeave={() => { setMouseOn(false) }}>
+
+            {isPlaylist &&
+                <>
+                    <div className="not-for-mobile">
+                        < div className="playlist-row" >
+
+                            {
+                                isThisSongPlaying ? (
+                                    !isMouseOn ? <Audio
+                                        height="20"
+                                        width="20"
+                                        radius="3"
+                                        color="green"
+                                        ariaLabel="loading"
+                                        wrapperStyle
+                                        wrapperClass
+                                    />
+                                        : <GiPauseButton className='index' onClick={onPause} />
+                                ) : isMouseOn ? (
+                                    <div><IoPlay className='index' onClick={onPlay} /></div>
+                                ) : <div className='index'>{index + 1}</div>
+                            }
+
+                            <div className='song-title' {...(isUserStation ? dragHandleProps : {})}>
+                                {renderThumbnail}
+                                <div className="artist">{artist}</div>
+                                <div className={`song-name ${isActiveClass}`}>{songName}</div>
+                            </div>
+
+
+
+                            <div className='album'>{song.album}</div>
+                            <div className='date-added'>{utilService.getDateToDisplay(song.addedAt, true)}</div>
+                            <div className='liked-area'>
+
+                                <div>  {(!isUserStation && loggedinUser) && (
+                                    isLiked ? <IoMdHeart className="like unlike" onClick={toggleLike} /> : (
+                                        isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
+                                </div>
+                            </div>
+                            <div> {song.duration} </div>
+
+
+                            {
+                                (isMouseOn && loggedinUser) && <div><IoEllipsisHorizontalSharp className='more-actions' onClick={onMoreActions} /></div>
+                            }
+
+                        </div>
+                    </div>
+                    <div className="mobile-display">
+                        < div className="playlist-row" >
+
+                            <div className='song-title'>
+                                {renderThumbnail}
+                                <div className="artist">{artist}</div>
+                                <div className={`song-name ${isActiveClass}`}>{songName}</div>
+                            </div>
+                            <IoMdMore className="img-more" />
+                        </div>
+                    </div>
+
+
+                </>}
+
+
+
+            {
+                !isPlaylist &&
+                <div className="song-from-search">
+                    <div className='song-title'>
+                        <div className="thumbnail-container">
+                            {renderThumbnail}
+                            <div className="not-for-mobile"> {isThisSongPlaying && <GiPauseButton className='display-on-thumbnail' onClick={onPause} />} </div>
+                            <div className="not-for-mobile">  {isMouseOn && !isThisSongPlaying && <IoPlay className='display-on-thumbnail' onClick={onPlay} />} </div>
+                        </div>
+                        <div className="artist">{artist}</div>
+                        <div className={`song-name ${isActiveClass}`}>{songName}</div>
+                    </div>
+
+                    {loggedinUser && <button className="add not-for-mobile" onClick={onAdd}>Add</button>}
+                    <IoMdMore className=" img-more mobile-display" Click={onAdd} />
+                </div>
+            }
+
+        </div >
+
+    )
 }
 
 

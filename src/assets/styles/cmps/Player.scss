@@ -1,99 +1,278 @@
-// .player {
-//    
-//     flex: 1;
+.youtube {
+    display: none;
+}
 
-// }
 
-.player {
+.mobile-player {
+
+    position: fixed;
+    box-sizing: border-box;
+
+    left: 0;
+    bottom: 70px;
     display: flex;
-    flex:1;
-    justify-content: space-between;
-    .song-control {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        font-weight: 100;
-        font-size: 0.8rem;
-        color: $clr2;
-        //flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            margin-bottom: -4px;
-
-
-            .player-icon {
-             
-                height: 20px;
-                width: 20px;
-                &:hover {
-                    color:$clr1;
-                }
-
-            }
-
-            .play-icon {
-                margin-top: 5px;
-                height: 31px;
-                width: 31px;
-                color: $clr1;
-            }
-
-        }
-
-        .details {
-            display: flex;
-            align-items: center;
-            padding-bottom: 5px;
-
-            .time-display {
-                font-size: 12px;
-                display: inline-block;
-                width: 50px;
-                /* Adjust based on the maximum expected width */
-                text-align: center;
-            }
-
-            .progress-bar {
-                //background-color: $clr2;
-                width: 35vw;
-                height: 4px;
-                margin: 0 8px;
-                //padding: 5px 0 20px 0;
-
-
-            }
-        }
-    }
+    display: block; // Show Mobile Nav on mobile
 
     .youtube {
         display: none;
     }
-    .volume_control {
-        padding-right: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;   
 
-        .volume-icon {
-            &:hover {
-                cursor: pointer;
-                color: white;
+    .player-bar {
+        background-color: rgb(41, 116, 179);
+        margin: 0 8px;
+        padding: 8px 8px 0 8px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+
+        .currently-playing-preview {
+            display: grid;
+            grid-template-columns: 1fr 50px 40px;
+            align-items: center;
+            color: $clr1;
+            margin-bottom: 4px;
+
+
+
+            .song-title {
+                display: grid;
+                grid-template-columns: 40px 1fr;
+                grid-template-rows: 20px 20px;
+                grid-template-areas:
+                    "pic song-name "
+                    "pic artist ";
+            }
+
+            .thumbnail {
+                grid-area: pic;
+                width: 40px;
+                height: 40px;
+                margin: 0 4px 0 0;
+                overflow: hidden;
+                background-position: center;
+                background-size: cover;
+                border-radius: 5px;
+            }
+
+            .pic {
+                grid-area: pic;
+                border-radius: 5px;
+                height: 55px;
+            }
+
+            .song-name {
+                grid-area: song-name;
+                color: $clr1;
+                font-weight: 500;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                padding: 3px 10px 0 12px;
+
+            }
+
+            .artist {
+                grid-area: artist;
+                display: flex;
+                align-items: center;
+                font-weight: 400;
+                color: $clr1;
+                letter-spacing: 0.5px;
+                @include limit-text-to-width;
+                padding: 0px 10px 2px 12px;
+            }
+
+            .heart,
+            .control {
+                &.liked {
+                    color: $clr8;
+                }
+
+                width: 28px;
+                height: 28px;
+
+            }
+
+        }
+
+        .MuiSlider-root {
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+    }
+
+    @include for-narrow-layout {
+        display: none;
+    }
+}
+
+
+.player {
+    display: none;
+
+    @include for-narrow-layout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 18px;
+        gap: 20px;
+        width: 100%;
+
+
+
+        .currently-playing-preview {
+            display: flex;
+            justify-content: left;
+            width: 25vw;
+
+            .song-title {
+                display: grid;
+                grid-template-columns: 55px 1fr;
+                grid-template-rows: 27.5px 27.5px;
+                grid-template-areas:
+                    "pic artist"
+                    "pic song-name";
+            }
+
+            .thumbnail {
+                grid-area: pic;
+                width: 55px;
+                height: 55px;
+                overflow: hidden;
+                background-position: center;
+                background-size: cover;
+                border-radius: 5px;
+            }
+
+            .pic {
+                grid-area: pic;
+                background-color: aqua;
+                border-radius: 5px;
+                height: 55px;
+            }
+
+            .artist {
+                grid-area: artist;
+                display: flex;
+                align-items: center;
+                font-weight: 400;
+                color: $clr1;
+                letter-spacing: 0.5px;
+                margin: 0 12px;
+                @include limit-text-to-width;
+            }
+
+            .song-name {
+                grid-area: song-name;
+                color: $clr9;
+                font-weight: 300;
+                margin: 0 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+
+
             }
         }
-     
-      
-    
-        .progress_bar {
-            width: 8vw;
-            min-width:5vw;
-            height: 2.5px;
-            margin: 0 10px;
+
+        .song-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-weight: 100;
+            font-size: 0.8rem;
+            color: $clr2;
+
+            .controls {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                margin-bottom: -4px;
+
+                .player-icon {
+
+                    height: 20px;
+                    width: 20px;
+
+                    &:hover {
+                        color: $clr1;
+                    }
+
+                }
+
+                .play-icon {
+                    margin-top: 5px;
+                    height: 31px;
+                    width: 31px;
+                    color: $clr1;
+                }
+
+            }
+
+            .details {
+                display: flex;
+                align-items: center;
+                padding-bottom: 5px;
+
+                .time-display {
+                    font-size: 12px;
+                    display: inline-block;
+                    width: 50px;
+                    /* Adjust based on the maximum expected width */
+                    text-align: center;
+                }
+
+                .progress-bar {
+                    //background-color: $clr2;
+                    width: 35vw;
+                    height: 4px;
+                    margin: 0 8px;
+                    //padding: 5px 0 20px 0;
+
+
+                }
+            }
+
         }
-    
+
+        .youtube {
+            display: none;
+        }
+
+        .volume_control {
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .volume-icon {
+                &:hover {
+                    cursor: pointer;
+                    color: white;
+                }
+            }
+
+
+
+            .progress_bar {
+                width: 8vw;
+                min-width: 5vw;
+                height: 2.5px;
+                margin: 0 10px;
+            }
+
+        }
     }
 }

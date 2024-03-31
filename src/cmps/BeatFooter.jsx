@@ -7,10 +7,11 @@ import Stack from '@mui/material/Stack'
 import Slider from '@mui/material/Slider'
 import VolumeDown from '@mui/icons-material/VolumeDown'
 import VolumeUp from '@mui/icons-material/VolumeUp'
+import { BeatMobileNav } from "./BeatMobileNav"
 
 
 
-export function BeatFooter() {
+export function BeatFooter({ selectedPage }) {
     const activeSong = useSelector(state => state.playerModule.activeSong)
 
 
@@ -31,26 +32,14 @@ export function BeatFooter() {
             : <div className="pic" style={{ backgroundColor: activeSong.randomColor }}></div>;
     }
     return (
-        <div className="footer ">
-            <div className="beat-footer">
-
-                <section className="currently-playing-preview">
-                    {(activeSong !== null) &&
-                        <div className='song-title'>
-                            {renderThumbnail}
-                            <div className="artist fs14">{artist}</div>
-                            <div className="song-name fs11">{songName}</div>
-                        </div>}
-                </section>
-
+        <>
+            <div className='footer'>
                 <Player />
-
-
-                {/* <VolumeControl /> */}
-
-
-
+                <div className='mobile-footer'>
+                    <BeatMobileNav selectedPage={selectedPage} />
+                </div>
             </div>
-        </div>
+        </>
+
     )
 }

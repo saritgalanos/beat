@@ -6,14 +6,11 @@
     background-color: black;
 
     padding: 0px;
-    // min-width: $mobile-narrow-breakpoint;
-
+   
     grid-template-columns: 1fr;
-    //grid-template-rows: 1fr 50px;
     grid-template-areas:
         "main";
-  //      "mobileNav";
-
+ 
 
     .main {
 
@@ -40,6 +37,8 @@
         padding: 10px 0;
         display: block; // Show Mobile Nav on mobile
     }
+
+    
 
     //--------------------------------------------------------------------
     @include for-narrow-layout {

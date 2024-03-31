@@ -58,7 +58,7 @@ export function StationDetails() {
     if (station && station.imgUrl) {
       fetchColor()
     }
- 
+
   }, [station])
 
   async function loadStation() {
@@ -72,10 +72,16 @@ export function StationDetails() {
     }
   }
 
-  function onPlay() {
+  async function onPlay() {
     //play the active if belongs to this station or the first song from this station
     const songToPlay = (station._id === activeStationId) ? activeSong : ((station.songs.length > 0) ? station.songs[0] : null)
     if (songToPlay != null) {
+      try {
+        songToPlay.url = await youtubeService.getSongUrlByTitle(songToPlay.title)
+      } catch (err) {
+        console.log('failed to get song URL')
+      }
+      console.log('before dispatch:', songToPlay.uri)
       dispatch(setActiveSong(songToPlay, station._id));
     }
   }
@@ -108,7 +114,7 @@ export function StationDetails() {
 
 
   function onAddSong(newSong) {
-  
+
     const updatedStation = stationService.addSongToStation(station, newSong)
     setStation(updatedStation)
     try {
@@ -118,9 +124,9 @@ export function StationDetails() {
     }
   }
 
-  async function onReorderSongs (newSongsOrder) {
+  async function onReorderSongs(newSongsOrder) {
     //a user can reorder only his stations
-    if(!loggedinUser || station.createdBy._id !== loggedinUser._id) {
+    if (!loggedinUser || station.createdBy._id !== loggedinUser._id) {
       console.log('trying to reorder a station that is not yours')
       return
     }
@@ -196,10 +202,10 @@ export function StationDetails() {
 
   async function search() {
     try {
-    const returnedSongs = await youtubeService.search(query)
-    debugger
-    setSongsFromSearch(returnedSongs)
-    } catch(err) {
+      const returnedSongs = await youtubeService.search(query)
+      debugger
+      setSongsFromSearch(returnedSongs)
+    } catch (err) {
       console.log('youtube search failed,', err)
     }
   }
@@ -283,7 +289,7 @@ export function StationDetails() {
 
           <div className="songs">
             <SongList songs={station.songs} station={station} includeTitles={true} isPlaylist={true}
-              onAddSong={onAddSong} onDeleteSong={onDeleteSong} onReorderSongs={onReorderSongs}/>
+              onAddSong={onAddSong} onDeleteSong={onDeleteSong} onReorderSongs={onReorderSongs} />
           </div>
 
           {isLikedSongsEmpty &&

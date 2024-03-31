@@ -3,9 +3,8 @@ import { GoHomeFill, GoHome } from "react-icons/go"
 import { BiSolidSearchAlt2, BiSearchAlt2 } from "react-icons/bi"
 import { useNavigate } from "react-router"
 import { IoLibraryOutline } from "react-icons/io5"
-import { GrAppleAppStore } from "react-icons/gr"
 
-export function BeatMobileNav({ selectedPage, setPage }) {
+export function BeatMobileNav({ selectedPage }) {
     const navigate = useNavigate()
     useEffect(() => {
 
@@ -42,10 +41,7 @@ export function BeatMobileNav({ selectedPage, setPage }) {
                 <div className={`menu-item {searchClassName}`} onClick={onClickLib}>
                     <IoLibraryOutline className='nav-control-icon' /> Your Library
                 </div>
-                {/* <div className={searchClassName} onClick={onClickSearch}>
-                    <GrAppleAppStore className='nav-control-icon' />
-                </div> */}
-
+               
 
 
             </div>

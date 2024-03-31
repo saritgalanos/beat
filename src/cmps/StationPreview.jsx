@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { IoPauseSharp, IoPlaySharp } from "react-icons/io5"
 import { useDispatch, useSelector } from "react-redux"
 import { setActiveSong, togglePlay } from "../store/actions/player.actions"
+import { youtubeService } from "../services/youtube.service"
 
 export function StationPreview({ station, displayOn = "library", libOpen = false }) {
   //station can be displayed as part of "library", "category" and "homepage"*/
@@ -21,10 +22,16 @@ export function StationPreview({ station, displayOn = "library", libOpen = false
   }, [])
 
 
-  function onPlay() {
+  async function onPlay() {
     //play the active if belongs to this station or the first song from this station
     const songToPlay = (station._id === activeStationId) ? activeSong : ((station.songs.length > 0) ? station.songs[0] : null)
     if (songToPlay != null) {
+      try {
+        songToPlay.url = await youtubeService.getSongUrlByTitle(songToPlay.title)
+      } catch (err) {
+        console.log('failed to get song URL')
+      }
+      console.log('before dispatch:', songToPlay.uri)
       dispatch(setActiveSong(songToPlay, station._id));
     }
   }
