@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import { GoHomeFill, GoHome } from "react-icons/go"
 import { BiSolidSearchAlt2, BiSearchAlt2 } from "react-icons/bi"
 import { useNavigate } from "react-router"
-import { IoLibraryOutline } from "react-icons/io5"
-
+import { VscLibrary } from "react-icons/vsc";
 export function BeatMobileNav({ selectedPage }) {
     const navigate = useNavigate()
     useEffect(() => {
@@ -39,7 +38,7 @@ export function BeatMobileNav({ selectedPage }) {
                 </div>
 
                 <div className={`menu-item {searchClassName}`} onClick={onClickLib}>
-                    <IoLibraryOutline className='nav-control-icon' /> Your Library
+                    < VscLibrary  className='nav-control-icon' /> Your Library
                 </div>
                
 

@@ -13,7 +13,7 @@
     .stations-area {
 
         margin-bottom: 0;
-        padding: 12px 12px 12px 12px;
+        padding: 12px 12px 20px 12px;
 
         .my-stations {
             display: flex;
@@ -32,15 +32,15 @@
 
             @include for-narrow-layout {
                 display: grid;
-                grid-template-columns: repeat(2, minmax(150px, auto));
-                grid-template-rows: 48px;
+                grid-template-columns: repeat(3, minmax(150px, auto));
+                grid-template-rows: 60px;
                 gap: 10px;
 
             }
 
             @include for-wide-layout {
                 display: grid;
-                grid-template-columns: repeat(3, minmax(150px, auto));
+                grid-template-columns: repeat(4, minmax(150px, auto));
                 //grid-template-rows: 64px;
                 gap: 10px;
 
@@ -53,13 +53,13 @@
     .suggested-area {
 
         margin-bottom: 0;
-        padding: 32px 12px 12px 12px;
+        padding: 12px 12px 0px 12px;
 
         .section-header {
             display:flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin: 10px 15px;
+            margin: 10px 15px 0 15px;
 
         }
        
@@ -79,7 +79,7 @@
 
             @include for-normal-layout {
                 grid-template-columns: repeat(auto-fill, minmax(170px, auto));
-                gap: 24px;
+                gap: 0px;
 
             }
         }

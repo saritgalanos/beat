@@ -40,8 +40,9 @@ export function SongList({ songs: initialSongs, station, includeTitles, isPlayli
               <div>Title</div>
               <div className='album'>Album</div>
               <div className='date-added'>Date added</div>
+              <div className='liked-area'> </div>
+              <div className='song-duration'><IoTimeOutline className='duration' /> </div>
               <div> </div>
-              <IoTimeOutline className='duration' />
             </div>}
         </div>
 

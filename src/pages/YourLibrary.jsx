@@ -9,7 +9,7 @@ import { ThreeDots } from "react-loader-spinner"
 import { useResizeObserver } from "../customHooks/useResizeObserver"
 import { UserContext } from "../contexts/UserContext"
 import { showSuccessMsg } from "../services/event-bus.service"
-
+import { VscLibrary } from "react-icons/vsc"
 
 export function YourLibrary({ onNavWidth }) {
     const stations = useSelector(storeState => storeState.stationModule.userStations)
@@ -64,7 +64,7 @@ export function YourLibrary({ onNavWidth }) {
         <div className={`your-library ${navClass}`} ref={ref}>
             <div className="lib-header">
                 <div className="nav-control-item">
-                    <IoLibraryOutline className='library-icon nav-control-icon ' onClick={onLibrary} />
+                    <VscLibrary className='library-icon nav-control-icon ' onClick={onLibrary} />
                     <div className={`txt ${navClass}`}>Your Library</div>
                 </div>
                 {loggedinUser && <div className={`controls ${navClass}`}>

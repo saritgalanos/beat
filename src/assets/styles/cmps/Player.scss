@@ -123,7 +123,8 @@
         justify-content: space-between;
         align-items: center;
         margin: 0 18px;
-        gap: 20px;
+        gap: 10px;
+        
         width: 100%;
 
 
@@ -131,7 +132,10 @@
         .currently-playing-preview {
             display: flex;
             justify-content: left;
-            width: 25vw;
+            width: 40vw;
+            @include for-normal-layout {
+                width: 20vw;
+            }
 
             .song-title {
                 display: grid;
@@ -186,6 +190,12 @@
         }
 
         .song-control {
+            max-width: 722px;
+
+            @include for-normal-layout {
+                margin-right: 100px;
+            }
+
             display: flex;
             justify-content: center;
             align-items: center;

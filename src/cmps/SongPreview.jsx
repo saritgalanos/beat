@@ -255,7 +255,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                                         isMouseOn ? <IoMdHeartEmpty className="like" onClick={toggleLike} /> : <></>))}
                                 </div>
                             </div>
-                            <div> {song.duration} </div>
+                            <div className='song-duration'> {song.duration} </div>
 
 
                             {

@@ -35,7 +35,6 @@ export function HomePage() {
     }, [])
 
     async function loadHomePageCategories() {
-        
         try {
             var stations = null
             var filterBy = stationService.getDefaultFilter()
@@ -132,11 +131,11 @@ export function HomePage() {
         </div>)
 
 
-    const stationsToDisplay = (userStations != null ) ? userStations.slice(0, 6) : null
+    const stationsToDisplay = (userStations != null ) ? userStations.slice(0, 8) : null
 
     // Calculate the number of stations to display based on the container width
     // This assumes each station preview has a fixed width of 170px and a gap of 24px
-    const stationWidthIncludingGap = 170 + 24
+    const stationWidthIncludingGap = 180
     const width = mainSize.width
     const visibleStationCount = width ? Math.floor(width / stationWidthIncludingGap) : popStations?.length
 

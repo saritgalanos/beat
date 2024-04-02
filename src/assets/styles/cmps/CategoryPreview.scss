@@ -24,15 +24,17 @@
         font-weight: 700;
         padding-right:32px;
         letter-spacing: 0.4px;
+        white-space: normal;
 
         @include for-narrow-layout {
             font-size: rem(24px); 
             padding: 16px;
             font-weight: 900;
             letter-spacing: 0;
+            white-space: normal;
+           
         }
-
-        word-break: break-all;
+        z-index: 6;
     }
 
     img {

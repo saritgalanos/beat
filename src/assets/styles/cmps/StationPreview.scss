@@ -62,7 +62,7 @@
                 gap: 2px;
 
                 .station-name {
-                    color: $clr1;
+                    color: rgb(240, 238, 238);
 
                     &.active-station {
                         color: $clr8;
@@ -98,7 +98,7 @@
                 gap: 2px;
 
                 .station-name {
-                    color: $clr1;
+                    color: rgb(240, 238, 238);
 
                     &.active-station {
                         color: $clr8;
@@ -126,7 +126,7 @@
         background-color: $clr8;
         position: absolute;
         top: 47%;
-        left: 62%;
+        right: -5%;
         transform: translate(-50%, -50%);
         background-color: $clr8;
         border-radius: 200px;
@@ -135,18 +135,28 @@
         padding: 10px 10px 10px 10px;
         color: black;
         cursor: pointer;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     }
 
     @include hover-supported {
         cursor: pointer;
         background-color: $clr6;
 
+        @keyframes slideUp {
+            0% {
+              top: 51%;
+             }
+           
+            100% {
+              top: 47%; /* Settle back to the final position */
+            }
+          }
         .play {
             display: block;
             background-color: $clr8;
             position: absolute;
             top: 47%;
-            left: 62%;
+            right: -5%;
             transform: translate(-50%, -50%);
             background-color: $clr8;
             border-radius: 200px;
@@ -155,6 +165,8 @@
             padding: 10px 10px 10px 16px;
             color: black;
             cursor: pointer;
+            animation: slideUp 0.25s ease-out forwards;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 
         }
 
@@ -165,15 +177,17 @@
 
     &.category {
         aspect-ratio: 150/220;
+        margin-top:10px;
 
         @include for-normal-layout {
+           
             aspect-ratio: 150/220;
         }
 
-        background-color: $clr11;
+       
 
         &:hover {
-            background-color: $clr7;
+            background-color: $clr11;
         }
 
         .station-info {
@@ -225,7 +239,7 @@
                 display: block;
 
                 .station-name {
-
+                    color: rgb(240, 238, 238);
                     //font-family: CircularSP;
                     font-size: 0.95rem;
                     font-weight: 400;
@@ -241,7 +255,7 @@
 
         @include for-narrow-layout {
             padding: 8%;
-            height: 48px;
+            height: 60px;
             min-width: auto;
             background-color: $clr5;
             padding: 0;
@@ -286,8 +300,10 @@
                     }
 
                     .station-name {
-                        font-weight: 900;
-                        font-size: 0.9rem;
+                        color: rgb(240, 238, 238);
+                        font-weight: 700;
+                        font-size: 1rem;
+                        letter-spacing: 0.2px;
 
                         &.active-station {
                             color: inherit;
@@ -317,6 +333,7 @@
             padding: 4px 4px 4px 7px;
             color: black;
             cursor: pointer;
+            box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5);
         }
 
 
