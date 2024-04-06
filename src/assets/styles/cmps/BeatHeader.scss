@@ -1,8 +1,6 @@
 .beat-header {
     display: none;
-
     @include for-narrow-layout {
-
         position: sticky;
         top: 0;
         z-index: 10;
@@ -13,7 +11,7 @@
         padding: 16px;
         gap: 8px;
 
-        .page-control {
+        .header-page-control {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -84,7 +82,7 @@
 
 
         .login-signup-container {
-           
+
             margin-left: auto;
             margin-right: 12px;
 
@@ -98,14 +96,15 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color:black;
+                    color: black;
                     background-color: $clr1;
                     padding: 8px 32px;
                     border-radius: 50px;
                     height: 48px;
                     @include pointer-on-hover;
-                   
+
                 }
+
                 .signup {
                     color: $clr9;
                     padding: 8px 32px 8px 8px;

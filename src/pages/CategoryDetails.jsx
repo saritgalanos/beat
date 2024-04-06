@@ -5,10 +5,10 @@ import { useNavigate, useParams } from "react-router"
 import { categoryService } from "../services/category.services"
 import { StationPreview } from "../cmps/StationPreview"
 import { utilService } from "../services/util.service"
-import { loadUserStations } from "../store/actions/station.actions"
 import { stationService } from "../services/station.service"
+import { IoArrowBack } from "react-icons/io5"
 
- 
+
 const BEAT_BG = "#121212"
 
 export function CategoryDetails() {
@@ -47,7 +47,7 @@ export function CategoryDetails() {
 
     const darkenColor = utilService.darkenColor(category.headerColor)
     const darkestColor = utilService.darkenColor(darkenColor)
- 
+
     const gradientStyle = {
         background: `linear-gradient(${darkenColor} 0px, ${BEAT_BG} 250px,  ${BEAT_BG})`
     }
@@ -56,6 +56,10 @@ export function CategoryDetails() {
     return (
         <div className='category-details main' onScroll={handleScroll}>
             <BeatHeader isSearch={false} bgColor={category.headerColor} title={category.name} displayTitle={displayTitle} />
+            <div className="page-control" >
+                <IoArrowBack className='page-control-img' onClick={() => navigate(-1)} />
+            </div>
+
             <div className="category-header" onScroll={handleScroll} style={{ background: `linear-gradient(${category.headerColor} 0px, ${darkenColor} 150px,  ${darkenColor})` }}>
                 <div className="category-name fs6rem">{category.name}</div>
             </div>

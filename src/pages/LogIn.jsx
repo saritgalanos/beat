@@ -3,6 +3,7 @@ import { userService } from '../services/user.service.js'
 import { ImgUploader } from '../cmps/ImgUploader.jsx'
 import { useNavigate, useParams } from 'react-router'
 import { UserContext } from '../contexts/UserContext.js'
+import { IoArrowBack } from "react-icons/io5"
 
 export function LogIn() {
     const [users, setUsers] = useState([])
@@ -50,7 +51,7 @@ export function LogIn() {
     }
 
     async function onLogin(credentials) {
-        console.log(credentials)
+
         try {
             const user = await userService.login(credentials)
             if (user) {
@@ -80,11 +81,14 @@ export function LogIn() {
 
     return (
         <div className="login-signup">
-            <div className='login-signup-header fs28 fw700'  onClick={()=>{navigate('/')} }>
+            <div className='login-signup-header fs28 fw700' onClick={() => { navigate('/') }}>
                 <img src="./beat-logo-small.png" className='beat-logo' alt="Beat Logo" />
                 beat
             </div>
             <div className='login-signup-container'>
+                <div className="page-control" >
+                    <IoArrowBack className='page-control-img' onClick={() => navigate(-1)} />
+                </div>
                 <div className='login'>
                     <div className='login-header fs48 fw700 ls-1'>
                         Log in to Beat

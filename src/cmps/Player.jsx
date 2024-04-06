@@ -64,7 +64,7 @@ export function Player() {
     async function updateActiveSongUrl() {
         if (!activeSong) return
 
-        if ((activeSong.url).startsWith("http")) {
+        if ((activeSong.url).startsWith("http") || activeSong.url === '') {
             try {
                 activeSong.url = await youtubeService.getSongUrlByTitle(activeSong.title)
             } catch (err) {

@@ -11,68 +11,26 @@ import { UserContext } from "../contexts/UserContext"
 import { showSuccessMsg } from "../services/event-bus.service"
 import { VscLibrary } from "react-icons/vsc"
 
-export function YourLibrary({ onNavWidth }) {
+
+export function YourLibraryMobile() {
     const stations = useSelector(storeState => storeState.stationModule.userStations)
     const likedSongsStation = useSelector(storeState => storeState.stationModule.likedSongsStation)
     const likedStations = useSelector(storeState => storeState.stationModule.userLikedStations)
-    const [isLibMaxSize, setLibMaxSize] = useState(false)
-    const [ref, size] = useResizeObserver()
-
     const { loggedinUser, setLoggedinUser } = useContext(UserContext)
 
     const navigate = useNavigate()
 
-    async function onAddNewStation(ev) {
-        const stationToAdd = stationService.getEmptyStation(stations, loggedinUser)
-
-        try {
-            const stationAdded = await saveStation(stationToAdd)
-            setTimeout(() => {
-                navigate(`/${stationAdded._id}`)
-                showSuccessMsg('Added to your library.')
-            }, 10);
-
-        } catch (err) {
-            console.log('Had issues adding station', err);
-        }
-    }
-
-    function onLibrary() {
-        const navWidthToSet = size.width < 100 ? 'narrow-wide-lib' : 'normal'
-        onNavWidth(navWidthToSet)
-    }
-
-    function onLeftArrow() {
-        setLibMaxSize(true)
-        onNavWidth("wide-lib")
-
-
-    }
-    function onRightArrow() {
-        setLibMaxSize(false)
-        onNavWidth("normal")
-    }
-
-
     if (!stations && !likedStations && likedSongsStation?.songs?.length === 0) return (
     <ThreeDots visible={true} height="50" width="50" color="#D3D3D3" radius="4" ariaLabel="three-dots-loading" /> )
 
-    const navClass = size.width > 100 ? "nav-open" : 'nav-closed'
+    
     
     return (
-        <div className={`your-library ${navClass}`} ref={ref}>
-            <div className="lib-header">
-                <div className="nav-control-item">
-                    <VscLibrary className='library-icon nav-control-icon ' onClick={onLibrary} />
-                    <div className={`txt ${navClass}`}>Your Library</div>
-                </div>
-                {loggedinUser && <div className={`controls ${navClass}`}>
-                    <IoAdd className='add-icon' onClick={onAddNewStation} />
-                    {(!isLibMaxSize) ? <IoArrowForwardOutline className='add-icon' onClick={onLeftArrow} /> :
-                        <IoArrowBackOutline className='add-icon' onClick={onRightArrow} />}
-                </div>}
-            </div>
-
+        <div className='your-library-mobile main'>
+            <h1>
+                Your Library
+                </h1>
+            
             {!loggedinUser && <div className='no-user-message '>
                 <div className='fs16 fw700'>Create your first playlist</div>
                 <div className='fs14 fw400'>Log in to create and share playlists</div>
@@ -84,17 +42,17 @@ export function YourLibrary({ onNavWidth }) {
                     <div className="stations">
                         {likedSongsStation?.songs?.length > 0 &&
                             <li key={likedSongsStation._id}>
-                                <StationPreview station={likedSongsStation} displayOn={"library"} libOpen={size.width > 100} />
+                                <StationPreview station={likedSongsStation} displayOn={"library"} libOpen={true} />
                             </li>}
 
                         {stations && stations.map(station =>
                             <li key={station._id}>
-                                <StationPreview station={station} displayOn={"library"} libOpen={size.width > 100} />
+                                <StationPreview station={station} displayOn={"library"} libOpen={true} />
                             </li>
                         )}
                          {likedStations && likedStations.map(station =>
                             <li key={station._id}>
-                                <StationPreview station={station} displayOn={"library"} libOpen={size.width > 100} />
+                                <StationPreview station={station} displayOn={"library"} libOpen={true} />
                             </li>
                         )}
                     </div>

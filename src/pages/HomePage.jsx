@@ -7,6 +7,7 @@ import { ThreeDots } from "react-loader-spinner"
 import { stationService } from "../services/station.service"
 import { UserContext } from "../contexts/UserContext"
 import { useNavigate } from "react-router"
+import { LoginSignupMobile } from "../cmps/LoginSignUpMobile"
 
 
 
@@ -137,7 +138,8 @@ export function HomePage() {
     // This assumes each station preview has a fixed width of 170px and a gap of 24px
     const stationWidthIncludingGap = 180
     const width = mainSize.width
-    const visibleStationCount = width ? Math.floor(width / stationWidthIncludingGap) : popStations?.length
+    var visibleStationCount = width ? Math.floor(width / stationWidthIncludingGap) : popStations?.length
+    if(width < 500) visibleStationCount=3
 
 
 
@@ -145,8 +147,10 @@ export function HomePage() {
     return (
         <div ref={mainRef} className='home-page main'>
             <BeatHeader isSearch={false} />
+           
             <div className="main-content">
                 {getTimeOfDayGreeting()}
+                <LoginSignupMobile />
             </div>
             {loggedinUser && stationsToDisplay?.length > 0 && <ul className="stations-area">
                 <div className="my-stations">

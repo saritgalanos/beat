@@ -1,0 +1,46 @@
+.your-library-mobile {
+    padding: em(16px) em(16px) 0 em(16px);
+
+    h1 {
+        margin: 32px 0px 16px 0px;
+    }
+
+
+    .no-user-message {
+        display: none;
+
+       
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            color: $clr1;
+            background-color: $clr5 ;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            min-width: 60px;
+
+            .login {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: black;
+                background-color: $clr1;
+                padding: 8px 32px;
+                border-radius: 50px;
+                height: 36px;
+                width: 128px;
+                margin-top:10px;
+                @include pointer-on-hover;
+            }
+
+    }
+    .stations-area {
+       
+        .stations {
+           display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, auto));
+        }
+    }
+
+}

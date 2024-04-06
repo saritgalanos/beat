@@ -60,7 +60,7 @@ async function fetchPlaylistsForCategory(categoryId) {
 
 
 async function fetchAllStations() {
-    console.log('fetchAllStations')
+
     const data = await _fetchSpotifyCategoriesPlaylistsAndTracks()
     const spotifyStations = []
     data.map(playlist => {
@@ -154,7 +154,6 @@ async function _fetchTracksForPlaylist(playlistId, accessToken) {
 
 function _createStationFromSpotifyPlayList(playlist) {
     console.log('saving playlist:', playlist.name)
-    console.log(playlist)
     var station = stationService.getEmptyStation()
     if (!_validateStation(playlist))
         return null

@@ -5,7 +5,7 @@ function createEventEmitter() {
     return {
         // Use this function to subscribe to an event
         on(evName, listener) {
-            // debugger
+          
             listenersMap[evName] = (listenersMap[evName]) ? [...listenersMap[evName], listener] : [listener]
             return () => {
                 listenersMap[evName] = listenersMap[evName].filter(func => func !== listener)

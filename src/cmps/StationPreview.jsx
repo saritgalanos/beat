@@ -26,12 +26,14 @@ export function StationPreview({ station, displayOn = "library", libOpen = false
     //play the active if belongs to this station or the first song from this station
     const songToPlay = (station._id === activeStationId) ? activeSong : ((station.songs.length > 0) ? station.songs[0] : null)
     if (songToPlay != null) {
-      try {
-        songToPlay.url = await youtubeService.getSongUrlByTitle(songToPlay.title)
-      } catch (err) {
-        console.log('failed to get song URL')
+      
+      if ((songToPlay.url).startsWith("http") || songToPlay.url === '') {
+        try {
+          songToPlay.url = await youtubeService.getSongUrlByTitle(songToPlay.title)
+        } catch (err) {
+          console.log('failed to get song URL')
+        }
       }
-      console.log('before dispatch:', songToPlay.uri)
       dispatch(setActiveSong(songToPlay, station._id));
     }
   }
@@ -50,7 +52,7 @@ export function StationPreview({ station, displayOn = "library", libOpen = false
 
 
 
-   return (
+  return (
     <div className={`station-preview ${displayOn} ${openLib}`} onClick={() => navigate(`/${station._id}`)}>
 
       {!stationPlaying && <IoPlaySharp className="play" onClick={onPlay} />}

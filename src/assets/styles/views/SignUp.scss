@@ -4,26 +4,53 @@
     color: $clr1;
 
     .signup-header {
-        display: flex;
-        align-items: center;
-        padding: 30px;
+        display: none;
 
-        img {
-            height: 37px;
-            width: 37px;
-            border-radius: 50px;
-        }
-        &:hover {
-            cursor: pointer;
+        @include for-narrow-layout {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+
+            img {
+                height: 37px;
+                width: 37px;
+                border-radius: 50px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 
     .signup-container {
+        .page-control {
+            position: fixed;
+            top: 15px;
+            left: 10px;
+            color: $clr1;
+
+            .page-control-img {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+
+            }
+
+            @include for-narrow-layout {
+                display: none;
+            }
+        }
+
         padding: 32px;
         height: 90vh;
         display: flex;
         justify-content: center;
-        background-color: $clr5;
+
+        @include for-narrow-layout {
+            background-color: $clr5;
+        }
+
         padding: 32px;
 
         .signup {
@@ -64,15 +91,16 @@
                         border-radius: 100px;
                         object-fit: cover;
                     }
+
                     .no-user-img {
                         box-sizing: border-box;
                         width: 100%;
                         height: 100%;
                         padding: 20%;
-                        padding-right:8px;
+                        padding-right: 8px;
                         background-color: $bgclr1;
                         color: $clr2;
-                       
+
 
                     }
                 }

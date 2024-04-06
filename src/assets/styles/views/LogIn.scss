@@ -4,17 +4,22 @@
     color: $clr1;
 
     .login-signup-header {
-        display: flex;
-        align-items: center;
-        padding: 30px;
+        display: none;
 
-        img {
-            height: 37px;
-            width: 37px;
-            border-radius: 50px;
-        }
-        &:hover {
-            cursor: pointer;
+        @include for-narrow-layout {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+
+            img {
+                height: 37px;
+                width: 37px;
+                border-radius: 50px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 
@@ -24,8 +29,30 @@
         display: flex;
         //align-items: center;
         justify-content: center;
-        background-color: $clr5;
+
+        @include for-narrow-layout {
+            background-color: $clr5;
+        }
+
         padding: 32px;
+
+        .page-control {
+            position: fixed;
+            top: 15px;
+            left: 10px;
+            color: $clr1;
+    
+            .page-control-img {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+               
+            }
+    
+            @include for-narrow-layout {
+                display: none;
+            }
+        }
 
         .login {
             box-sizing: border-box;
@@ -66,6 +93,7 @@
                     &:hover {
                         border: 2px solid $clr1;
                     }
+
                     &:focus {
                         border: none;
                     }
@@ -81,10 +109,12 @@
                     padding: 8px 32px;
                     height: 48px;
                     width: 324px;
-                    margin:15px 0;
+                    margin: 15px 0;
                     transition: transform 0.3s ease;
+
                     &:hover {
-                        transform: scale(1.1); /* Increase the button size by 10% on hover */
+                        transform: scale(1.1);
+                        /* Increase the button size by 10% on hover */
                     }
                 }
             }

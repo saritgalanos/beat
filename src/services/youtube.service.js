@@ -75,8 +75,7 @@ async function getSongUrlByTitle(songTitle) {
         maxResults: 5,
         type: 'video',
         key: API_KEY,
-        q: songTitle,
-        order: 'viewCount'
+        q: songTitle
       },
     })
 

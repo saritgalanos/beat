@@ -1,0 +1,41 @@
+.login-signup-mobile {
+
+    //    position: fixed;
+    //    top:15px;
+    //    right: 10px;
+    padding-right: 5px;
+
+    .user-not-logged-in {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        .login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            background-color: $clr1;
+            padding: 4px 14px;
+            border-radius: 50px;
+            height: 30px;
+            @include pointer-on-hover;
+
+        }
+    }
+
+    .settings {
+      
+
+        .settings-img {
+            height: 28px;
+            width: 28px;
+        }
+    }
+
+    @include for-narrow-layout {
+        display: none;
+    }
+
+}

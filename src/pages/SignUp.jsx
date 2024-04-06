@@ -9,6 +9,7 @@ import { ThreeDots } from 'react-loader-spinner'
 import { LiaUserEditSolid } from "react-icons/lia"
 import { Tooltip } from "@mui/material"
 import { uploadService } from '../services/upload.service.js'
+import { IoArrowBack } from "react-icons/io5"
 
 
 export function SignUp() {
@@ -73,13 +74,16 @@ export function SignUp() {
 
     return (
         <div className="signup-page">
-            <div className='signup-header fs28 fw700' onClick={()=>{navigate('/')} }>
-                <img src="./beat-logo-small.png" className='beat-logo' alt="Beat Logo"  />
+            <div className='signup-header fs28 fw700' onClick={() => { navigate('/') }}>
+                <img src="./beat-logo-small.png" className='beat-logo' alt="Beat Logo" />
                 beat
             </div>
             <div className='signup-container'>
-                <div className='signup'>
+                <div className="page-control" >
+                    <IoArrowBack className='page-control-img' onClick={() => navigate(-1)} />
+                </div>
 
+                <div className='signup'>
 
                     <div className='signup-header fs48 fw700 ls-1'>
                         Sign up to start listening

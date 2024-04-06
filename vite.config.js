@@ -1,8 +1,11 @@
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/beat",
   plugins: [react()],
+  build: {
+    outDir: '../beat-backend/public',
+    emptyOutDir: true,
+  }
 })

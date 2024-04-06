@@ -23,7 +23,7 @@ import { SongList } from "../cmps/SongList"
 import { StationEditModal } from "../cmps/StationEditModal"
 import { ThreeDots } from "react-loader-spinner"
 import { UserContext } from "../contexts/UserContext"
-
+import { IoArrowBack } from "react-icons/io5";
 
 const BEAT_BG = "#121212"
 
@@ -76,12 +76,14 @@ export function StationDetails() {
     //play the active if belongs to this station or the first song from this station
     const songToPlay = (station._id === activeStationId) ? activeSong : ((station.songs.length > 0) ? station.songs[0] : null)
     if (songToPlay != null) {
-      try {
-        songToPlay.url = await youtubeService.getSongUrlByTitle(songToPlay.title)
-      } catch (err) {
-        console.log('failed to get song URL')
+      
+      if ((songToPlay.url).startsWith("http") || songToPlay.url === '') {
+        try {
+          songToPlay.url = await youtubeService.getSongUrlByTitle(songToPlay.title)
+        } catch (err) {
+          console.log('failed to get song URL')
+        }
       }
-      console.log('before dispatch:', songToPlay.uri)
       dispatch(setActiveSong(songToPlay, station._id));
     }
   }
@@ -203,7 +205,6 @@ export function StationDetails() {
   async function search() {
     try {
       const returnedSongs = await youtubeService.search(query)
-      debugger
       setSongsFromSearch(returnedSongs)
     } catch (err) {
       console.log('youtube search failed,', err)
@@ -247,9 +248,13 @@ export function StationDetails() {
   return (
     <div className='main' onScroll={handleScroll}>
       <div className='station-details'>
+
         <BeatHeader isSearch={false} bgColor={bgColor} title={station.name} displayTitle={displayTitle} />
 
         <div className="station-header" style={{ backgroundColor: bgColor }}>
+          <div className="page-control" >
+            <IoArrowBack className='page-control-img' onClick={() => navigate(-1)} />
+          </div>
           <div className={`station-pic ${editClass}`} onClick={supportClick}>
             {stationPicture
               ? <img src={stationPicture} className='station-img' />

@@ -11,6 +11,8 @@ import { LogIn } from './pages/LogIn';
 import { SignUp } from './pages/SignUp';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { UserMsg } from './cmps/UserMsg';
+import { YourLibrary } from './pages/YourLibrary';
+import { YourLibraryMobile } from './pages/YourLibraryMobile';
 
 
 export function App() {
@@ -32,6 +34,7 @@ export function App() {
                     <Route path="/" element={<BeatIndex />} >
                         <Route path="/" element={<HomePage />} />
                         <Route path="/search" element={<SearchPage />} />
+                        <Route path="/lib" element={<YourLibraryMobile />} />
                         <Route path="/genre/:categoryId" element={<CategoryDetails />} />
                         <Route path="/:stationId" element={<StationDetails />} />
                     </Route>

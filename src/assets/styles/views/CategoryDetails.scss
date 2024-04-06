@@ -1,5 +1,21 @@
 .category-details {
+    .page-control {
+        position: fixed;
+        top: 15px;
+        left: 10px;
+        color: $clr1;
 
+        .page-control-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+           
+        }
+
+        @include for-narrow-layout {
+            display: none;
+        }
+    }
     @include for-narrow-layout {
         padding: 0px;
         height: 209px;
@@ -38,8 +54,8 @@
 
         .stations {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 180px);
-            max-height: 100%;
+            grid-template-columns: repeat(auto-fill, minmax(120px, auto));
+            //max-height: 100%;
 
 
             @include for-narrow-layout {

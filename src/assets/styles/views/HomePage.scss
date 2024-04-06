@@ -2,9 +2,12 @@
 
 
     .main-content {
+        display:flex;
+        justify-content: space-between;
         padding: 30px 12px;
         font-size: 1.5rem;
         font-weight: 700;
+
         @include for-narrow-layout {
             padding: 0 em(17px) em(17px) 17px;
         }
@@ -53,21 +56,24 @@
     .suggested-area {
 
         margin-bottom: 0;
-        padding: 12px 12px 0px 12px;
+        padding: 0px 12px 0px 12px;
+
+        @include for-narrow-layout {
+            padding: 12px 12px 0px 12px;
+        }
 
         .section-header {
-            display:flex;
+            display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin: 10px 15px 0 15px;
 
         }
-       
+
 
         .stations {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, auto));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, auto));
             max-height: 100%;
 
 

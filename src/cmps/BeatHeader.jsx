@@ -97,7 +97,7 @@ export function BeatHeader({ isSearch, search, bgColor = null, title, displayTit
 
     return (
         <div className='beat-header not-for-mobile' style={{ backgroundColor: bgColor }}>
-            <div className="page-control" >
+            <div className="header-page-control" >
                 <MdNavigateBefore className='page-control-img' onClick={() => navigate(-1)} />
                 <MdNavigateNext className='page-control-img' onClick={() => navigate(1)} />
             </div>

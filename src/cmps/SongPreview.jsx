@@ -50,14 +50,17 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
     }
 
     async function onPlay() {
+        
         const stationId = (station) ? station._id : null
+        if ((song.url).startsWith("http") || song.url === '') {
         try {
+           
             song.url = await youtubeService.getSongUrlByTitle(song.title)
           } catch (err) {
             console.log('failed to get song URL')
           }
-          console.log('before dispatch:', song.uri)
 
+        }
         dispatch(setActiveSong(song, stationId))
     }
 
@@ -186,7 +189,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
         const updatedStation = (isLiked) ?
             stationService.deleteSongFromStation(likedSongsStation, song) :
             stationService.addSongToStation(likedSongsStation, song)
-        console.log('station to update:', updatedStation.songs)
+       
         try {
 
             await saveLikedSongsStation(updatedStation)
@@ -272,7 +275,7 @@ export function SongPreview({ song, station, index, isPlaylist, onAddSong, onDel
                                 <div className="artist">{artist}</div>
                                 <div className={`song-name ${isActiveClass}`}>{songName}</div>
                             </div>
-                            <IoMdMore className="img-more" />
+                            <IoEllipsisHorizontalSharp className="img-more" />
                         </div>
                     </div>
 

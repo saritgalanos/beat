@@ -13,10 +13,7 @@
  
 
     .main {
-
-        //position: relative;
         height: calc(100vh - 58px);
-        //height: 100vh;
         grid-area: main;
         color: $clr1;
         background-color: $clr3;
@@ -29,12 +26,11 @@
     .mobile-nav {
         box-sizing: border-box;
         background-color:  rgba(0, 0, 0, 0.9);
-        //grid-area: mobileNav;
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100vw;
-        padding: 10px 0;
+        padding: 8px 0 7px 0;
         display: block; // Show Mobile Nav on mobile
     }
 
